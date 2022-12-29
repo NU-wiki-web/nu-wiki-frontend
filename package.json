@@ -8,6 +8,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "3.0.0"
+    "prettier": "^2.8.1",
+    "prettier-plugin-tailwindcss": "^0.2.1"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.13",
+    "nuxt": "3.0.0",
+    "postcss": "^8.4.20",
+    "sass": "^1.57.1",
+    "tailwindcss": "^3.2.4",
+    "vuetify": "^2.6.13"
   }
 }
