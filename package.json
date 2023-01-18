@@ -12,6 +12,7 @@
     "prettier-plugin-tailwindcss": "^0.2.1"
   },
   "dependencies": {
+    "@mdi/font": "^7.1.96",
     "autoprefixer": "^10.4.13",
     "nuxt": "3.0.0",
     "postcss": "^8.4.20",
