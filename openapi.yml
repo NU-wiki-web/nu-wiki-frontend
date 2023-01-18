@@ -1,0 +1,94 @@
+openapi: "3.0.3"
+
+info:
+  title: "NU-api"
+  description: nu-wikiのAPIです
+  version: 0.0.1
+
+servers:
+  - url: "http://localhost:8080"
+    description: "ローカル環境"
+
+tags:
+  - name: file
+    description: pdfの操作
+
+paths:
+  "/files":
+    get:
+      summary: "pdf一覧の取得"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    file_id: { type: string, example: "xxxxxx-xxxxx" }
+  "/file":
+    post:
+      summary: "pdfのアップロード"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  file_id: { type: string, example: "xxxxxx-xxxxxx" }
+      requestBody:
+        description: "pdfファイル"
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+  "/file/{file_id}":
+    put:
+      summary: "pdfの更新"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+      requestBody:
+        description: "pdfファイル"
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+      parameters:
+        - name: file_id
+          in: path
+          schema: { type: string }
+          required: true
+    delete:
+      summary: "pdfの削除"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+      parameters:
+        - name: file_id
+          in: path
+          schema: { type: string }
+          required: true
+      requestBody:
+        description: "pdfファイル"
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
