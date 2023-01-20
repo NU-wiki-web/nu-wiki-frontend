@@ -2,15 +2,16 @@
 
 <template>
   <v-btn
+    depressed
     @dragover.prevent="isDragged = true"
     @dragleave.prevent="isDragged = false"
     @drop.prevent="onFileDropped"
+    @click="openFileSelect"
     height="100%"
+    width="100%"
     color="info"
     class="text-none"
-    :variant="!isDragged ? 'contained' : 'outlined'"
-    depressed
-    @click="openFileSelect"
+    :variant="!isDragged ? 'flat' : 'outlined'"
   >
     <v-progress-circular
       v-if="isSelecting"
@@ -19,9 +20,14 @@
       color="white"
     />
 
-    <v-row v-if="!isSelecting" class="text-center" justify="center">
+    <v-row
+      v-if="!isSelecting"
+      class="text-center"
+      justify="center"
+      color="info"
+    >
       <v-col class="mb-n2 mt-2" cols="10">
-        <v-icon dark>{{ props.buttonIcon }}</v-icon>
+        <v-icon size="40">{{ props.buttonIcon }}</v-icon>
       </v-col>
       <v-col class="text-trucate mt-n2 mb-2" cols="10">
         {{ displayText }}
@@ -38,25 +44,31 @@
 </template>
 
 <script setup lang="ts">
+// プロップス
 interface Props {
   buttonTitle?: string;
   buttonIcon?: string;
   accept?: string;
 }
 
+// プロップスのデフォルト値
 const props = withDefaults(defineProps<Props>(), {
   buttonTitle: "ファイルを選択",
   buttonIcon: "mdi-cloud-upload",
   accept: "application/pdf",
 });
 
+// ファイル転送処理
 interface Emits {
   (e: "update:File", value: File): void;
 }
 const emits = defineEmits<Emits>();
 
+// ファイルがアップロードされているかどうか
 const isSelecting = ref<boolean>(false);
+// ボタンにファイルがドラッグされているかどうか
 const isDragged = ref<boolean>(false);
+// アップロードされているファイル
 const selectedFile = ref<File | null>(null);
 
 // ボタンに表示するテキスト
