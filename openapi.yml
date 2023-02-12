@@ -6,7 +6,7 @@ info:
   version: 0.0.1
 
 servers:
-  - url: "http://localhost:8080"
+  - url: "http://host.docker.internal:8080"
     description: "ローカル環境"
 
 tags:
@@ -14,6 +14,19 @@ tags:
     description: pdfの操作
 
 paths:
+  "/":
+    get:
+      summary: test
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "applicaion/json":
+              schema:
+                type: object
+                properties:
+                  message: {type: string, example: "happy new year"}
   "/files":
     get:
       summary: "pdf一覧の取得"
