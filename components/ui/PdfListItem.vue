@@ -1,4 +1,11 @@
 <template>
-  <v-list-item width="400" title="pdfだよ"></v-list-item>
+  <v-list-item :title="name" link> </v-list-item>
 </template>
-<script setup lang="ts"></script>
+
+<script setup lang="ts">
+defineProps(["file_id", "name"]);
+interface Props {
+  file_id: number;
+  name: String;
+}
+</script>
