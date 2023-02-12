@@ -3,7 +3,7 @@ import type { Methods as Methods0 } from '.'
 import type { Methods as Methods1 } from './_file_id@string'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
-  const prefix = (baseURL === undefined ? 'http://host.docker.internal:8080' : baseURL).replace(/\/$/, '')
+  const prefix = (baseURL === undefined ? 'http://localhost:8080' : baseURL).replace(/\/$/, '')
   const PATH0 = '/file'
   const POST = 'POST'
   const PUT = 'PUT'

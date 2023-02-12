@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import api, { ApiInstance } from "~/api/$api";/ja-jp/HT212524
+import api, { ApiInstance } from "~/api/$api";
 import aspida from "@aspida/axios";
 
 interface cbType {
@@ -8,15 +8,17 @@ interface cbType {
 export const useFetch = async (cb: cbType) => {
   const res = ref();
   const error = ref(null);
+  const loading = ref(true)
 
   try {
     res.value = await cb();
+    loading.value = false;
   } catch (err) {
     error.value = err.message;
     console.error(err.message);
   }
 
-  return { res, error };
+  return { res, error, loading };
 };
 
 export const useClient = () => {
