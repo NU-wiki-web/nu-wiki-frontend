@@ -6,7 +6,7 @@ info:
   version: 0.0.1
 
 servers:
-  - url: "http://host.docker.internal:8080"
+  - url: "http://localhost:8080"
     description: "ローカル環境"
 
 tags:
@@ -42,6 +42,7 @@ paths:
                 items:
                   properties:
                     file_id: { type: string, example: "xxxxxx-xxxxx" }
+                    name: { type: string, example: "論理設計及び演習2022期末.pdf" }
   "/file":
     post:
       summary: "pdfのアップロード"

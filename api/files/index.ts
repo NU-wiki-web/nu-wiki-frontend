@@ -5,6 +5,7 @@ export type Methods = {
     /** OK */
     resBody: {
       file_id: string
+      name: string
     }[]
   }
 }
