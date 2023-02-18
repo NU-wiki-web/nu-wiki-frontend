@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useFetch, useClient } from "~/util/api/useApi";
+import { useAwait, useClient } from "~/util/api/useApi";
 
 // res, errorはref
-const { res, error, loading } = await useFetch(() => {
+const { res, error, loading } = await useAwait(() => {
   const client = useClient();
   return client.$get();
 });

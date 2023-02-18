@@ -5,7 +5,7 @@ import aspida from "@aspida/axios";
 interface cbType {
   (): Promise<any>;
 }
-export const useFetch = async (cb: cbType) => {
+export const useAwait = async (cb: cbType) => {
   const res = ref();
   const error = ref(null);
   const loading = ref(true)
