@@ -126,3 +126,4 @@ const onFileDropped = (e: DragEvent) => {
   // emits("update:File", file)
 };
 </script>
+
