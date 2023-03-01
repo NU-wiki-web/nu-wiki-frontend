@@ -22,7 +22,7 @@ paths:
         "200":
           description: "OK"
           content:
-            "applicaion/json":
+            "application/json":
               schema:
                 type: object
                 properties:
