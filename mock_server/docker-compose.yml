@@ -9,6 +9,7 @@ services:
     container_name: "swagger-editor"
     ports:
       - "8001:8080"
+    platform: linux/amd64
 
   swagger-ui:
     image: swaggerapi/swagger-ui
@@ -19,6 +20,7 @@ services:
       - ./api/openapi.yaml:/openapi.yaml
     environment:
       SWAGGER_JSON: /openapi.yaml
+    platform: linux/amd64
 
   swagger-api:
     image: stoplight/prism:3
@@ -28,3 +30,4 @@ services:
     command: mock -h 0.0.0.0 /openapi.yaml
     volumes:
       - ./api/openapi.yaml:/openapi.yaml
+    platform: linux/amd64
