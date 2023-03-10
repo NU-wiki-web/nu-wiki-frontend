@@ -1,5 +1,3 @@
-// 参考 https://qiita.com/Domao/items/f742be456b3ac0da52c3
-
 <template>
   <v-btn
     depressed
@@ -13,19 +11,9 @@
     class="text-none"
     :variant="!isDragged ? 'flat' : 'outlined'"
   >
-    <v-progress-circular
-      v-if="isSelecting"
-      class="mx-12 my-6"
-      indeterminate
-      color="white"
-    />
+    <v-progress-circular v-if="isSelecting" class="mx-12 my-6" indeterminate color="white" />
 
-    <v-row
-      v-if="!isSelecting"
-      class="text-center"
-      justify="center"
-      color="info"
-    >
+    <v-row v-if="!isSelecting" class="text-center" justify="center" color="info">
       <v-col class="mb-n2 mt-2" cols="10">
         <v-icon size="40">{{ props.buttonIcon }}</v-icon>
       </v-col>
@@ -34,18 +22,14 @@
       </v-col>
     </v-row>
   </v-btn>
-  <input
-    ref="uploader"
-    class="d-none"
-    type="file"
-    :accept="props.accept"
-    @change="onFileSelectChange"
-  />
+  <input ref="uploader" class="d-none" type="file" :accept="props.accept" @change="onFileSelectChange" />
 </template>
 
 <script setup lang="ts">
+// 参考 https://qiita.com/Domao/items/f742be456b3ac0da52c3
 // プロップス
 interface Props {
+  file: File;
   buttonTitle?: string;
   buttonIcon?: string;
   accept?: string;
@@ -53,6 +37,7 @@ interface Props {
 
 // プロップスのデフォルト値
 const props = withDefaults(defineProps<Props>(), {
+  fileProp: undefined,
   buttonTitle: "ファイルを選択",
   buttonIcon: "mdi-cloud-upload",
   accept: "application/pdf",
@@ -60,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 // ファイル転送処理
 interface Emits {
-  (e: "update:File", value: File): void;
+  (e: "update:file", value: File): void;
 }
 const emits = defineEmits<Emits>();
 
@@ -104,6 +89,7 @@ const onFileSelectChange = (e: Event) => {
   const file = files![0];
   selectedFile.value = file;
   console.log(file);
+  emits("update:file", file);
 };
 
 // D&D時にEmit
@@ -123,7 +109,6 @@ const onFileDropped = (e: DragEvent) => {
   const file = e.dataTransfer.files[0];
   selectedFile.value = file;
   console.log(file);
-  // emits("update:File", file)
+  emits("update:file", file);
 };
 </script>
-
