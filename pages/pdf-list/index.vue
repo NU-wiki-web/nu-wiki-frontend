@@ -1,3 +1,8 @@
+<script>
+export default {
+  setup() {},
+};
+</script>
 <template>
-    <h1>hogehoge</h1>
+  <PagesPdfList />
 </template>
