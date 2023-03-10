@@ -14,6 +14,19 @@ tags:
     description: pdfの操作
 
 paths:
+  "/":
+    get:
+      summary: test
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  message: { type: string, example: "happy new year" }
   "/files":
     get:
       summary: "pdf一覧の取得"
@@ -29,6 +42,8 @@ paths:
                 items:
                   properties:
                     file_id: { type: string, example: "xxxxxx-xxxxx" }
+                    name:
+                      { type: string, example: "論理設計及び演習2022期末.pdf" }
   "/file":
     post:
       summary: "pdfのアップロード"

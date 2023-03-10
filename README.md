@@ -17,6 +17,19 @@ npm install
 pnpm install --shamefully-hoist
 ```
 
+## generage api client
+
+```bash
+rm -rf api && npx openapi2aspida -i=./mock_server/api/openapi.yml -o=api/
+```
+→ Using: https://github.com/aspida/openapi2aspida
+
+## use mock server
+
+```bash
+cd mock_server && docker compose up -d
+```
+
 ## Development Server
 
 Start the development server on http://localhost:3000
