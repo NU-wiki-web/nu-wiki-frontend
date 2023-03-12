@@ -128,46 +128,11 @@ paths:
                     year: { type: number, example: 2018 }
                     term: { type: string, example: "春2" }
                     department_id: { type: number, example: 3 }
-  "/lectures/filter":
-    post:
-      tags:
-        - lectures
-      summary: "講義を絞り込み検索"
-      deprecated: false
-      responses:
-        "200":
-          description: "ok"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  properties:
-                    id: { type: number, example: 1 }
-                    name: { type: string, example: "有機化学3" }
-                    teacher_name: { type: string, example: "田中角栄" }
-                    grade: { type: number, example: 3 }
-                    year: { type: number, example: 2018 }
-                    term: { type: string, example: "春2" }
-                    department_id: { type: number, example: 3 }
-      requestBody:
-        description: "絞り込み"
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                properties:
-                  grade: { type: number, example: 2 }
-                  year: { type: number, example: 2016 }
-                  term: { type: string, example: "秋2" }
-                  department_id: { type: number, example: 8 }
   "/lectures/search":
     post:
       tags:
         - lectures
-      summary: "講義を検索"
+      summary: "講義検索"
       deprecated: false
       responses:
         "200":
@@ -186,7 +151,7 @@ paths:
                     term: { type: string, example: "春2" }
                     department_id: { type: number, example: 3 }
       requestBody:
-        description: "フリーワード検索"
+        description: "絞り込み"
         required: true
         content:
           application/json:
@@ -194,4 +159,8 @@ paths:
               type: array
               items:
                 properties:
+                  grade: { type: number, example: 2 }
+                  year: { type: number, example: 2016 }
+                  term: { type: string, example: "秋2" }
+                  department_id: { type: number, example: 8 }
                   word: { type: string, example: "量子" }
