@@ -7,7 +7,6 @@
     :prepend-inner-icon="icon"
     v-model="onSelected"
   ></v-select>
-  子：{{ selected }}
 </template>
 
 <script setup lang="ts">
