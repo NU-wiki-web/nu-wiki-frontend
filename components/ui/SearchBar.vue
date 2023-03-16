@@ -3,7 +3,7 @@
     :loading="loading"
     density="compact"
     variant="solo"
-    label="Search templates"
+    label="講義名、教授名で講義を検索"
     append-inner-icon="mdi-magnify"
     single-line
     hide-details

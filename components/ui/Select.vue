@@ -14,12 +14,12 @@ interface Props {
   label: string;
   items: [string];
   icon: string;
-  selected: string | undefined;
+  selected: string;
 }
 const props = defineProps<Props>();
 
 interface Emits {
-  (e: "update:selected", selected: string | undefined): void;
+  (e: "update:selected", selected: string): void;
 }
 const emit = defineEmits<Emits>();
 
