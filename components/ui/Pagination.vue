@@ -1,0 +1,9 @@
+<template>
+  <v-pagination
+    :v-model="1"
+    :length="4"
+    rounded="circle"
+    active-color="#006E4F"
+    color="#000"
+  ></v-pagination>
+</template>
