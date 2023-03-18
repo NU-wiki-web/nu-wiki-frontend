@@ -8,7 +8,7 @@
             :items="faculties"
             icon="mdi-school"
             :selected="department"
-            @update:modelValue="emit('updated:partment', $event)"
+            v-model="updateDepartment"
           ></UiSelect>
         </v-col>
         <v-col cols="11" sm="6" md="3">
@@ -41,7 +41,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="11">
-          <UiSearchBar :handleClick="search" v-model:text="bbb"></UiSearchBar>
+          <UiSearchBar :handleClick="search" v-model:text="searchWord"></UiSearchBar>
         </v-col>
       </v-row>
     </v-container>
@@ -57,39 +57,28 @@ interface Props {
 }
 
 interface Emits {
-  (e: "update:department", department: string): void;
-  (e: "update:grade", grade: string): void;
-  (e: "update:term", term: string): void;
-  (e: "update:year", year: number): void;
+  (
+    e: "update:department" | "update:grade" | "update:term" | "update:year",
+    value: string | number
+  ): void;
 }
 
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
-const updateDepartment = computed({
-  get: () => props.department,
-  set: (value) => {
-    emits("update:department", value);
-  },
-});
-const updateGrade = computed({
-  get: () => props.grade,
-  set: (value) => {
-    emits("update:grade", value);
-  },
-});
-const updateYear = computed({
-  get: () => props.year,
-  set: (value) => {
-    emits("update:year", value);
-  },
-});
-const updateTerm = computed({
-  get: () => props.term,
-  set: (value) => {
-    emits("update:term", value);
-  },
-});
+const updateProp = function (prop: keyof Props) {
+  return computed({
+    get: () => props[prop],
+    set: (value) => {
+      emits(`update:${prop}`, value);
+    },
+  });
+};
+
+const updateDepartment = updateProp("department");
+const updateGrade = updateProp("grade");
+const updateTerm = updateProp("term");
+const updateYear = updateProp("year");
 
 const searchWord = ref<string | undefined>(undefined);
 
