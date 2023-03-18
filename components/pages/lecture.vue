@@ -6,6 +6,10 @@
     v-model:term="term"
     v-model:year="year"
   ></UiTemplatesSearch>
+  <v-list>
+    <UiListItem></UiListItem>
+  </v-list>
+  <UiPagination></UiPagination>
 </template>
 
 <script setup lang="ts">
