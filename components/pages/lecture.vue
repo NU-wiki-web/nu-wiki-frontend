@@ -6,7 +6,10 @@
     v-model:term="term"
     v-model:year="year"
   ></UiTemplatesSearch>
-  <UiTemplatesLectureList :lectures="lectures"></UiTemplatesLectureList>
+  <UiTemplatesLectureList
+    :lectures="lectures"
+    :handleClick="pushDetailPage"
+  ></UiTemplatesLectureList>
 </template>
 
 <script setup lang="ts">
@@ -14,6 +17,10 @@ const department = ref<string>();
 const grade = ref<string>();
 const term = ref<string>();
 const year = ref<number>();
+
+const pushDetailPage = function (id: number) {
+  navigateTo(`/pdf-list/${id}`);
+};
 
 const lectures = [
   {
