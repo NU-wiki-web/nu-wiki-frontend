@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import { LectureType } from "types/lecture";
+
 interface Props {
   lectures: [LectureType];
   handleClick: (id: number) => void;
@@ -24,21 +25,31 @@ interface Props {
 const props = defineProps<Props>();
 
 const pageNumber = ref<number>(1);
-const displayLecturesLength = 10;
+const displayLecturesLength = 10; // 適当
 
-// 初回読み込み時、lectures.lengthがundefinedとなり、計算ができない
 let pageLength = 1;
-let displayLectures;
-if (props.lectures) {
-  pageLength = Math.ceil(props.lectures.length / displayLecturesLength);
+const displayLectures = ref<[LectureType]>();
 
-  displayLectures = computed(() => {
-    return props.lectures.slice(
+const updateDisplayLectures = function () {
+  // 初回読み込み時、lectures.lengthがundefinedとなり、計算ができないエラーを防ぐ。
+  if (props.lectures) {
+    pageLength = Math.ceil(props.lectures.length / displayLecturesLength);
+    displayLectures.value = props.lectures.slice(
       displayLecturesLength * (pageNumber.value - 1),
       displayLecturesLength * pageNumber.value
     );
-  });
-}
+  }
+};
+updateDisplayLectures();
+
+// propsが更新されたときにdisplayLecturesの再計算が走るようにする。
+watch(
+  () => props.lectures,
+  () => {
+    updateDisplayLectures();
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>
