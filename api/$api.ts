@@ -3,11 +3,15 @@ import type { Methods as Methods0 } from '.'
 import type { Methods as Methods1 } from './file'
 import type { Methods as Methods2 } from './file/_file_id@string'
 import type { Methods as Methods3 } from './files'
+import type { Methods as Methods4 } from './lectures'
+import type { Methods as Methods5 } from './lectures/search'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (baseURL === undefined ? 'http://localhost:8080' : baseURL).replace(/\/$/, '')
   const PATH0 = '/file'
   const PATH1 = '/files'
+  const PATH2 = '/lectures'
+  const PATH3 = '/lectures/search'
   const GET = 'GET'
   const POST = 'POST'
   const PUT = 'PUT'
@@ -68,6 +72,34 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       $get: (option?: { config?: T | undefined } | undefined) =>
         fetch<Methods3['get']['resBody'], BasicHeaders, Methods3['get']['status']>(prefix, PATH1, GET, option).json().then(r => r.body),
       $path: () => `${prefix}${PATH1}`
+    },
+    lectures: {
+      search: {
+        /**
+         * @param option.body - 絞り込み
+         * @returns ok
+         */
+        post: (option: { body: Methods5['post']['reqBody'], config?: T | undefined }) =>
+          fetch<Methods5['post']['resBody'], BasicHeaders, Methods5['post']['status']>(prefix, PATH3, POST, option).json(),
+        /**
+         * @param option.body - 絞り込み
+         * @returns ok
+         */
+        $post: (option: { body: Methods5['post']['reqBody'], config?: T | undefined }) =>
+          fetch<Methods5['post']['resBody'], BasicHeaders, Methods5['post']['status']>(prefix, PATH3, POST, option).json().then(r => r.body),
+        $path: () => `${prefix}${PATH3}`
+      },
+      /**
+       * @returns ok
+       */
+      get: (option?: { config?: T | undefined } | undefined) =>
+        fetch<Methods4['get']['resBody'], BasicHeaders, Methods4['get']['status']>(prefix, PATH2, GET, option).json(),
+      /**
+       * @returns ok
+       */
+      $get: (option?: { config?: T | undefined } | undefined) =>
+        fetch<Methods4['get']['resBody'], BasicHeaders, Methods4['get']['status']>(prefix, PATH2, GET, option).json().then(r => r.body),
+      $path: () => `${prefix}${PATH2}`
     },
     /**
      * @returns OK
