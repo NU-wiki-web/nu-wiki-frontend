@@ -1,35 +1,25 @@
 <template>
   <v-text-field
-    :loading="loading"
     density="compact"
     variant="solo"
     label="講義名、教授名で講義を検索"
     append-inner-icon="mdi-magnify"
     single-line
     hide-details
-    @click:append-inner="handleClick"
-    v-model="input"
+    @click:append-inner="onClick"
+    v-model="text"
   ></v-text-field>
 </template>
 
 <script setup lang="ts">
-interface Props {
-  handleClick: () => void;
-  text: string | undefined;
-}
-const props = defineProps<Props>();
-
-// 検索が発火されるときにだけ更新した方がいいかも。
 interface Emits {
-  (e: "update:text", text: string | undefined): void;
+  (e: "click", text: string | undefined): void;
 }
 const emit = defineEmits<Emits>();
 
-const input = computed({
-  get: () => props.text,
-  set: (value) => {
-    console.log(value);
-    emit("update:text", value);
-  },
-});
+const text = ref<string | undefined>();
+
+const onClick = function () {
+  emit("click", text.value);
+};
 </script>
