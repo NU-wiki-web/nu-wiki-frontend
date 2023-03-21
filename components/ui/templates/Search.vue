@@ -41,7 +41,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="11">
-          <UiSearchBar :handleClick="search" v-model:text="searchWord"></UiSearchBar>
+          <UiSearchBar @click="onClick"></UiSearchBar>
         </v-col>
       </v-row>
     </v-container>
@@ -61,6 +61,7 @@ interface Emits {
     e: "update:department" | "update:grade" | "update:term" | "update:year",
     value: string | number
   ): void;
+  (e: "click", value: string | undefined): void;
 }
 
 const props = defineProps<Props>();
@@ -80,10 +81,8 @@ const updateGrade = updateProp("grade");
 const updateTerm = updateProp("term");
 const updateYear = updateProp("year");
 
-const searchWord = ref<string | undefined>(undefined);
-
-const search = function () {
-  console.log(searchWord);
+const onClick = function (value: string | undefined) {
+  emits("click", value);
 };
 
 // セレクトボックス用データ バックから取得する？
