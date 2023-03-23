@@ -19,11 +19,11 @@ components:
     cookieAuth:
       type: apiKey
       in: cookie
-      name: JSESSIONID
+      name: SESSIONID
     cookieSignUpAuth:
       type: apiKey
       in: cookie
-      name: UUID
+      name: SIGNUPID
 
 paths:
   "/":
@@ -132,23 +132,23 @@ paths:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@a.mail.nagoya-u.ac.jp" }
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
                 password: { type: string, example: "password" }
       security: [] # no authentication
       responses:
         "200":
           description: >
-            認証に成功すれば、セッションIDが`JSESSIONID`という名前でcookieに入れて返される。
+            認証に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
             付随するリクエストには、このcookieを含める必要がある。
           headers:
             Set-Cookie:
               schema:
                 type: string
-                example: JSESSIONID=abcde12345;
+                example: SESSIONID=abcde12345;
 
   "/signup/mail":
     post:
-      summary: "認証メールを送り、uuidをcookieで返す"
+      summary: "認証メールを送り、SIGNUPIDをcookieで返す"
       tags: ["sign up"]
       deprecated: false
       requestBody:
@@ -159,17 +159,17 @@ paths:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@a.mail.nagoya-u.ac.jp" }
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
       security: [] # no authentication
       responses:
         "200":
           description: >
-            uuid（ユーザーをバックエンド側で一時的に識別するためのID）を`UUID`という名前でcookieに入れて返す。
+            SIGNUPID（ユーザーをバックエンド側で一時的に識別するためのID）を`SIGNUPID`という名前でcookieに入れて返す。
           headers:
             Set-Cookie:
               schema:
                 type: string
-                example: JSESSIONID=uuid;
+                example: SESSIONID=SIGNUPID;
 
   "/signup/auth":
     post:
@@ -184,7 +184,7 @@ paths:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@a.mail.nagoya-u.ac.jp" }
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
       security:
         - cookieSignUpAuth: []
       responses:
@@ -196,7 +196,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  email: { type: string, example: "foo@a.mail.nagoya-u.ac.jp" }
+                  email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
 
   "/signup/register":
     post:
@@ -211,7 +211,7 @@ paths:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@a.mail.nagoya-u.ac.jp" }
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
                 name: { type: string, example: "杉山 直" }
                 password: { type: string, example: "password" }
       security:
@@ -219,10 +219,10 @@ paths:
       responses:
         "200":
           description: >
-            登録に成功すれば、セッションIDが`JSESSIONID`という名前でcookieに入れて返される。
+            登録に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
             付随するリクエストには、このcookieを含める必要がある。
           headers:
             Set-Cookie:
               schema:
                 type: string
-                example: JSESSIONID=abcde12345;
+                example: SESSIONID=abcde12345;
