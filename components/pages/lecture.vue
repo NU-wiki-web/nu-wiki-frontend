@@ -1,7 +1,7 @@
 <template>
   <UiHeader></UiHeader>
   <UiTemplatesSearch
-    v-model:department="department"
+    v-model:departmentId="departmentId"
     v-model:grade="grade"
     v-model:term="term"
     v-model:year="year"
@@ -22,12 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import { useAwait, useClient } from "~/util/api/useApi";
+import { useClient } from "~/util/api/useApi";
 import { LectureType } from "types/lecture";
 
 const client = useClient();
 
-const lectures = ref<[LectureType]>();
+const lectures = ref<LectureType[]>();
 const isLoading = ref<boolean>(true);
 const isEroor = ref<boolean>(false);
 
@@ -43,23 +43,23 @@ client.lectures
     isEroor.value = true;
   });
 
-const department = ref<string>();
-const grade = ref<string>();
-const term = ref<string>();
-const year = ref<number>();
-const word = ref<string>();
+const departmentId = ref<number | null>(null);
+const grade = ref<string | null>(null);
+const term = ref<string | null>(null);
+const year = ref<number | null>(null);
+const word = ref<string | null>(null);
 
-const search = async function (searchWord: string | undefined) {
+const search = async function (searchWord: string) {
   word.value = searchWord;
 };
 
-watch([department, grade, term, year, word], async function () {
+watch([departmentId, grade, term, year, word], async function () {
   isLoading.value = true;
   client.lectures.search
     .post({
       body: {
-        department_id: 8, // 要検討
-        grade: grade.value, // stringに直す必要がある
+        departmentId: departmentId.value,
+        grade: grade.value,
         term: term.value,
         year: year.value,
         word: word.value,
