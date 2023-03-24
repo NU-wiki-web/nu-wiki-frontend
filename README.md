@@ -20,7 +20,7 @@ pnpm install --shamefully-hoist
 ## generage api client
 
 ```bash
-rm -rf api && npx openapi2aspida -i=./mock_server/api/openapi.yml -o=api/
+rm -rf api && npx openapi2aspida -i=./mock_server/api/openapi.yaml -o=api/
 ```
 → Using: https://github.com/aspida/openapi2aspida
 
