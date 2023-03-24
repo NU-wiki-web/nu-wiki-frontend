@@ -11,7 +11,7 @@
       </v-list>
       <UiPagination v-model="pageNumber" :length="pageLength"></UiPagination>
     </div>
-    <div v-else>読み込み中...</div>
+    <div v-else>一致する講義がありませんでした。</div>
   </v-container>
 </template>
 
