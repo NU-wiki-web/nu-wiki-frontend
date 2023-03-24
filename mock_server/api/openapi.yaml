@@ -126,11 +126,11 @@ paths:
                       properties:
                         id: { type: number, example: 1 }
                         name: { type: string, example: "有機化学3" }
-                        teacher_name: { type: string, example: "田中角栄" }
+                        teacherName: { type: string, example: "田中角栄" }
                         grade: { type: string, example: "B2" }
                         year: { type: number, example: 2018 }
                         term: { type: string, example: "春2" }
-                        department_id: { type: number, example: 3 }
+                        departmentId: { type: number, example: 3 }
                   total:
                     type: number
                     example: 1
@@ -154,11 +154,11 @@ paths:
                       properties:
                         id: { type: number, example: 1 }
                         name: { type: string, example: "量子化学3" }
-                        teacher_name: { type: string, example: "田中角栄" }
+                        teacherName: { type: string, example: "田中角栄" }
                         grade: { type: string, example: "B2" }
                         year: { type: number, example: 2018 }
                         term: { type: string, example: "春2" }
-                        department_id: { type: number, example: 3 }
+                        departmentId: { type: number, example: 3 }
                   total:
                     type: number
                     example: 2
@@ -173,5 +173,5 @@ paths:
                 grade: { type: string, example: "B2" }
                 year: { type: number, example: 2016 }
                 term: { type: string, example: "秋2" }
-                department_id: { type: number, example: 8 }
+                departmentId: { type: number, example: 8 }
                 word: { type: string, example: "量子" }

@@ -8,11 +8,11 @@ export type Methods = {
       lectures: {
         id: number
         name: string
-        teacher_name: string
+        teacherName: string
         grade: string
         year: number
         term: string
-        department_id: number
+        departmentId: number
       }[]
       total: number
     }
@@ -22,7 +22,7 @@ export type Methods = {
       grade: string
       year: number
       term: string
-      department_id: number
+      departmentId: number
       word: string
     }
   }
