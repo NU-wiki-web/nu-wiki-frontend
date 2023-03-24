@@ -10,7 +10,7 @@
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
     <UiLoading></UiLoading>
   </div>
-  <div v-else-if="isEroor" class="mt-10 flex items-center justify-center">
+  <div v-else-if="isError" class="mt-10 flex items-center justify-center">
     予期せぬエラーが発生しました。もう一度お試しください。
   </div>
   <div v-else>
@@ -29,18 +29,18 @@ const client = useClient();
 
 const lectures = ref<LectureType[]>();
 const isLoading = ref<boolean>(true);
-const isEroor = ref<boolean>(false);
+const isError = ref<boolean>(false);
 
 client.lectures
   .$get()
   .then(async (res) => {
     lectures.value = await res.lectures;
     isLoading.value = false;
-    isEroor.value = false;
+    isError.value = false;
   })
   .catch((err) => {
     console.error(err);
-    isEroor.value = true;
+    isError.value = true;
   });
 
 const departmentId = ref<number | null>(null);
@@ -68,11 +68,11 @@ watch([departmentId, grade, term, year, word], async function () {
     .then(async (res) => {
       lectures.value = await res.body.lectures;
       isLoading.value = false;
-      isEroor.value = false;
+      isError.value = false;
     })
     .catch((err) => {
       console.error(err);
-      isEroor.value = true;
+      isError.value = true;
     });
 });
 
