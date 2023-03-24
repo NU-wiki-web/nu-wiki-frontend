@@ -5,13 +5,15 @@
         <UiListItem
           :id="lecture.id"
           :title="lecture.name"
-          :subtitle="lecture.teacher_name"
+          :subtitle="lecture.teacherName"
           @click="handleClick(lecture.id)"
         ></UiListItem>
       </v-list>
       <UiPagination v-model="pageNumber" :length="pageLength"></UiPagination>
     </div>
-    <div v-else>一致する講義がありませんでした。</div>
+    <div v-else class="mt-10 flex items-center justify-center">
+      一致する講義がありませんでした。
+    </div>
   </v-container>
 </template>
 
@@ -28,7 +30,7 @@ const pageNumber = ref<number>(1);
 const displayLecturesLength = 10; // 適当
 
 let pageLength = 1;
-const displayLectures = ref<[LectureType]>();
+const displayLectures = ref<LectureType[]>();
 
 const updateDisplayLectures = function () {
   // 初回読み込み時、lectures.lengthがundefinedとなり、計算ができないエラーを防ぐ。
