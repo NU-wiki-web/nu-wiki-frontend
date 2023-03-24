@@ -170,8 +170,8 @@ paths:
             schema:
               type: object
               properties:
-                grade: { type: string, example: "B2" }
-                year: { type: number, example: 2016 }
-                term: { type: string, example: "秋2" }
-                departmentId: { type: number, example: 8 }
-                word: { type: string, example: "量子" }
+                grade: { type: string, example: "B2", nullable: true }
+                year: { type: number, example: 2016, nullable: true }
+                term: { type: string, example: "秋2", nullable: true }
+                departmentId: { type: number, example: 8, nullable: true }
+                word: { type: string, example: "量子", nullable: true }

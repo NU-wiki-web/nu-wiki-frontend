@@ -19,11 +19,11 @@ export type Methods = {
 
     /** 絞り込み */
     reqBody: {
-      grade: string
-      year: number
-      term: string
-      departmentId: number
-      word: string
+      grade: string | null
+      year: number | null
+      term: string | null
+      departmentId: number | null
+      word: string | null
     }
   }
 }
