@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-teal-500">
+  <div class="bg-teal-600 pt-10 pb-10">
     <v-container>
       <v-row justify="center">
-        <v-col cols="11" sm="6" md="3">
+        <v-col cols="6" sm="6" md="3">
           <v-select
             label="学部・学科"
             :items="faculties"
@@ -14,7 +14,7 @@
             v-model="updateDepartment"
           ></v-select>
         </v-col>
-        <v-col cols="11" sm="6" md="3">
+        <v-col cols="6" sm="6" md="3">
           <UiSelect
             label="学年"
             :items="grades"
@@ -23,7 +23,7 @@
             v-model="updateGrade"
           ></UiSelect>
         </v-col>
-        <v-col cols="11" sm="6" md="3">
+        <v-col cols="6" sm="6" md="3">
           <UiSelect
             label="学期"
             :items="terms"
@@ -32,7 +32,7 @@
             v-model="updateTerm"
           ></UiSelect>
         </v-col>
-        <v-col cols="11" sm="6" md="3">
+        <v-col cols="6" sm="6" md="3">
           <UiSelect
             label="年度"
             :items="years"
@@ -74,8 +74,6 @@ const updateProp = function (prop: keyof Props) {
   return computed({
     get: () => props[prop],
     set: (value) => {
-      console.log(value);
-      // if (value !== null && typeof value === "object") return emits("update:department", value.id);
       return emits(`update:${prop}`, value);
     },
   });

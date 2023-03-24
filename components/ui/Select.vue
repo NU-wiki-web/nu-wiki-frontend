@@ -12,15 +12,15 @@
 <script setup lang="ts">
 interface Props {
   label: string;
-  items: [string];
+  items: [string | number];
   icon: string;
   selected: string;
 }
-const props = defineProps<Props>();
-
 interface Emits {
   (e: "update:selected", selected: string): void;
 }
+
+const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 const onSelected = computed({
