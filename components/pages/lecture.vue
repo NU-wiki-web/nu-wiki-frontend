@@ -7,10 +7,18 @@
     v-model:year="year"
     @click="search"
   ></UiTemplatesSearch>
-  <UiTemplatesLectureList
-    v-model:lectures="lectures"
-    :handleClick="pushDetailPage"
-  ></UiTemplatesLectureList>
+  <div v-if="isLoading" class="mt-10 flex items-center justify-center">
+    <UiLoading></UiLoading>
+  </div>
+  <div v-else-if="isEroor" class="mt-10 flex items-center justify-center">
+    予期せぬエラーが発生しました。もう一度お試しください。
+  </div>
+  <div v-else>
+    <UiTemplatesLectureList
+      v-model:lectures="lectures"
+      :handleClick="pushDetailPage"
+    ></UiTemplatesLectureList>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,14 +27,21 @@ import { LectureType } from "types/lecture";
 
 const client = useClient();
 
-let lectures = ref<[LectureType]>();
+const lectures = ref<[LectureType]>();
+const isLoading = ref<boolean>(true);
+const isEroor = ref<boolean>(false);
 
 client.lectures
   .$get()
-  .then((res) => {
-    lectures.value = res.lectures;
+  .then(async (res) => {
+    lectures.value = await res.lectures;
+    isLoading.value = false;
+    isEroor.value = false;
   })
-  .then((err) => console.error(err));
+  .catch((err) => {
+    console.error(err);
+    isEroor.value = true;
+  });
 
 const department = ref<string>();
 const grade = ref<string>();
@@ -39,8 +54,9 @@ const search = async function (searchWord: string | undefined) {
 };
 
 watch([department, grade, term, year, word], async function () {
-  const { res, error, loading } = await useAwait(() => {
-    return client.lectures.search.post({
+  isLoading.value = true;
+  client.lectures.search
+    .post({
       body: {
         department_id: 8, // 要検討
         grade: grade.value, // stringに直す必要がある
@@ -48,9 +64,16 @@ watch([department, grade, term, year, word], async function () {
         year: year.value,
         word: word.value,
       },
+    })
+    .then(async (res) => {
+      lectures.value = await res.body.lectures;
+      isLoading.value = false;
+      isEroor.value = false;
+    })
+    .catch((err) => {
+      console.error(err);
+      isEroor.value = true;
     });
-  });
-  lectures.value = res.value.body.lectures;
 });
 
 const pushDetailPage = function (id: number) {
