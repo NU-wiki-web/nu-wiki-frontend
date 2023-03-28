@@ -157,14 +157,7 @@ paths:
                   lectures:
                     type: array
                     items:
-                      properties:
-                        id: { type: number, example: 1 }
-                        name: { type: string, example: "有機化学3" }
-                        teacherName: { type: string, example: "田中角栄" }
-                        grade: { type: string, example: "B2" }
-                        year: { type: number, example: 2018 }
-                        term: { type: string, example: "春2" }
-                        departmentId: { type: number, example: 3 }
+                      $ref: "#/components/schemas/lecture"
                   total:
                     type: number
                     example: 1
