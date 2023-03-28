@@ -51,6 +51,15 @@ components:
         year: { type: integer, example: 2022 }
         term: { type: string, example: "春" }
         departmentId: { type: integer, example: 1 }
+    lecture-req:
+      type: object
+      description: 検索用パラメータ
+      properties:
+        grade: { type: string, example: "B2" }
+        year: { type: number, example: 2016 }
+        term: { type: string, example: "秋2" }
+        departmentId: { type: number, example: 8 }
+        word: { type: string, example: "量子" }
 paths:
   "/":
     get:
@@ -208,4 +217,4 @@ paths:
             schema:
               type: object
               anyOf:
-                - $ref: "#/components/schemas/lecture"
+                - $ref: "#/components/schemas/lecture-req"
