@@ -141,6 +141,33 @@ paths:
           schema: { type: string }
           required: true
   "/lectures":
+    get:
+      tags:
+        - lectures
+      summary: "講義を全て取得"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lectures:
+                    type: array
+                    items:
+                      properties:
+                        id: { type: number, example: 1 }
+                        name: { type: string, example: "有機化学3" }
+                        teacherName: { type: string, example: "田中角栄" }
+                        grade: { type: string, example: "B2" }
+                        year: { type: number, example: 2018 }
+                        term: { type: string, example: "春2" }
+                        departmentId: { type: number, example: 3 }
+                  total:
+                    type: number
+                    example: 1
     post:
       summary: "新しい講義の追加"
       tags: ["lectures"]
@@ -159,3 +186,44 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/lecture"
+  "/lectures/search":
+    post:
+      tags:
+        - lectures
+      summary: "講義検索"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lectures:
+                    type: array
+                    items:
+                      properties:
+                        id: { type: number, example: 1 }
+                        name: { type: string, example: "量子化学3" }
+                        teacherName: { type: string, example: "田中角栄" }
+                        grade: { type: string, example: "B2" }
+                        year: { type: number, example: 2018 }
+                        term: { type: string, example: "春2" }
+                        departmentId: { type: number, example: 3 }
+                  total:
+                    type: number
+                    example: 2
+      requestBody:
+        description: "絞り込み"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grade: { type: string, example: "B2" }
+                year: { type: number, example: 2016 }
+                term: { type: string, example: "秋2" }
+                departmentId: { type: number, example: 8 }
+                word: { type: string, example: "量子" }
