@@ -47,7 +47,7 @@ components:
       properties:
         name: { type: string, example: "論理設計及び演習" }
         teacherName: { type: string, example: "山田太郎" }
-        grade: { type: integer, example: 1 }
+        grade: { type: string, example: 'B2' }
         year: { type: integer, example: 2022 }
         term: { type: string, example: "春" }
         departmentId: { type: integer, example: 1 }
