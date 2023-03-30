@@ -46,9 +46,7 @@ const displayLectures = computed(() => {
 });
 
 const pageLength = computed(() => {
-  if (!props.lectures) {
-    return 1;
-  }
+  if (!props.lectures) return 1;
   return Math.ceil(props.lectures.length / displayLecturesLength);
 });
 
@@ -56,9 +54,3 @@ const handleClick = (id: number) => {
   props.handleClick(id);
 };
 </script>
-
-<style scoped>
-.v-progress-circular {
-  margin: 1rem;
-}
-</style>
