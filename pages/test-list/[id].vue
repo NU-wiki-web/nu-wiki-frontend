@@ -1,0 +1,3 @@
+<template>
+  <PagesTestList></PagesTestList>
+</template>
