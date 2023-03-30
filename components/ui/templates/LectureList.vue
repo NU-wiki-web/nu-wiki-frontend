@@ -30,7 +30,7 @@
 import { LectureType } from "types/lecture";
 
 interface Props {
-  lectures: [LectureType];
+  lectures: LectureType[];
   handleClick: (id: number) => void;
 }
 const props = defineProps<Props>();

@@ -226,7 +226,6 @@ paths:
                     example: 2
       requestBody:
         description: "絞り込み"
-        required: true
         content:
           application/json:
             schema:
@@ -245,11 +244,9 @@ paths:
                     - D2
                     - D3
                   example: "B2"
-                  nullable: true
                 year:
                   type: number
                   example: 2016
-                  nullable: true
                 term:
                   type: string
                   enum:
@@ -260,12 +257,11 @@ paths:
                     - 秋1
                     - 秋2
                   example: "秋2"
-                  nullable: true
                 departmentId:
                   type: number
                   example: 8
-                  nullable: true
                 word:
                   type: string
                   example: "量子"
-                  nullable: true
+              required:
+                -

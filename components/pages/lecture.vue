@@ -24,11 +24,13 @@
 <script setup lang="ts">
 import { useClient } from "~/util/api/useApi";
 import { LectureType } from "types/lecture";
+import { GradeType } from "~~/types/grade";
+import { TermType } from "~~/types/term";
 
 const client = useClient();
 
 const lectures = ref<LectureType[]>([]);
-const isLoading = ref<boolean>(true);
+const isLoading = ref<boolean>(false);
 const isError = ref<boolean>(false);
 
 client.lectures
@@ -43,13 +45,13 @@ client.lectures
     isError.value = true;
   });
 
-const departmentId = ref<number | null>(null);
-const grade = ref<string | null>(null);
-const term = ref<string | null>(null);
-const year = ref<number | null>(null);
-const word = ref<string | null>(null);
+const departmentId = ref<number | undefined>(undefined);
+const grade = ref<GradeType | undefined>(undefined);
+const term = ref<TermType | undefined>(undefined);
+const year = ref<number | undefined>(undefined);
+const word = ref<string | undefined>(undefined);
 
-const search = async function (searchWord: string) {
+const search = async function (searchWord: string | undefined) {
   word.value = searchWord;
 };
 
