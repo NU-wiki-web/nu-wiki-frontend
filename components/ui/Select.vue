@@ -14,10 +14,10 @@ interface Props {
   label: string;
   items: string[] | number[];
   icon: string;
-  selected: string | number;
+  selected: string | number | undefined;
 }
 interface Emits {
-  (e: "update:selected", selected: string | number): void;
+  (e: "update:selected", selected: string | number | undefined): void;
 }
 
 const props = defineProps<Props>();

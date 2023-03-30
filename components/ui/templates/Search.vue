@@ -65,16 +65,16 @@ const facultiesOption = faculties.map((value, index) => {
 });
 
 interface Props {
-  departmentId: number;
-  grade: string;
-  term: string;
-  year: number;
+  departmentId: number | undefined;
+  grade: string | undefined;
+  term: string | undefined;
+  year: number | undefined;
 }
 
 interface Emits {
   (
     e: "update:departmentId" | "update:grade" | "update:term" | "update:year",
-    value: string | number
+    value: string | number | undefined
   ): void;
   (e: "click", value: string | undefined): void;
 }
