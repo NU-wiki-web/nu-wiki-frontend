@@ -27,7 +27,7 @@ import { LectureType } from "types/lecture";
 
 const client = useClient();
 
-const lectures = ref<LectureType[]>();
+const lectures = ref<LectureType[]>([]);
 const isLoading = ref<boolean>(true);
 const isError = ref<boolean>(false);
 
