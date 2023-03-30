@@ -14,7 +14,11 @@
           @click="handleClick(lecture.id)"
         ></UiListItem>
       </v-list>
-      <UiPagination v-model="pageNumber" :length="pageLength" class="mt-5"></UiPagination>
+      <UiPagination
+        v-model:pageNumber="pageNumber"
+        :length="pageLength"
+        class="mt-5"
+      ></UiPagination>
     </div>
     <div v-else class="mt-10 flex items-center justify-center">
       一致する講義がありませんでした。
