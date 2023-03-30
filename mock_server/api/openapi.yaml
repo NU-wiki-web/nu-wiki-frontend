@@ -286,14 +286,14 @@ paths:
       tags: ["sign up"]
       deprecated: false
       requestBody:
-        description: "メールアドレスを含めたjson"
+        description: "ワンタイムパスワードを含めたjson"
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                oneTimePassword: { type: string, example: "000000" }
       security:
         - cookieSignUpAuth: []
       responses:
