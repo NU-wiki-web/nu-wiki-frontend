@@ -35,7 +35,7 @@ const pageNumber = ref<number>(1);
 const displayLecturesLength = 10; // 適当
 
 let pageLength = 1;
-const displayLectures = ref<LectureType[]>();
+const displayLectures = ref<LectureType[]>([]);
 
 const updateDisplayLectures = function () {
   // 初回読み込み時、lectures.lengthがundefinedとなり、計算ができないエラーを防ぐ。
@@ -45,11 +45,13 @@ const updateDisplayLectures = function () {
       displayLecturesLength * (pageNumber.value - 1),
       displayLecturesLength * pageNumber.value
     );
+    console.log(displayLectures);
   }
 };
-updateDisplayLectures();
 
-// propsが更新されたときにdisplayLecturesの再計算が走るようにする。
+updateDisplayLectures(); // 初回の更新
+watch(pageNumber, () => updateDisplayLectures()); // ページネーション時の更新
+// propsが更新されたときの更新
 watch(
   () => props.lectures,
   () => {
