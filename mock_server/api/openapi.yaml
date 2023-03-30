@@ -24,7 +24,52 @@ components:
       type: apiKey
       in: cookie
       name: SIGNUPID
-
+  parameters:
+    fileType:
+      name: "type"
+      in: "query"
+      description: "過去問or過去問の解答orその他"
+      required: true
+      schema:
+        type: string
+        enum: 
+          - past_exam
+          - past_exam_answer
+          - other
+    fileUserId:
+      name: "user_id"
+      in: "query"
+      description: "ユーザーID"
+      required: true
+      schema:
+        type: string
+    fileExamId:
+      name: "exam_id"
+      in: "query"
+      description: "試験ID"
+      required: true
+      schema:
+        type: string
+  schemas:
+    lecture:
+      type: object
+      description: 講義の詳細
+      properties:
+        name: { type: string, example: "論理設計及び演習" }
+        teacherName: { type: string, example: "山田太郎" }
+        grade: { type: string, example: 'B2' }
+        year: { type: integer, example: 2022 }
+        term: { type: string, example: "春" }
+        departmentId: { type: integer, example: 1 }
+    lecture-req:
+      type: object
+      description: 検索用パラメータ
+      properties:
+        grade: { type: string, example: "B2" }
+        year: { type: number, example: 2016 }
+        term: { type: string, example: "秋2" }
+        departmentId: { type: number, example: 8 }
+        word: { type: string, example: "量子" }
 paths:
   "/":
     get:
@@ -53,14 +98,25 @@ paths:
                 type: array
                 items:
                   properties:
-                    file_id: { type: string, example: "xxxxxx-xxxxx" }
+                    fileId: { type: string, example: "xxxxxx-xxxxx" }
                     name:
                       { type: string, example: "論理設計及び演習2022期末.pdf" }
-  "/file":
     post:
-      summary: "pdfのアップロード"
+      summary: "新しい講義資料のアップロード"
       tags: ["file"]
       deprecated: false
+      requestBody:
+        description: "講義と講義のテストを指定して講義資料をアップロードする"
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+      parameters:
+        - $ref: "#/components/parameters/fileType"
+        - $ref: "#/components/parameters/fileUserId"
+        - $ref: "#/components/parameters/fileExamId"
       responses:
         "200":
           description: "OK"
@@ -69,16 +125,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  file_id: { type: string, example: "xxxxxx-xxxxxx" }
-      requestBody:
-        description: "pdfファイル"
-        required: true
-        content:
-          application/pdf:
-            schema:
-              type: string
-              format: binary
-  "/file/{file_id}":
+                  fileId: { type: string, example: "xxxxxx-xxxxxx" }
+  "/files/{file-id}":
     put:
       summary: "pdfの更新"
       tags: ["file"]
@@ -95,7 +143,7 @@ paths:
               type: string
               format: binary
       parameters:
-        - name: file_id
+        - name: file-id
           in: path
           schema: { type: string }
           required: true
@@ -107,18 +155,79 @@ paths:
         "200":
           description: "OK"
       parameters:
-        - name: file_id
+        - name: file-id
           in: path
           schema: { type: string }
           required: true
+  "/lectures":
+    get:
+      tags:
+        - lectures
+      summary: "講義を全て取得"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lectures:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/lecture"
+                  total:
+                    type: number
+                    example: 1
+    post:
+      summary: "新しい講義の追加"
+      tags: ["lectures"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
       requestBody:
-        description: "pdfファイル"
+        description: "講義の名前"
         required: true
         content:
-          application/pdf:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/lecture"
+  "/lectures/search":
+    post:
+      tags:
+        - lectures
+      summary: "講義検索"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lectures:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/lecture"
+                  total:
+                    type: number
+                    example: 2
+      requestBody:
+        description: "絞り込み"
+        required: true
+        content:
+          application/json:
             schema:
-              type: string
-              format: binary
+              type: object
+              anyOf:
+                - $ref: "#/components/schemas/lecture-req"
   "/login":
     post:
       summary: "ログインしてセッションIDをcookieで返す"
