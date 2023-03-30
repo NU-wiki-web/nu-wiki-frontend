@@ -2,15 +2,13 @@
 import type { ReadStream } from 'fs'
 
 export type Methods = {
-  post: {
+  put: {
     status: 200
-
-    /** OK */
-    resBody: {
-      file_id: string
-    }
-
     /** pdfファイル */
     reqBody: (File | ReadStream)
+  }
+
+  delete: {
+    status: 200
   }
 }
