@@ -13,7 +13,17 @@ tags:
   - name: file
     description: pdfの操作
 
+# cookieによるセッション管理の設定
 components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESSIONID
+    cookieSignUpAuth:
+      type: apiKey
+      in: cookie
+      name: SIGNUPID
   parameters:
     fileType:
       name: "type"
@@ -218,3 +228,110 @@ paths:
               type: object
               anyOf:
                 - $ref: "#/components/schemas/lecture-req"
+  "/login":
+    post:
+      summary: "ログインしてセッションIDをcookieで返す"
+      tags: ["login"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスとパスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                password: { type: string, example: "password" }
+      security: [] # no authentication
+      responses:
+        "200":
+          description: >
+            認証に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
+            付随するリクエストには、このcookieを含める必要がある。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SESSIONID=abcde12345;
+
+  "/signup/mail":
+    post:
+      summary: "認証メールを送り、uuidをcookieで返す"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+      security: [] # no authentication
+      responses:
+        "200":
+          description: >
+            uuid（ユーザーをバックエンド側で一時的に識別するためのID）を`SIGNUPID`という名前でcookieに入れて返す。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SIGNUPID=uuid;
+
+  "/signup/auth":
+    post:
+      summary: "ワンタイムパスワードで本人確認を行う"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+      security:
+        - cookieSignUpAuth: []
+      responses:
+        "200":
+          description: >
+            認証に成功したら、再びメールアドレスを返す
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+
+  "/signup/register":
+    post:
+      summary: "本登録を行い、セッションIDをcookieで返す"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレス、名前、パスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                name: { type: string, example: "杉山 直" }
+                password: { type: string, example: "password" }
+      security:
+        - cookieSignUpAuth: []
+      responses:
+        "200":
+          description: >
+            登録に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
+            付随するリクエストには、このcookieを含める必要がある。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SESSIONID=abcde12345;
