@@ -12,12 +12,12 @@
 <script setup lang="ts">
 interface Props {
   label: string;
-  items: [string | number];
+  items: string[] | number[];
   icon: string;
-  selected: string;
+  selected: string | number;
 }
 interface Emits {
-  (e: "update:selected", selected: string): void;
+  (e: "update:selected", selected: string | number): void;
 }
 
 const props = defineProps<Props>();
