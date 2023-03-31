@@ -126,13 +126,13 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
     signup: {
       auth: {
         /**
-         * @param option.body - メールアドレスを含めたjson
+         * @param option.body - ワンタイムパスワードを含めたjson
          * @returns 認証に成功したら、再びメールアドレスを返す
          */
         post: (option: { body: Methods6['post']['reqBody'], config?: T | undefined }) =>
           fetch<Methods6['post']['resBody'], BasicHeaders, Methods6['post']['status']>(prefix, PATH4, POST, option).json(),
         /**
-         * @param option.body - メールアドレスを含めたjson
+         * @param option.body - ワンタイムパスワードを含めたjson
          * @returns 認証に成功したら、再びメールアドレスを返す
          */
         $post: (option: { body: Methods6['post']['reqBody'], config?: T | undefined }) =>

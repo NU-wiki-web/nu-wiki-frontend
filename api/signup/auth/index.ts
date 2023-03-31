@@ -8,9 +8,9 @@ export type Methods = {
       email: string
     }
 
-    /** メールアドレスを含めたjson */
+    /** ワンタイムパスワードを含めたjson */
     reqBody: {
-      email: string
+      oneTimePassword: string
     }
   }
 }
