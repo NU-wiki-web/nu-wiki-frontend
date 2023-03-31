@@ -184,7 +184,7 @@ paths:
                 type: object
                 properties:
                   fileId: { type: string, example: "xxxxxx-xxxxxx" }
-  "/files/{file-id}":
+  "/files/{fileid}":
     put:
       summary: "pdfの更新"
       tags: ["file"]
@@ -201,7 +201,7 @@ paths:
               type: string
               format: binary
       parameters:
-        - name: file-id
+        - name: fileid
           in: path
           schema: { type: string }
           required: true
@@ -213,7 +213,7 @@ paths:
         "200":
           description: "OK"
       parameters:
-        - name: file-id
+        - name: fileid
           in: path
           schema: { type: string }
           required: true
