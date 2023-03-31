@@ -2,8 +2,10 @@
   <UiHeader />
   <div class="h-[30vh] w-full bg-[#4a8a8a] text-center"></div>
 
-  <v-card class="mx-auto w-1/2 min-w-[400px] max-w-[500px] -translate-y-32">
-    <div class="d-flex pa-0 mt-16 mb-6 justify-center text-3xl text-[#006E4F]">
+  <v-card
+    class="mx-auto -mt-32 mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[400px] md:max-w-[30vw]"
+  >
+    <div class="d-flex pa-0 mt-16 mb-8 justify-center text-3xl text-[#006E4F]">
       NU-wikiにようこそ！
     </div>
     <div class="mx-auto w-4/5">
@@ -11,11 +13,13 @@
         <div class="my-2">メールアドレス</div>
         <div>
           <v-form ref="form" v-model="valid">
-            <v-text-field
-              placeholder="@s.mail.nagoya-u.ac.jp"
-              :rules="mailRules"
-            >
-            </v-text-field>
+            <v-responsive class="ma-0 pa-0">
+              <v-text-field
+                placeholder="*@s.mail.nagoya-u.ac.jp"
+                :rules="mailRules"
+              >
+              </v-text-field
+            ></v-responsive>
           </v-form>
         </div>
       </div>
@@ -33,7 +37,7 @@
       </div>
     </div>
 
-    <div class="mt-4 mb-10 text-center">
+    <div class="mt-2 mb-8 text-center">
       <UiIconButton :buttonTitle="'ログイン'" :buttonIcon="'mdi-login'" />
     </div>
     <div class="mx-auto w-4/5">
@@ -41,7 +45,7 @@
     </div>
 
     <div class="mx-auto w-4/5">
-      <div class="my-8 text-center">
+      <div class="mt-6 mb-8 text-center">
         <a href="?"><u>アカウントを作成する</u></a>
       </div>
     </div>
@@ -62,3 +66,13 @@ const pwRules = [
     "正しい形式で入力してください",
 ];
 </script>
+
+<style scoped>
+.v-text-field :deep() input {
+  padding: 0 10px;
+  min-height: 38px;
+}
+.v-text-field :deep() div {
+  padding: 0;
+}
+</style>
