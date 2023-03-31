@@ -32,7 +32,7 @@ components:
       required: true
       schema:
         type: string
-        enum: 
+        enum:
           - past_exam
           - past_exam_answer
           - other
@@ -55,21 +55,80 @@ components:
       type: object
       description: 講義の詳細
       properties:
-        name: { type: string, example: "論理設計及び演習" }
-        teacherName: { type: string, example: "山田太郎" }
-        grade: { type: string, example: 'B2' }
-        year: { type: integer, example: 2022 }
-        term: { type: string, example: "春" }
-        departmentId: { type: integer, example: 1 }
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "有機化学3"
+        teacherName:
+          type: string
+          example: "田中角栄"
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+        year:
+          type: number
+          example: 2018
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "春2"
+        departmentId:
+          type: number
+          example: 3
     lecture-req:
       type: object
       description: 検索用パラメータ
       properties:
-        grade: { type: string, example: "B2" }
-        year: { type: number, example: 2016 }
-        term: { type: string, example: "秋2" }
-        departmentId: { type: number, example: 8 }
-        word: { type: string, example: "量子" }
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+        year:
+          type: number
+          example: 2016
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "秋2"
+        departmentId:
+          type: number
+          example: 8
+        word:
+          type: string
+          example: "量子"
 paths:
   "/":
     get:
@@ -99,8 +158,7 @@ paths:
                 items:
                   properties:
                     fileId: { type: string, example: "xxxxxx-xxxxx" }
-                    name:
-                      { type: string, example: "論理設計及び演習2022期末.pdf" }
+                    name: { type: string, example: "論理設計及び演習2022期末.pdf" }
     post:
       summary: "新しい講義資料のアップロード"
       tags: ["file"]
@@ -126,7 +184,7 @@ paths:
                 type: object
                 properties:
                   fileId: { type: string, example: "xxxxxx-xxxxxx" }
-  "/files/{file-id}":
+  "/files/{fileid}":
     put:
       summary: "pdfの更新"
       tags: ["file"]
@@ -143,7 +201,7 @@ paths:
               type: string
               format: binary
       parameters:
-        - name: file-id
+        - name: fileid
           in: path
           schema: { type: string }
           required: true
@@ -155,7 +213,7 @@ paths:
         "200":
           description: "OK"
       parameters:
-        - name: file-id
+        - name: fileid
           in: path
           schema: { type: string }
           required: true
@@ -196,7 +254,7 @@ paths:
         required: true
         content:
           application/json:
-            schema: 
+            schema:
               $ref: "#/components/schemas/lecture"
   "/lectures/search":
     post:
@@ -221,7 +279,6 @@ paths:
                     example: 2
       requestBody:
         description: "絞り込み"
-        required: true
         content:
           application/json:
             schema:
