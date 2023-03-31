@@ -1,0 +1,3 @@
+<template>
+  <PagesLecture></PagesLecture>
+</template>
