@@ -1,3 +1,3 @@
 <template>
-  <v-progress-circular indeterminate color="primary"> </v-progress-circular>
+  <v-progress-circular indeterminate color="green"> </v-progress-circular>
 </template>

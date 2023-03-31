@@ -16,19 +16,20 @@ export type FileExamId = {
 
 /** 講義の詳細 */
 export type Lecture = {
+  id?: number | undefined
   name?: string | undefined
   teacherName?: string | undefined
-  grade?: string | undefined
+  grade?: 'B1' | 'B2' | 'B3' | 'B4' | 'M1' | 'M2' | 'D1' | 'D2' | 'D3' | undefined
   year?: number | undefined
-  term?: string | undefined
+  term?: '春' | '秋' | '春1' | '春2' | '秋1' | '秋2' | undefined
   departmentId?: number | undefined
 }
 
 /** 検索用パラメータ */
 export type Lecture_req = {
-  grade?: string | undefined
+  grade?: 'B1' | 'B2' | 'B3' | 'B4' | 'M1' | 'M2' | 'D1' | 'D2' | 'D3' | undefined
   year?: number | undefined
-  term?: string | undefined
+  term?: '春' | '秋' | '春1' | '春2' | '秋1' | '秋2' | undefined
   departmentId?: number | undefined
   word?: string | undefined
 }
