@@ -46,7 +46,7 @@
 
     <div class="mx-auto w-4/5">
       <div class="mt-6 mb-8 text-center">
-        <a href="?"><u>アカウントを作成する</u></a>
+        <a href="/signup"><u>アカウントを作成する</u></a>
       </div>
     </div>
   </v-card>
