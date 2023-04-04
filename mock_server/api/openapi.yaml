@@ -13,6 +13,122 @@ tags:
   - name: file
     description: pdfの操作
 
+# cookieによるセッション管理の設定
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESSIONID
+    cookieSignUpAuth:
+      type: apiKey
+      in: cookie
+      name: SIGNUPID
+  parameters:
+    fileType:
+      name: "type"
+      in: "query"
+      description: "過去問or過去問の解答orその他"
+      required: true
+      schema:
+        type: string
+        enum:
+          - past_exam
+          - past_exam_answer
+          - other
+    fileUserId:
+      name: "user_id"
+      in: "query"
+      description: "ユーザーID"
+      required: true
+      schema:
+        type: string
+    fileExamId:
+      name: "exam_id"
+      in: "query"
+      description: "試験ID"
+      required: true
+      schema:
+        type: string
+  schemas:
+    lecture:
+      type: object
+      description: 講義の詳細
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "有機化学3"
+        teacherName:
+          type: string
+          example: "田中角栄"
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+        year:
+          type: number
+          example: 2018
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "春2"
+        departmentId:
+          type: number
+          example: 3
+    lecture-req:
+      type: object
+      description: 検索用パラメータ
+      properties:
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+        year:
+          type: number
+          example: 2016
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "秋2"
+        departmentId:
+          type: number
+          example: 8
+        word:
+          type: string
+          example: "量子"
 paths:
   "/":
     get:
@@ -41,13 +157,24 @@ paths:
                 type: array
                 items:
                   properties:
-                    file_id: { type: string, example: "xxxxxx-xxxxx" }
+                    fileId: { type: string, example: "xxxxxx-xxxxx" }
                     name: { type: string, example: "論理設計及び演習2022期末.pdf" }
-  "/file":
     post:
-      summary: "pdfのアップロード"
+      summary: "新しい講義資料のアップロード"
       tags: ["file"]
       deprecated: false
+      requestBody:
+        description: "講義と講義のテストを指定して講義資料をアップロードする"
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+      parameters:
+        - $ref: "#/components/parameters/fileType"
+        - $ref: "#/components/parameters/fileUserId"
+        - $ref: "#/components/parameters/fileExamId"
       responses:
         "200":
           description: "OK"
@@ -56,16 +183,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  file_id: { type: string, example: "xxxxxx-xxxxxx" }
-      requestBody:
-        description: "pdfファイル"
-        required: true
-        content:
-          application/pdf:
-            schema:
-              type: string
-              format: binary
-  "/file/{file_id}":
+                  fileId: { type: string, example: "xxxxxx-xxxxxx" }
+  "/files/{fileid}":
     put:
       summary: "pdfの更新"
       tags: ["file"]
@@ -82,7 +201,7 @@ paths:
               type: string
               format: binary
       parameters:
-        - name: file_id
+        - name: fileid
           in: path
           schema: { type: string }
           required: true
@@ -94,18 +213,10 @@ paths:
         "200":
           description: "OK"
       parameters:
-        - name: file_id
+        - name: fileid
           in: path
           schema: { type: string }
           required: true
-      requestBody:
-        description: "pdfファイル"
-        required: true
-        content:
-          application/pdf:
-            schema:
-              type: string
-              format: binary
   "/lectures":
     get:
       tags:
@@ -123,17 +234,28 @@ paths:
                   lectures:
                     type: array
                     items:
-                      properties:
-                        id: { type: number, example: 1 }
-                        name: { type: string, example: "有機化学3" }
-                        teacherName: { type: string, example: "田中角栄" }
-                        grade: { type: string, example: "B2" }
-                        year: { type: number, example: 2018 }
-                        term: { type: string, example: "春2" }
-                        departmentId: { type: number, example: 3 }
+                      $ref: "#/components/schemas/lecture"
                   total:
                     type: number
                     example: 1
+    post:
+      summary: "新しい講義の追加"
+      tags: ["lectures"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        description: "講義の名前"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/lecture"
   "/lectures/search":
     post:
       tags:
@@ -151,27 +273,122 @@ paths:
                   lectures:
                     type: array
                     items:
-                      properties:
-                        id: { type: number, example: 1 }
-                        name: { type: string, example: "量子化学3" }
-                        teacherName: { type: string, example: "田中角栄" }
-                        grade: { type: string, example: "B2" }
-                        year: { type: number, example: 2018 }
-                        term: { type: string, example: "春2" }
-                        departmentId: { type: number, example: 3 }
+                      $ref: "#/components/schemas/lecture"
                   total:
                     type: number
                     example: 2
       requestBody:
         description: "絞り込み"
+        content:
+          application/json:
+            schema:
+              type: object
+              anyOf:
+                - $ref: "#/components/schemas/lecture-req"
+  "/login":
+    post:
+      summary: "ログインしてセッションIDをcookieで返す"
+      tags: ["login"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスとパスワードを含めたjson"
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                grade: { type: string, example: "B2", nullable: true }
-                year: { type: number, example: 2016, nullable: true }
-                term: { type: string, example: "秋2", nullable: true }
-                departmentId: { type: number, example: 8, nullable: true }
-                word: { type: string, example: "量子", nullable: true }
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                password: { type: string, example: "password" }
+      security: [] # no authentication
+      responses:
+        "200":
+          description: >
+            認証に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
+            付随するリクエストには、このcookieを含める必要がある。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SESSIONID=abcde12345;
+
+  "/signup/mail":
+    post:
+      summary: "認証メールを送り、uuidをcookieで返す"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+      security: [] # no authentication
+      responses:
+        "200":
+          description: >
+            uuid（ユーザーをバックエンド側で一時的に識別するためのID）を`SIGNUPID`という名前でcookieに入れて返す。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SIGNUPID=uuid;
+
+  "/signup/auth":
+    post:
+      summary: "ワンタイムパスワードで本人確認を行う"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "ワンタイムパスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oneTimePassword: { type: string, example: "000000" }
+      security:
+        - cookieSignUpAuth: []
+      responses:
+        "200":
+          description: >
+            認証に成功したら、再びメールアドレスを返す
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+
+  "/signup/register":
+    post:
+      summary: "本登録を行い、セッションIDをcookieで返す"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレス、名前、パスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                name: { type: string, example: "杉山 直" }
+                password: { type: string, example: "password" }
+      security:
+        - cookieSignUpAuth: []
+      responses:
+        "200":
+          description: >
+            登録に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
+            付随するリクエストには、このcookieを含める必要がある。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SESSIONID=abcde12345;

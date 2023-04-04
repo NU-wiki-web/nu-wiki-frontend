@@ -14,7 +14,11 @@
           @click="handleClick(lecture.id)"
         ></UiListItem>
       </v-list>
-      <UiPagination v-model="pageNumber" :length="pageLength" class="mt-5"></UiPagination>
+      <UiPagination
+        v-model:pageNumber="pageNumber"
+        :length="pageLength"
+        class="mt-5"
+      ></UiPagination>
     </div>
     <div v-else class="mt-10 flex items-center justify-center">
       一致する講義がありませんでした。
@@ -26,41 +30,27 @@
 import { LectureType } from "types/lecture";
 
 interface Props {
-  lectures: [LectureType];
+  lectures: LectureType[];
   handleClick: (id: number) => void;
 }
+
 const props = defineProps<Props>();
 
 const pageNumber = ref<number>(1);
-const displayLecturesLength = 10; // 適当
+const displayLecturesLength = 10;
 
-let pageLength = 1;
-const displayLectures = ref<LectureType[]>();
+const displayLectures = computed(() => {
+  if (!props.lectures) return [];
+  const startIndex = (pageNumber.value - 1) * displayLecturesLength;
+  return props.lectures.slice(startIndex, startIndex + displayLecturesLength);
+});
 
-const updateDisplayLectures = function () {
-  // 初回読み込み時、lectures.lengthがundefinedとなり、計算ができないエラーを防ぐ。
-  if (props.lectures) {
-    pageLength = Math.ceil(props.lectures.length / displayLecturesLength);
-    displayLectures.value = props.lectures.slice(
-      displayLecturesLength * (pageNumber.value - 1),
-      displayLecturesLength * pageNumber.value
-    );
-  }
+const pageLength = computed(() => {
+  if (!props.lectures) return 1;
+  return Math.ceil(props.lectures.length / displayLecturesLength);
+});
+
+const handleClick = (id: number) => {
+  props.handleClick(id);
 };
-updateDisplayLectures();
-
-// propsが更新されたときにdisplayLecturesの再計算が走るようにする。
-watch(
-  () => props.lectures,
-  () => {
-    updateDisplayLectures();
-  },
-  { deep: true }
-);
 </script>
-
-<style scoped>
-.v-progress-circular {
-  margin: 1rem;
-}
-</style>

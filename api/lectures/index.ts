@@ -1,20 +1,20 @@
 /* eslint-disable */
+import type * as Types from '../@types'
+
 export type Methods = {
   get: {
     status: 200
 
     /** ok */
     resBody: {
-      lectures: {
-        id: number
-        name: string
-        teacherName: string
-        grade: string
-        year: number
-        term: string
-        departmentId: number
-      }[]
+      lectures: Types.Lecture[]
       total: number
     }
+  }
+
+  post: {
+    status: 200
+    /** 講義の名前 */
+    reqBody: Types.Lecture
   }
 }
