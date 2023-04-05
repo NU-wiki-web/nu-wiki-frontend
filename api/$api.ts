@@ -11,7 +11,7 @@ import type { Methods as Methods7 } from './signup/mail'
 import type { Methods as Methods8 } from './signup/register'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
-  const prefix = (baseURL === undefined ? 'http://host.docker.internal:8080' : baseURL).replace(/\/$/, '')
+  const prefix = (baseURL === undefined ? 'http://127.0.0.1:8080' : baseURL).replace(/\/$/, '')
   const PATH0 = '/files'
   const PATH1 = '/lectures'
   const PATH2 = '/lectures/search'
