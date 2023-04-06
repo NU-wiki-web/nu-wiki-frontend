@@ -7,7 +7,7 @@
   <v-card
     class="mx-auto -mt-[calc(20vh-90px)] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
   >
-    <div class="d-flex pa-0 mt-10 mb-8 justify-center text-3xl text-[#006E4F]">
+    <div class="d-flex pa-0 mt-10 mb-8 justify-center text-2xl text-[#006E4F]">
       新規登録
     </div>
     <div class="mx-auto w-4/5">
