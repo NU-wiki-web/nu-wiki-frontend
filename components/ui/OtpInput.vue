@@ -18,7 +18,7 @@ watch(
     ) {
       emit("update:modelValue", Number(newVal.value.join("")));
     } else {
-      emit("update:modelValue", null);
+      emit("update:modelValue", "数字6桁で入力してください");
     }
   },
   { deep: true }
@@ -31,6 +31,13 @@ const handleOtpInput = (e) => {
     e.target.previousElementSibling.focus();
   }
 };
+
+// const handleOtpkeydown = (e) => {
+//   console.log(e.key);
+//   if (e.key === "Backspace" && e.target.previousElementSibling) {
+//     e.target.previousElementSibling.focus();
+//   }
+// };
 
 const handlePaste = (e) => {
   const pasteData = e.clipboardData.getData("text");
@@ -54,7 +61,7 @@ const handlePaste = (e) => {
         ref="firstInputEl"
         type="text"
         maxlength="1"
-        class="h-10 w-10 rounded border text-center"
+        class="h-10 w-8 rounded border text-center"
         @paste="field === 1 && handlePaste($event)"
       />
     </template>
