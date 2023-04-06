@@ -3,9 +3,9 @@
   <div class="h-[30vh] w-full bg-[#4a8a8a] text-center"></div>
 
   <v-card
-    class="mx-auto -mt-32 mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[400px] md:max-w-[30vw]"
+    class="mx-auto -mt-32 mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
   >
-    <div class="d-flex pa-0 mt-16 mb-8 justify-center text-3xl text-[#006E4F]">
+    <div class="d-flex pa-0 mt-10 mb-8 justify-center text-2xl text-[#006E4F]">
       NU-wikiにようこそ！
     </div>
     <div class="mx-auto w-4/5">
