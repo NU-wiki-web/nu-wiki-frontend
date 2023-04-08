@@ -156,6 +156,17 @@ components:
           type: string
           format: date
           example: "2023-04-08"
+    pdf_list:
+      type: object
+      description: "pdf一覧を返すためのオブジェクト"
+      properties:
+        pdfs:
+          type: array
+          items:
+            $ref: "#/components/schemas/pdf"
+        total:
+          type: number
+          example: 1
 paths:
   "/":
     get:
@@ -181,11 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  properties:
-                    fileId: { type: string, example: "xxxxxx-xxxxx" }
-                    name: { type: string, example: "論理設計及び演習2022期末.pdf" }
+                $ref: "#/components/schemas/pdf_list"
     post:
       summary: "新しい講義資料のアップロード"
       tags: ["file"]
@@ -255,15 +262,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  pdfs:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/pdf"
-                  total:
-                    type: number
-                    example: 1
+                $ref: "#/components/schemas/pdf_list"
   "/lectures":
     get:
       tags:
