@@ -1,5 +1,5 @@
 <template>
-  <div class="scale-100 space-y-4 2xl:scale-125">
+  <div class="scale-100 space-y-1 2xl:scale-125">
     <div class="d-flex justify-center">
       <div
         v-bind:class="[

@@ -1,32 +1,31 @@
 <template>
   <UiHeader />
-  <div class="h-[30vh] w-full bg-[#4a8a8a] pt-[5vh]">
+  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
     <UiSignupStepBar :stepNumber="2" />
   </div>
 
   <v-card
-    class="mx-auto -mt-[calc(20vh-90px)] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
+    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
   >
-    <div class="d-flex pa-0 mt-10 mb-8 justify-center text-2xl text-[#006E4F]">
+    <div
+      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-xl text-[#006E4F]"
+    >
       メールアドレス認証
     </div>
-    <div class="mx-auto w-4/5">
-      <div class="my-2 text-base md:text-lg">
+    <div class="mx-auto my-4 w-[85%]">
+      <div class="mb-2">
         <b>***@s.mail.nagoya-u.ac.jp</b>
         宛てに、認証用パスワードを送信しました。
       </div>
-      <div class="my-2 text-base md:text-lg">
+      <div class="mb-2">
         本文に記載されているパスワードを入力して、本人確認を完了してください。
       </div>
     </div>
-    <div class="mx-auto my-4 w-4/5">
+    <div class="mx-auto my-4 w-[85%]">
       <UiOtpInput v-model="data" :fields="6" />
-      <div class="pt-2 text-center text-gray-500">
-        {{ data ? data : "数字6桁で入力してください" }}
-      </div>
     </div>
 
-    <div class="mt-2 mb-6 text-center">
+    <div class="my-6 text-center">
       <UiIconButton :buttonTitle="'送信'" :buttonIcon="'mdi-lock'" />
     </div>
 

@@ -1,16 +1,18 @@
 <template>
   <UiHeader />
-  <div class="h-[30vh] w-full bg-[#4a8a8a] pt-[5vh]">
+  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
     <UiSignupStepBar :stepNumber="1" />
   </div>
 
   <v-card
-    class="mx-auto -mt-[calc(20vh-90px)] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
+    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
   >
-    <div class="d-flex pa-0 mt-10 mb-8 justify-center text-2xl text-[#006E4F]">
-      新規登録
+    <div
+      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-xl text-[#006E4F]"
+    >
+      <span>新規登録</span>
     </div>
-    <div class="mx-auto w-4/5">
+    <div class="mx-auto my-4 w-[85%]">
       <div>
         <div class="my-2">メールアドレス</div>
         <div>
@@ -23,28 +25,28 @@
           </v-form>
         </div>
       </div>
-      <div>
-        <v-checkbox>
-          <template v-slot:label>
-            <div class="text-black">
-              <u>
-                <a
-                  target="_blank"
-                  href="https://vuetifyjs.com"
-                  v-bind="props"
-                  @click.stop
-                >
-                  利用規約
-                </a>
-              </u>
-              に同意する
-            </div>
-          </template>
-        </v-checkbox>
-      </div>
+    </div>
+    <div class="mx-auto w-[90%]">
+      <v-checkbox>
+        <template v-slot:label>
+          <div class="text-black">
+            <u>
+              <a
+                target="_blank"
+                href="https://vuetifyjs.com"
+                v-bind="props"
+                @click.stop
+              >
+                利用規約
+              </a>
+            </u>
+            に同意する
+          </div>
+        </template>
+      </v-checkbox>
     </div>
 
-    <div class="mt-2 mb-8 text-center">
+    <div class="mb-6 text-center">
       <UiIconButton
         :buttonTitle="'メール認証'"
         :buttonIcon="'mdi-email-outline'"
