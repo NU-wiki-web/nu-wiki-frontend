@@ -1,16 +1,18 @@
 <template>
   <UiHeader />
-  <div class="h-[30vh] w-full bg-[#4a8a8a] text-center"></div>
+  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]" />
 
   <v-card
-    class="mx-auto -mt-32 mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
+    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
   >
-    <div class="d-flex pa-0 mt-10 mb-8 justify-center text-2xl text-[#006E4F]">
+    <div
+      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-xl text-[#006E4F]"
+    >
       NU-wikiにようこそ！
     </div>
-    <div class="mx-auto w-4/5">
+    <div class="mx-auto my-4 w-[85%]">
       <div>
-        <div class="my-2">メールアドレス</div>
+        <div class="mb-2">メールアドレス</div>
         <div>
           <v-form ref="form" v-model="valid">
             <v-responsive class="ma-0 pa-0">
@@ -24,20 +26,17 @@
         </div>
       </div>
       <div>
-        <div class="my-2">パスワード</div>
+        <div class="mb-2">パスワード</div>
         <div>
           <v-form ref="form" v-model="valid">
-            <v-text-field
-              placeholder="半角英数字記号で8文字以上"
-              :rules="pwRules"
-            >
+            <v-text-field placeholder="半角英数字で8~40文字" :rules="pwRules">
             </v-text-field>
           </v-form>
         </div>
       </div>
     </div>
 
-    <div class="mt-2 mb-8 text-center">
+    <div class="mb-6 text-center">
       <UiIconButton :buttonTitle="'ログイン'" :buttonIcon="'mdi-login'" />
     </div>
     <div class="mx-auto w-4/5">
@@ -62,7 +61,7 @@ const mailRules = [
 const pwRules = [
   (v: string) => !!v || "パスワードが未入力です",
   (v: string) =>
-    /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
+    /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,41})$/.test(v) ||
     "正しい形式で入力してください",
 ];
 </script>
