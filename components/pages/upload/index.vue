@@ -32,7 +32,7 @@
       v-model="year"
     ></UiSelect>
     <v-btn color="primary" @click="searchLecture">講義を検索</v-btn>
-    <div v-if="lectures.length > 0">
+    <div v-if="lectures">
       <v-select
         label="講義名"
         :items="lectures"
@@ -62,6 +62,14 @@
         v-model="selectedPastExamType"
       ></v-select>
     </div>
+    <div v-if="true">
+      <!--</div>"lectures && lectures.length == 0">-->
+      <UiAddLectureDialog
+        v-model:dialog="showModal"
+        v-model:departmentId="department"
+        v-model:year="year"
+      />
+    </div>
     <div>
       <v-btn color="primary" @click="upload">保存する</v-btn>
     </div>
@@ -87,10 +95,12 @@
   const selectedPastExamType = ref<PastExamType>();
 
   // 選択肢
-  const lectures = ref<Lecture[]>([]);
+  const lectures = ref<Lecture[]>();
   const { ja: fileTypes } = useFileType();
   const { array: pastExamTypeItems } = usePastExamType();
 
+  // 表示の制御用
+  const showModal = ref(false);
   const searchLecture = async () => {
     if (!department.value || !year.value) return;
     const client = useClient();
@@ -118,7 +128,7 @@
       query: {
         type: fileType.value,
         user_id: "hoge",
-        lecture_id: selectedLecture.value.name
+        exam_id: selectedLecture.value.name
       }
     });
   };
