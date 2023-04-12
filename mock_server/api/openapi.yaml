@@ -6,7 +6,7 @@ info:
   version: 0.0.1
 
 servers:
-  - url: "http://localhost:8080"
+  - url: "http://127.0.0.1:8080"
     description: "ローカル環境"
 
 tags:
@@ -129,6 +129,44 @@ components:
         word:
           type: string
           example: "量子"
+    pdf:
+      type: object
+      description: pdfの詳細
+      properties:
+        id:
+          type: number
+          example: 105
+        name:
+          type: string
+          example: "線形代数学1"
+        user_id:
+          type: number
+          example: 12
+        exam_id:
+          type: number
+          example: 11
+        type:
+          type: string
+          example: "......"
+        created_at:
+          type: string
+          format: date
+          example: "2002-12-13"
+        updated_at:
+          type: string
+          format: date
+          example: "2023-04-08"
+    pdf_list:
+      type: object
+      description: "pdf一覧を返すためのオブジェクト"
+      properties:
+        pdfs:
+          type: array
+          items:
+            $ref: "#/components/schemas/pdf"
+        total:
+          type: number
+          example: 1
 paths:
   "/":
     get:
@@ -154,11 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  properties:
-                    fileId: { type: string, example: "xxxxxx-xxxxx" }
-                    name: { type: string, example: "論理設計及び演習2022期末.pdf" }
+                $ref: "#/components/schemas/pdf_list"
     post:
       summary: "新しい講義資料のアップロード"
       tags: ["file"]
@@ -217,6 +251,18 @@ paths:
           in: path
           schema: { type: string }
           required: true
+  "/exams/{exam_id}/files":
+    get:
+      tags:
+        - exams
+      summary: "講義idに対するpdfの一覧を返す"
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pdf_list"
   "/lectures":
     get:
       tags:
