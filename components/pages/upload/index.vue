@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <UiHeader></UiHeader>
+  <div class="p-2">
     <div class="text-lg font-bold text-primary">過去問ファイル</div>
     <UiFileUploadButton
       v-model:files="files"
@@ -12,26 +13,30 @@
       v-model:selected="fileType"
     />
   </div>
-  <div>
+  <div class="p-2">
     <div class="text-lg font-bold text-primary">講義情報</div>
-    <v-select
-      label="学部・学科"
-      :items="faculties"
-      item-title="name"
-      item-value="id"
-      prepend-inner-icon="mdi-school"
-      bg-color="#fff"
-      color="#555"
-      v-model="department"
-    ></v-select>
-    <UiSelect
-      label="年度"
-      :items="years"
-      icon="mdi-calendar-blank"
-      :selected="year"
-      v-model="year"
-    ></UiSelect>
-    <v-btn color="primary" @click="searchLecture">講義を検索</v-btn>
+    <div>
+      <v-select
+        label="学部・学科"
+        :items="faculties"
+        item-title="name"
+        item-value="id"
+        prepend-inner-icon="mdi-school"
+        bg-color="#fff"
+        color="#555"
+        v-model="department"
+      ></v-select>
+      <UiSelect
+        label="年度"
+        :items="years"
+        icon="mdi-calendar-blank"
+        :selected="year"
+        v-model="year"
+      ></UiSelect>
+    </div>
+    <div class="flex justify-center">
+      <v-btn class="" color="primary" @click="searchLecture">講義を検索</v-btn>
+    </div>
     <div v-if="lectures">
       <v-select
         label="講義名"
@@ -43,7 +48,7 @@
         color="#"
         v-model="selectedLecture"
       >
-        <template v-slot:selection="{ item, index }">
+        <template v-slot:selection="{ item }">
           <span
             >{{ item.raw.name }} - {{ item.raw.teacherName }} ({{
               item.raw.year
@@ -62,16 +67,17 @@
         v-model="selectedPastExamType"
       ></v-select>
     </div>
-    <div v-if="true">
-      <!--</div>"lectures && lectures.length == 0">-->
+    <div v-if="lectures && lectures.length == 0" class="p-2">
       <UiAddLectureDialog
         v-model:dialog="showModal"
         v-model:departmentId="department"
         v-model:year="year"
       />
     </div>
-    <div>
-      <v-btn color="primary" @click="upload">保存する</v-btn>
+    <div class="flex justify-center">
+      <v-btn :disabled="!isFilled" color="primary" @click="upload"
+        >保存する</v-btn
+      >
     </div>
   </div>
 </template>
@@ -82,9 +88,10 @@
     useFileType,
     usePastExamType
   } from "~/entities/pastExam";
-  import { faculties, years } from "~/entities/lecture";
   import { useClient } from "~/util/api/useApi";
   import { Lecture } from "~/api/@types";
+  import { faculties } from "~~/entities/faculties";
+  import { years } from "~~/entities/years";
 
   // POSTするデータ
   const files = ref<File[]>([]);
@@ -114,6 +121,16 @@
     ).lectures;
   };
 
+  const isFilled = computed(
+    () =>
+      !!(
+        files.value[0] &&
+        fileType.value &&
+        selectedLecture.value?.name &&
+        selectedPastExamType.value
+      )
+  );
+
   const upload = () => {
     if (
       !files.value[0] ||
@@ -132,11 +149,4 @@
       }
     });
   };
-
-  watch([files, fileType, department, year], () => {
-    console.log(files.value);
-    console.log(fileType.value);
-    console.log(department.value);
-    console.log(year.value);
-  });
 </script>
