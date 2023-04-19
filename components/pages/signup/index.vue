@@ -31,12 +31,7 @@
         <template v-slot:label>
           <div class="text-black">
             <u>
-              <a
-                target="_blank"
-                href="https://vuetifyjs.com"
-                v-bind="props"
-                @click.stop
-              >
+              <a target="_blank" href="https://vuetifyjs.com" @click.stop>
                 利用規約
               </a>
             </u>
