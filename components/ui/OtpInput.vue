@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, Ref } from "vue";
 const props = defineProps<{
   fields: number;
 }>();
 
 const data = ref([]);
-const firstInputEl = ref(null);
+const firstInputEl = ref();
 const emit = defineEmits(["update:modelValue"]);
 
 watch(
   () => data,
-  (newVal) => {
-    if (
-      newVal.value != "" &&
-      newVal.value.length === props.fields &&
-      !newVal.value.includes("")
-    ) {
+  (newVal: Ref<string[]>) => {
+    if (newVal.value.length === props.fields && !newVal.value.includes("")) {
+      console.log(Number(newVal.value.join("")));
       emit("update:modelValue", Number(newVal.value.join("")));
     } else {
       emit("update:modelValue", "数字6桁で入力してください");
@@ -24,11 +21,13 @@ watch(
   { deep: true }
 );
 
-const handleOtpInput = (e) => {
-  if (e.data && e.target.nextElementSibling) {
-    e.target.nextElementSibling.focus();
-  } else if (e.data == null && e.target.previousElementSibling) {
-    e.target.previousElementSibling.focus();
+const handleOtpInput = (e: Event) => {
+  const { target, data } = e as InputEvent;
+  if (!(target instanceof HTMLInputElement)) return;
+  if (data && target.nextElementSibling) {
+    (target.nextElementSibling as HTMLElement).focus();
+  } else if (data == null && target.previousElementSibling) {
+    (target.previousElementSibling as HTMLElement).focus();
   }
 };
 
@@ -39,12 +38,12 @@ const handleOtpInput = (e) => {
 //   }
 // };
 
-const handlePaste = (e) => {
-  const pasteData = e.clipboardData.getData("text");
+const handlePaste = (e: ClipboardEvent) => {
+  const pasteData = e.clipboardData ? e.clipboardData.getData("text") : "";
   let nextEl = firstInputEl.value[0].nextElementSibling;
   for (let i = 1; i < pasteData.length; i++) {
     if (nextEl) {
-      data.value[i] = pasteData[i];
+      data.value[i] = pasteData[i] as never;
       nextEl = nextEl.nextElementSibling;
     }
   }
