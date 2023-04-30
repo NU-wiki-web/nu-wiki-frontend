@@ -1,13 +1,18 @@
 <template>
   <UiHeader></UiHeader>
+  <div v-if="total">
+    <v-list v-for="pdf in pdfs" :key="pdf.file_id">
+      <UiPdfListItem
+      :id="pdf.file_id"
+      :name="pdf.name"
+    ></UiPdfListItem>
+    </v-list>
+  </div>
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
     <UiLoading></UiLoading>
   </div>
   <div v-else-if="isError" class="mt-10 flex items-center justify-center">
     予期せぬエラーが発生しました。もう一度お試しください。
-  </div>
-  <div>
-    <UiPdfListItem />
   </div>
 </template>
 
