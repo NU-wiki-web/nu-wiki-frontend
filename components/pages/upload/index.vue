@@ -1,7 +1,7 @@
 <template>
   <UiHeader></UiHeader>
   <div class="p-2">
-    <div class="text-lg font-bold text-primary">過去問ファイル</div>
+    <div class="text-lg font-bold !text-primary">過去問ファイル</div>
     <UiFileUploadButton
       v-model:files="files"
       label="過去問・答えをアップロード"
@@ -14,7 +14,7 @@
     />
   </div>
   <div class="p-2">
-    <div class="text-lg font-bold text-primary">講義情報</div>
+    <div class="text-lg font-bold !text-primary">講義情報</div>
     <div>
       <v-select
         label="学部・学科"
