@@ -11,33 +11,40 @@
       NU-wikiにようこそ！
     </div>
     <div class="mx-auto my-4 w-[85%]">
-      <div>
-        <div class="mb-2">メールアドレス</div>
+      <v-form ref="form" v-model="valid">
         <div>
-          <v-form ref="form" v-model="valid">
+          <div class="mb-2">メールアドレス</div>
+          <div>
             <v-responsive class="ma-0 pa-0">
               <v-text-field
                 placeholder="*@s.mail.nagoya-u.ac.jp"
+                v-model="mail"
                 :rules="mailRules"
               >
               </v-text-field
             ></v-responsive>
-          </v-form>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="mb-2">パスワード</div>
         <div>
-          <v-form ref="form" v-model="valid">
-            <v-text-field placeholder="半角英数字で8~40文字" :rules="pwRules">
+          <div class="mb-2">パスワード</div>
+          <div>
+            <v-text-field
+              placeholder="半角英数字で8~40文字"
+              v-model="password"
+              :rules="pwRules"
+            >
             </v-text-field>
-          </v-form>
+          </div>
         </div>
-      </div>
+      </v-form>
     </div>
 
     <div class="mb-6 text-center">
-      <UiIconButton :buttonTitle="'ログイン'" :buttonIcon="'mdi-login'" />
+      <UiIconButton
+        :buttonTitle="'ログイン'"
+        :buttonIcon="'mdi-login'"
+        v-on:click="postLoginRequest"
+      />
     </div>
     <div class="mx-auto w-4/5">
       <v-divider></v-divider>
@@ -52,26 +59,55 @@
 </template>
 
 <script setup lang="ts">
-const valid = false;
-const mailRules = [
-  (v: string) => !!v || "メールアドレスが未入力です",
-  (v: string) =>
-    /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください",
-];
-const pwRules = [
-  (v: string) => !!v || "パスワードが未入力です",
-  (v: string) =>
-    /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,41})$/.test(v) ||
-    "正しい形式で入力してください",
-];
+  import { useClient } from "~/util/api/useApi";
+
+  const client = useClient();
+  const mail = ref<string>("");
+  const password = ref<string>("");
+
+  // バリデーション
+  const valid = ref<boolean>(false);
+  const mailRules = [
+    (v: string) => !!v || "メールアドレスが未入力です",
+    (v: string) =>
+      /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください"
+  ];
+  const pwRules = [
+    (v: string) => !!v || "パスワードが未入力です",
+    (v: string) =>
+      /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,41})$/.test(v) ||
+      "正しい形式で入力してください"
+  ];
+
+  // ログイン
+  const postLoginRequest = async function () {
+    if (!valid.value) return;
+    console.log(valid.value);
+    console.log(mail.value);
+    console.log(password.value);
+    client.login
+      .$post({
+        body: {
+          email: mail.value,
+          password: password.value
+        }
+      })
+      .then((res) => {
+        console.log("success", res);
+        //navigateTo("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 </script>
 
 <style scoped>
-.v-text-field :deep() input {
-  padding: 0 10px;
-  min-height: 38px;
-}
-.v-text-field :deep() div {
-  padding: 0;
-}
+  .v-text-field :deep() input {
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  .v-text-field :deep() div {
+    padding: 0;
+  }
 </style>
