@@ -1,5 +1,6 @@
 <template>
   <v-list-item :title="name" link></v-list-item>
+  あああああ
 </template>
 
 <script setup lang="ts">
