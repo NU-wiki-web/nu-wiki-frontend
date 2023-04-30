@@ -39,7 +39,7 @@ const pdf_id = route.path;
 console.log("path: ", pdf_id);
 
 client.exams
-  ._exam_id()
+  ._exam_id(pdf_id)
   .files.$get()
   .then(async (res) => {
     pdfs.value = await res.pdfs;
