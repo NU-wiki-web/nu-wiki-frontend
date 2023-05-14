@@ -1,15 +1,16 @@
 <template>
   <UiHeader></UiHeader>
   <div v-if="total">
-    <div>
-      {{ route.params.id }}<br />
-      {{ total }}件見つかりました。
+    <div class="bg-nu-teritary p-8 text-white">
+      <p class="m-2 text-3xl">'{{ route.params.id }}'のPDF一覧</p>
+      <p class="m-2 text-lg">{{ total }}件見つかりました。</p>
     </div>
     <v-list v-for="pdf in pdfs" :key="pdf.file_id">
       <UiPdfListItem
         :file_id="pdf.file_id"
         :name="pdf.name"
-        @click="openPdfDetail(pdf.file_id)"
+        @click="openPdfDetail(0)"
+        class="m-10 rounded"
       ></UiPdfListItem>
     </v-list>
     <!-- ページネーション -->
@@ -22,16 +23,16 @@
     <pdfDetailModal v-if="showDetail" @close="closePdfDetail">
       <!-- タイトルのスロットコンテンツ -->
       <template v-slot:file_name>
-        <div v-if="pdfDetailError.value">情報がありません</div>
-        <div v-else>{{ pdfDetailData.value.name }}</div>
+        <div>{{ pdfs[detailPdfId].name }}</div>
       </template>
       <!-- urlとリンク -->
       <template v-slot:url>
         <div
-          v-if="!pdfDetailError.value"
-          class="mr-2 mb-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="mr-2 mb-2 rounded-lg bg-nu-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          <button @click="openExternalLink(pdfDetailData.value.url)">
+          <button
+            @click="openExternalLink(pdfa[detailPdfId].url)"
+          >
             ファイルを開く
           </button>
         </div>
@@ -53,7 +54,7 @@ import { PdfType } from "~~/types/pdf";
 
 const client = useClient();
 
-const total = ref<number>();
+const total = ref<number>(0);
 const pdfs = ref<PdfType[]>([]);
 const isLoading = ref<boolean>(true);
 const isError = ref<boolean>(false);
@@ -79,20 +80,11 @@ client.exams
 
 /* pdfの詳細表示 */
 const showDetail = ref(false); // モーダルを表示するか
-const pdfDetailData = ref({}); // pdfの詳細情報
-const pdfDetailError = ref(); // pdfの詳細情報取得時のエラー
+const detailPdfId = ref<number | undefined>(undefined);
 
-function openPdfDetail(file_id: Number) {
+function openPdfDetail(file_id: number) {
   showDetail.value = true;
-
-  const { data: pdf_detail, error: pdf_detail_error } = useFetch(
-    `http://nu-wiki-mock-pdf-detail.shuttleapp.rs/detail/${file_id}`
-  );
-
-  pdfDetailData.value = pdf_detail;
-  pdfDetailError.value = pdf_detail_error;
-
-  console.log(pdf_detail_error);
+  detailPdfId.value = file_id;
 }
 
 function closePdfDetail() {
