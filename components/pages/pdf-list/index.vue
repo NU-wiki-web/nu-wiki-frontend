@@ -2,7 +2,7 @@
   <UiHeader></UiHeader>
   <div v-if="total">
     <div>
-      {{ $route._exam_id }}<br />
+      {{ route.params.id }}<br />
       {{ total }}件見つかりました。
     </div>
     <v-list v-for="pdf in pdfs" :key="pdf.file_id">
@@ -85,7 +85,6 @@ const pdfDetailError = ref(); // pdfの詳細情報取得時のエラー
 function openPdfDetail(file_id: Number) {
   showDetail.value = true;
 
-  // TODO: file_idからpdfの詳細データをバックから受け取る
   const { data: pdf_detail, error: pdf_detail_error } = useFetch(
     `http://nu-wiki-mock-pdf-detail.shuttleapp.rs/detail/${file_id}`
   );
