@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :title="name" link border=""></v-list-item>
+  <v-list-item :title="name" link border></v-list-item>
 </template>
 
 <script setup lang="ts">

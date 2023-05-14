@@ -7,14 +7,15 @@
       <div
         class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl"
       >
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="bg-nu-quaternary px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
-            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                <!-- ファイル名のスロット -->
-                <slot name="file_name"></slot>
-              </h3>
-            </div>
+            <h3
+              class="text-2xl font-semibold leading-6 text-gray-900"
+              id="modal-title"
+            >
+              <!-- ファイル名のスロット -->
+              <slot name="file_name"></slot>
+            </h3>
           </div>
         </div>
         <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
