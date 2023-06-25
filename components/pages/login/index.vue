@@ -3,33 +3,35 @@
   <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]" />
 
   <v-card
-    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
+    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[450px] md:max-w-[450px] "
   >
     <div
-      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-xl text-[#006E4F]"
+      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-2xl text-[#006E4F]"
     >
       NU-wikiにようこそ！
     </div>
     <div class="mx-auto my-4 w-[85%]">
       <v-form ref="form" v-model="valid">
         <div>
-          <div class="mb-2">メールアドレス</div>
-          <div>
+          <div class="mb-2">メールアドレス（@より前を入力）</div>
+          <div class="flex">
             <v-responsive class="ma-0 pa-0">
               <v-text-field
-                placeholder="*@s.mail.nagoya-u.ac.jp"
                 v-model="mail"
-                :rules="mailRules"
               >
-              </v-text-field
-            ></v-responsive>
+              </v-text-field>
+            </v-responsive>
+            <div class="ml-2 mt-2">
+              <b>@s.mail.nagoya-u.ac.jp</b>
+            </div>
           </div>
+
         </div>
         <div>
-          <div class="mb-2">パスワード</div>
+          <div class="mb-2">パスワード（半角英数字記号で8~40文字）</div>
           <div>
             <v-text-field
-              placeholder="半角英数字で8~40文字"
+              type="password"
               v-model="password"
               :rules="pwRules"
             >
@@ -67,11 +69,11 @@
 
   // バリデーション
   const valid = ref<boolean>(false);
-  const mailRules = [
-    (v: string) => !!v || "メールアドレスが未入力です",
-    (v: string) =>
-      /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください"
-  ];
+  // const mailRules = [
+  //   (v: string) => !!v || "メールアドレスが未入力です",
+  //   (v: string) =>
+  //     /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください"
+  // ];
   const pwRules = [
     (v: string) => !!v || "パスワードが未入力です",
     (v: string) =>
