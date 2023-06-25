@@ -13,6 +13,11 @@ module.exports = {
         'nu-septenary': '#263959',
       }
     },
+    extend: {
+      colors: {
+        primary: "#006E4F",
+      }
+    },
   },
   plugins: [],
 };
