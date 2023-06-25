@@ -79,6 +79,7 @@ watch([departmentId, grade, term, year, word], async function () {
 });
 
 const pushDetailPage = function (id: number) {
-  navigateTo(`/pdf-list/${id}`);
+  const router = useRouter();
+  router.push(`/pdf-list/${id}`);
 };
 </script>
