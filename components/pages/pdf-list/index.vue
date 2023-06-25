@@ -6,25 +6,13 @@
       <p class="m-2 text-lg">{{ total }} 件見つかりました。</p>
     </div>
     <v-list v-for="pdf in pdfs" :key="pdf.file_id" class="my-5 mx-10">
-      <UiPdfListItem
-        :file_id="pdf.file_id"
-        :name="pdf.name"
-        @click="openPdfDetail(0)"
-        class="m-2 rounded text-xl"
-      ></UiPdfListItem>
+      <UiPdfListItem :file_id="pdf.file_id" :name="pdf.name" @click="openPdfDetail(0)" class="m-2 rounded text-xl">
+      </UiPdfListItem>
     </v-list>
     <!-- ページネーション -->
-    <UiPagination
-      v-model:pageNumber="pageNumber"
-      :length="pageLength"
-      class="mt-5"
-    ></UiPagination>
+    <UiPagination v-model:pageNumber="pageNumber" :length="pageLength" class="mt-5"></UiPagination>
     <!-- 詳細情報用のモーダル -->
-    <pdfDetailModal
-      v-if="showDetail"
-      @close="closePdfDetail"
-      :pdf="pdfs[detailPdfId]"
-    ></pdfDetailModal>
+    <pdfDetailModal v-if="showDetail" @close="closePdfDetail" :pdf="pdfs[detailPdfId]"></pdfDetailModal>
   </div>
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
     <UiLoading></UiLoading>
@@ -42,15 +30,16 @@ import { LectureType } from "types/lecture";
 
 const client = useClient();
 
-const total = ref<number>(0);
-const pdfs = ref<PdfType[]>([]);
-const isLoading = ref<boolean>(true);
-const isError = ref<boolean>(false);
-
 // クエリパラメータの取得
 const route = useRoute();
 const exam_id = Number(route.params.id);
 console.log("exam_id: ", exam_id);
+
+// pdf情報の取得
+const total = ref<number>(0);
+const pdfs = ref<PdfType[]>([]);
+const isLoading = ref<boolean>(true);
+const isError = ref<boolean>(false);
 
 client.exams
   ._exam_id(exam_id)
@@ -66,8 +55,26 @@ client.exams
     isError.value = true;
   });
 
+// 講義情報の取得
+const lecture = ref<LectureType>();
+
+client.lectures
+  ._exam_id(exam_id)
+  .$get()
+  .then(async (res) => {
+    lecture.value = res;
+    isLoading.value = false;
+    isError.value = false;
+  })
+  .catch((err) => {
+    console.error(err);
+    isError.value = true;
+  });
+
+console.log(lecture);
+
 const getExamName = (exam_id: number) => {
-  return "ダミー講義";
+  return lecture.value.name;
 };
 
 /* pdfの詳細表示 */
