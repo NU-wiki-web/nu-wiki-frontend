@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: "#006E4F",
         'nu-primary': '#006E4F',
         'nu-secondary': '#E8FFED',
         'nu-teritary': '#4D9595',
@@ -11,11 +12,6 @@ module.exports = {
         'nu-quinary': '#E4E7EC',
         'nu-senary': '#54657C',
         'nu-septenary': '#263959',
-      }
-    },
-    extend: {
-      colors: {
-        primary: "#006E4F",
       }
     },
   },
