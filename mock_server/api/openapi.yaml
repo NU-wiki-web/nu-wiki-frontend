@@ -302,6 +302,19 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/lecture"
+  "/lectures/{exam_id}":
+    get:
+      tags:
+        - lectures
+      summary: "講義の情報の取得"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/lecture"
   "/lectures/search":
     post:
       tags:
