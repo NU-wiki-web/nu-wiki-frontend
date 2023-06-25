@@ -17,7 +17,7 @@
         <div class="p-5 text-lg">
           <p>
             <v-icon icon="mdi-account" />
-            {{ getUserName() }}
+            {{ pdf.user_id }}
           </p>
           <p>
             <v-icon icon="mdi-calendar-blank" />
@@ -32,7 +32,7 @@
         </div>
         <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
           <button
-            @click="openExternalLink()"
+            @click="openExternalLink(pdf.name)"
             class="mr-2 mb-2 rounded-lg bg-nu-primary px-5 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
             ファイルを開く
@@ -46,27 +46,23 @@
 <script setup lang="ts">
 import { PdfType } from "~~/types/pdf";
 
-const props = defineProps<{
+defineProps(["pdf"]);
+interface Props {
   pdf: PdfType;
-}>();
-
-const getUserName = () => {
-  return "甲本健太";
-};
+}
 
 const formatDate = (date: string) => {
   let [y, m, d] = date.split("-");
   return `${y}年${parseInt(m)}月${parseInt(d)}日`;
 };
 
-const getUrl = () => {
-  let url =
-    "https://www.nagoya-u.ac.jp/about-nu/upload_images/NU_profile2022_enkaku.pdf"; // ダミーのURL
+const getUrl = (name: string) => {
+  let url = `https://sample.sample/${name}`; // ダミーのURL
   return url;
 };
 
-const openExternalLink = () => {
-  let url = getUrl();
+const openExternalLink = (name: string) => {
+  let url = getUrl(name);
   window.open(url, "_blank");
 };
 </script>

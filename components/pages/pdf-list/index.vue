@@ -2,11 +2,12 @@
   <UiHeader></UiHeader>
   <div v-if="total">
     <div class="bg-nu-teritary p-8 text-white">
-      <p class="m-2 text-3xl">'{{ getExamName(route.params.id) }}' のPDF一覧</p>
+      <p class="m-2 text-3xl">'{{ lecture.name }}' のPDF一覧</p>
+      <p class="m-2 text-xl">{{ lecture.year }} {{ lecture.term }} / {{ lecture.teacherName }}</p>
       <p class="m-2 text-lg">{{ total }} 件見つかりました。</p>
     </div>
     <v-list v-for="pdf in pdfs" :key="pdf.file_id" class="my-5 mx-10">
-      <UiPdfListItem :file_id="pdf.file_id" :name="pdf.name" @click="openPdfDetail(0)" class="m-2 rounded text-xl">
+      <UiPdfListItem :file_id="pdf.file_id" :name="pdf.name" :year="pdf.created_at" @click="openPdfDetail(0)" class="m-2 rounded text-xl">
       </UiPdfListItem>
     </v-list>
     <!-- ページネーション -->
@@ -70,12 +71,6 @@ client.lectures
     console.error(err);
     isError.value = true;
   });
-
-console.log(lecture);
-
-const getExamName = (exam_id: number) => {
-  return lecture.value.name;
-};
 
 /* pdfの詳細表示 */
 const showDetail = ref(false); // モーダルを表示するか
