@@ -4,7 +4,8 @@
       <div class="mt-5 mb-5 text-slate-700">
         <v-icon icon="mdi-magnify"></v-icon>
         {{ lectures.length }} 件ヒット中
-        <span class="text-xl text-black">{{ displayLectures.length }}</span> 件表示
+        <span class="text-xl text-black">{{ displayLectures.length }}</span>
+        件表示
       </div>
       <v-list v-for="lecture in displayLectures" :key="lecture.id">
         <UiListItem
