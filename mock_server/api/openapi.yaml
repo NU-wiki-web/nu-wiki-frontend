@@ -126,9 +126,12 @@ components:
         departmentId:
           type: number
           example: 8
-        word:
+        teacherName:
           type: string
-          example: "量子"
+          example: 田中太郎
+        lectureName:
+          type: string
+          example: 線形代数学X
     pdf:
       type: object
       description: pdfの詳細
