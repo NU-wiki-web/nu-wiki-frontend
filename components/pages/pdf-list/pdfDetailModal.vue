@@ -7,21 +7,62 @@
       <div
         class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl"
       >
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="bg-nu-quaternary px-5 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
-            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                <!-- ファイル名のスロット -->
-                <slot name="file_name"></slot>
-              </h3>
-            </div>
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+              {{ pdf.name }}
+            </h3>
           </div>
         </div>
+        <div class="p-5 text-lg">
+          <p>
+            <v-icon icon="mdi-account" />
+            {{ pdf.user_id }}
+          </p>
+          <p>
+            <v-icon icon="mdi-calendar-blank" />
+            作成日
+            {{ formatDate(pdf.created_at) }}
+          </p>
+          <p>
+            <v-icon icon="mdi-calendar-badge" />
+            更新日
+            {{ formatDate(pdf.updated_at) }}
+          </p>
+        </div>
         <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-          <!-- リンク -->
-          <slot name="url"></slot>
+          <button
+            @click="openExternalLink(pdf.name)"
+            class="mr-2 mb-2 rounded-lg bg-nu-primary px-5 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            ファイルを開く
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { PdfType } from "~~/types/pdf";
+
+defineProps(["pdf"]);
+interface Props {
+  pdf: PdfType;
+}
+
+const formatDate = (date: string) => {
+  let [y, m, d] = date.split("-");
+  return `${y}年${parseInt(m)}月${parseInt(d)}日`;
+};
+
+const getUrl = (name: string) => {
+  let url = `https://sample.sample/${name}`; // ダミーのURL
+  return url;
+};
+
+const openExternalLink = (name: string) => {
+  let url = getUrl(name);
+  window.open(url, "_blank");
+};
+</script>

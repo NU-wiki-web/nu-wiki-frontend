@@ -33,3 +33,20 @@ export type Lecture_req = {
   departmentId?: number | undefined
   word?: string | undefined
 }
+
+/** pdfの詳細 */
+export type Pdf = {
+  id?: number | undefined
+  name?: string | undefined
+  user_id?: number | undefined
+  exam_id?: number | undefined
+  type?: string | undefined
+  created_at?: string | undefined
+  updated_at?: string | undefined
+}
+
+/** pdf一覧を返すためのオブジェクト */
+export type Pdf_list = {
+  pdfs?: Pdf[] | undefined
+  total?: number | undefined
+}
