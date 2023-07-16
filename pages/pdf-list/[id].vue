@@ -4,5 +4,5 @@ export default {
 };
 </script>
 <template>
-  <PagesPdfList />
+  <PagesPdfList></PagesPdfList>
 </template>

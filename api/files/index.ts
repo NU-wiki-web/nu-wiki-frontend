@@ -6,10 +6,7 @@ export type Methods = {
   get: {
     status: 200
     /** OK */
-    resBody: {
-      fileId: string
-      name: string
-    }[]
+    resBody: Types.Pdf_list
   }
 
   post: {

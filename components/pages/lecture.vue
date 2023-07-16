@@ -22,53 +22,21 @@
 </template>
 
 <script setup lang="ts">
-import { useClient } from "~/util/api/useApi";
-import { LectureType } from "types/lecture";
-import { GradeType } from "~~/types/grade";
-import { TermType } from "~~/types/term";
+  import { useClient } from "~/util/api/useApi";
+  import { LectureType } from "types/lecture";
+  import { GradeType } from "~~/types/grade";
+  import { TermType } from "~~/types/term";
 
-const client = useClient();
+  const client = useClient();
 
-const lectures = ref<LectureType[]>([]);
-const isLoading = ref<boolean>(true);
-const isError = ref<boolean>(false);
-
-client.lectures
-  .$get()
-  .then(async (res) => {
-    lectures.value = await res.lectures;
-    isLoading.value = false;
-    isError.value = false;
-  })
-  .catch((err) => {
-    console.error(err);
-    isError.value = true;
-  });
-
-const departmentId = ref<number | undefined>(undefined);
-const grade = ref<GradeType | undefined>(undefined);
-const term = ref<TermType | undefined>(undefined);
-const year = ref<number | undefined>(undefined);
-const word = ref<string | undefined>(undefined);
-
-const search = async function (searchWord: string | undefined) {
-  word.value = searchWord;
-};
-
-watch([departmentId, grade, term, year, word], async function () {
-  isLoading.value = true;
-  client.lectures.search
-    .post({
-      body: {
-        departmentId: departmentId.value,
-        grade: grade.value,
-        term: term.value,
-        year: year.value,
-        word: word.value,
-      },
-    })
+  const lectures = ref<LectureType[]>([]);
+  const isLoading = ref<boolean>(true);
+  const isError = ref<boolean>(false);
+  const emits = defineEmits(["push-router-list"]);
+  client.lectures
+    .$get()
     .then(async (res) => {
-      lectures.value = await res.body.lectures;
+      lectures.value = await res.lectures;
       isLoading.value = false;
       isError.value = false;
     })
@@ -76,9 +44,41 @@ watch([departmentId, grade, term, year, word], async function () {
       console.error(err);
       isError.value = true;
     });
-});
 
-const pushDetailPage = function (id: number) {
-  navigateTo(`/pdf-list/${id}`);
-};
+  const departmentId = ref<number | undefined>(undefined);
+  const grade = ref<GradeType | undefined>(undefined);
+  const term = ref<TermType | undefined>(undefined);
+  const year = ref<number | undefined>(undefined);
+  const word = ref<string | undefined>(undefined);
+
+  const search = async function (searchWord: string | undefined) {
+    word.value = searchWord;
+  };
+
+  watch([departmentId, grade, term, year, word], async function () {
+    isLoading.value = true;
+    client.lectures.search
+      .post({
+        body: {
+          departmentId: departmentId.value,
+          grade: grade.value,
+          term: term.value,
+          year: year.value,
+          word: word.value
+        }
+      })
+      .then(async (res) => {
+        lectures.value = await res.body.lectures;
+        isLoading.value = false;
+        isError.value = false;
+      })
+      .catch((err) => {
+        console.error(err);
+        isError.value = true;
+      });
+  });
+
+  const pushDetailPage = function (id: number) {
+    emits("push-router-list", id);
+  };
 </script>
