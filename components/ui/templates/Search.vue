@@ -1,7 +1,7 @@
 <template>
   <div class="bg-teal-600 pt-10 pb-10">
     <v-container>
-      <!-- <v-row justify="center">
+      <v-row justify="center">
         <v-col cols="6" sm="6" md="3">
           <v-select
             label="学部・学科"
@@ -41,8 +41,8 @@
             v-model="updateYear"
           ></UiSelect>
         </v-col>
-      </v-row> -->
-      <UiSearchBarNew />
+      </v-row>
+      <UiSearchBarNew @click="onClick"></UiSearchBarNew>
     </v-container>
   </div>
 </template>
