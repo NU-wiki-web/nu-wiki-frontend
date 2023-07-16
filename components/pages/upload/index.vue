@@ -12,27 +12,25 @@
       :items="fileTypes"
       v-model:selected="fileType"
     />
+    <v-text-field
+      label="年度"
+      :placeholder="String(new Date().getFullYear())"
+      v-model.number="year"
+    ></v-text-field>
   </div>
   <div class="p-2">
     <div class="text-lg font-bold !text-primary">講義情報</div>
     <div>
-      <v-select
-        label="学部・学科"
-        :items="faculties"
-        item-title="name"
-        item-value="id"
-        prepend-inner-icon="mdi-school"
-        bg-color="#fff"
-        color="#555"
-        v-model="department"
-      ></v-select>
-      <UiSelect
-        label="年度"
-        :items="years"
-        icon="mdi-calendar-blank"
-        :selected="year"
-        v-model="year"
-      ></UiSelect>
+      <v-text-field
+        label="講義名"
+        placeholder="線形代数学I"
+        v-model="lectureName"
+      ></v-text-field>
+      <v-text-field
+        label="担当教員"
+        placeholder="名大 太郎"
+        v-model="teacherName"
+      ></v-text-field>
     </div>
     <div class="flex justify-center">
       <v-btn class="" color="primary" @click="searchLecture">講義を検索</v-btn>
@@ -90,15 +88,15 @@
   } from "~/entities/pastExam";
   import { useClient } from "~/util/api/useApi";
   import { Lecture } from "~/api/@types";
-  import { faculties } from "~~/entities/faculties";
-  import { years } from "~~/entities/years";
 
   // POSTするデータ
   const files = ref<File[]>([]);
+  const year = ref<number>(new Date().getFullYear());
   const fileType = ref<FileType>();
   const department = ref();
-  const year = ref();
-  const selectedLecture = ref<Lecture>();
+  const lectureName = ref<string>();
+  const teacherName = ref<string>();
+  const selectedLecture = ref<string>();
   const selectedPastExamType = ref<PastExamType>();
 
   // 選択肢
@@ -109,16 +107,17 @@
   // 表示の制御用
   const showModal = ref(false);
   const searchLecture = async () => {
-    if (!department.value || !year.value) return;
+    if (!lectureName.value || !teacherName.value) return;
     const client = useClient();
-    lectures.value = (
-      await client.lectures.search.$post({
-        body: {
-          departmentId: department.value,
-          year: year.value
-        }
-      })
-    ).lectures;
+    lectures.value =
+      (
+        await client.lectures.search.$post({
+          body: {
+            lectureName: lectureName.value,
+            teacherName: teacherName.value
+          }
+        })
+      ).lectures ?? [];
   };
 
   const isFilled = computed(
@@ -126,7 +125,8 @@
       !!(
         files.value[0] &&
         fileType.value &&
-        selectedLecture.value?.name &&
+        year.value &&
+        selectedLecture.value &&
         selectedPastExamType.value
       )
   );
@@ -135,17 +135,24 @@
     if (
       !files.value[0] ||
       !fileType.value ||
-      !selectedLecture.value?.name ||
+      !selectedLecture.value ||
       !selectedPastExamType.value
-    )
+    ) {
+      console.error("値が足りません！");
       return;
+    }
     const client = useClient();
     client.files.$post({
       body: files.value[0],
       query: {
         type: fileType.value,
-        user_id: "hoge",
-        exam_id: selectedLecture.value.name
+        user_id: "hoge", // TODO: ユーザーIDを追加する処理を書く
+        exam_id: selectedLecture.value // TODO: バックエンドの仕様に合わせて変える必要あり
+      },
+      config: {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       }
     });
   };

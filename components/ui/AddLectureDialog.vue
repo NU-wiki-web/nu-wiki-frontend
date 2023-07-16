@@ -69,7 +69,7 @@
             color="primary"
             elevated
             block
-            @click="emit('update:dialog', false)"
+            @click="addLecture();emit('update:dialog', false)"
             >講義を追加</v-btn
           >
         </v-card-actions>
@@ -98,8 +98,8 @@
   }>();
   const emit = defineEmits<{
     (event: "update:dialog", value: boolean): void;
-    (event: "update:departmentId", value: number): void;
-    (event: "update:year", value: number): void;
+    (event: "update:departmentId", value: number | undefined): void;
+    (event: "update:year", value: number | undefined): void;
   }>();
   const isShow = computed({
     get: () => props.dialog,
