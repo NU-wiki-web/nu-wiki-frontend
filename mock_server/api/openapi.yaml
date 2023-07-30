@@ -126,9 +126,12 @@ components:
         departmentId:
           type: number
           example: 8
-        word:
+        teacherName:
           type: string
-          example: "量子"
+          example: "田中角栄"
+        lectureName:
+          type: string
+          example: "有機化学3"
     pdf:
       type: object
       description: pdfの詳細
@@ -302,48 +305,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/lecture"
-  "/lectures/{exam_id}":
-    get:
-      tags:
-        - lectures
-      summary: "講義の情報の取得"
-      deprecated: false
-      responses:
-        "200":
-          description: "ok"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/lecture"
-  "/lectures/search":
-    post:
-      tags:
-        - lectures
-      summary: "講義検索"
-      deprecated: false
-      responses:
-        "200":
-          description: "ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  lectures:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/lecture"
-                  total:
-                    type: number
-                    example: 2
-      requestBody:
-        description: "絞り込み"
-        content:
-          application/json:
-            schema:
-              type: object
-              anyOf:
-                - $ref: "#/components/schemas/lecture-req"
   "/login":
     post:
       summary: "ログインしてセッションIDをcookieで返す"
