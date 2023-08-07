@@ -253,6 +253,19 @@ paths:
                 properties:
                   fileId: { type: string, example: "xxxxxx-xxxxxx" }
   "/files/{fileid}":
+    get:
+      summary: "pdfの取得"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/pdf:
+              schema:
+                description: pdfファイルの実体
+                type: string
+                format: binary
     put:
       summary: "pdfの更新"
       tags: ["file"]
