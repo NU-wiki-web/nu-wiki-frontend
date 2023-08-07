@@ -190,6 +190,17 @@ components:
         year:
           type: number
           example: 2018
+    exam_list:
+      type: object
+      description: "examの詳細"
+      properties:
+        exams:
+          type: array
+          items:
+            $ref: "#/components/schemas/exam"
+        total:
+          type: number
+          example: 1
 paths:
   "/":
     get:
@@ -366,9 +377,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/exam"
+                $ref: "#/components/schemas/exam_list"
   "/login":
     post:
       summary: "ログインしてセッションIDをcookieで返す"
