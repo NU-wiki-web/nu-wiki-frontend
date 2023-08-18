@@ -67,6 +67,7 @@
         }
       })
       .then(async (res) => {
+        console.log("success", res);
         const router = useRouter();
         router.push("/signup/auth");
       })

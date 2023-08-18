@@ -1,55 +1,50 @@
 <script setup lang="ts">
-import { ref, watch, Ref } from "vue";
-const props = defineProps<{
-  fields: number;
-}>();
+  import { ref, watch, Ref } from "vue";
+  const props = defineProps<{
+    fields: number;
+  }>();
 
-const data = ref([]);
-const firstInputEl = ref();
-const emit = defineEmits(["update:modelValue"]);
+  const data = ref([]);
+  const firstInputEl = ref();
+  const emit = defineEmits(["update:modelValue"]);
 
-watch(
-  () => data,
-  (newVal: Ref<string[]>) => {
-    if (newVal.value.length === props.fields && !newVal.value.includes("")) {
-      console.log(Number(newVal.value.join("")));
-      emit("update:modelValue", Number(newVal.value.join("")));
-    } else {
-      emit("update:modelValue", "数字6桁で入力してください");
+  watch(
+    () => data,
+    (newVal: Ref<string[]>) => {
+      emit("update:modelValue", newVal.value.join(""));
+    },
+    { deep: true }
+  );
+
+  const handleOtpInput = (e: Event) => {
+    const { target, data } = e as InputEvent;
+    if (!(target instanceof HTMLInputElement)) return;
+    if (data && target.nextElementSibling) {
+      (target.nextElementSibling as HTMLElement).focus();
+    } else if (data == null && target.previousElementSibling) {
+      (target.previousElementSibling as HTMLElement).focus();
     }
-  },
-  { deep: true }
-);
+  };
 
-const handleOtpInput = (e: Event) => {
-  const { target, data } = e as InputEvent;
-  if (!(target instanceof HTMLInputElement)) return;
-  if (data && target.nextElementSibling) {
-    (target.nextElementSibling as HTMLElement).focus();
-  } else if (data == null && target.previousElementSibling) {
-    (target.previousElementSibling as HTMLElement).focus();
-  }
-};
+  // const handleOtpkeydown = (e) => {
+  //   console.log(e.key);
+  //   if (e.key === "Backspace" && e.target.previousElementSibling) {
+  //     e.target.previousElementSibling.focus();
+  //   }
+  // };
 
-// const handleOtpkeydown = (e) => {
-//   console.log(e.key);
-//   if (e.key === "Backspace" && e.target.previousElementSibling) {
-//     e.target.previousElementSibling.focus();
-//   }
-// };
-
-const handlePaste = (e: ClipboardEvent) => {
-  const pasteData = e.clipboardData ? e.clipboardData.getData("text") : "";
-  let nextEl = firstInputEl.value[0].nextElementSibling;
-  for (let i = 1; i < pasteData.length; i++) {
-    if (nextEl) {
-      data.value[i] = pasteData[i] as never;
-      nextEl = nextEl.nextElementSibling;
+  const handlePaste = (e: ClipboardEvent) => {
+    const pasteData = e.clipboardData ? e.clipboardData.getData("text") : "";
+    let nextEl = firstInputEl.value[0].nextElementSibling;
+    for (let i = 1; i < pasteData.length; i++) {
+      if (nextEl) {
+        data.value[i] = pasteData[i] as never;
+        nextEl = nextEl.nextElementSibling;
+      }
     }
-  }
-};
+  };
 
-// 123456
+  // 123456
 </script>
 
 <template>
