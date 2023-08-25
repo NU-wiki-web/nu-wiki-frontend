@@ -7,11 +7,11 @@ export type Methods = {
 
     /** ok */
     resBody: {
-      lectures: Types.Lecture[]
-      total: number
+      lectures?: Types.Lecture[] | undefined
+      total?: number | undefined
     }
 
     /** 絞り込み */
-    reqBody: Partial<Types.Lecture_req>
+    reqBody: Types.Lecture_req
   }
 }

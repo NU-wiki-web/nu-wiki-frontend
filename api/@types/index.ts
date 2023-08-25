@@ -27,11 +27,12 @@ export type Lecture = {
 
 /** 検索用パラメータ */
 export type Lecture_req = {
-  grade?: 'B1' | 'B2' | 'B3' | 'B4' | 'M1' | 'M2' | 'D1' | 'D2' | 'D3' | undefined
-  year?: number | undefined
-  term?: '春' | '秋' | '春1' | '春2' | '秋1' | '秋2' | undefined
-  departmentId?: number | undefined
-  word?: string | undefined
+  grade?: 'B1' | 'B2' | 'B3' | 'B4' | 'M1' | 'M2' | 'D1' | 'D2' | 'D3' | null | undefined
+  year?: number | null | undefined
+  term?: '春' | '秋' | '春1' | '春2' | '秋1' | '秋2' | null | undefined
+  departmentId?: number | null | undefined
+  teacherName?: string | undefined
+  lectureName?: string | undefined
 }
 
 /** pdfの詳細 */
@@ -48,5 +49,19 @@ export type Pdf = {
 /** pdf一覧を返すためのオブジェクト */
 export type Pdf_list = {
   pdfs?: Pdf[] | undefined
+  total?: number | undefined
+}
+
+/** examの詳細 */
+export type Exam = {
+  exam_id?: number | undefined
+  name?: string | undefined
+  lecture_id?: number | undefined
+  year?: number | undefined
+}
+
+/** examの詳細 */
+export type Exam_list = {
+  exams?: Exam[] | undefined
   total?: number | undefined
 }
