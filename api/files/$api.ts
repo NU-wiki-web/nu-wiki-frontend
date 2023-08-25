@@ -4,7 +4,7 @@ import type { Methods as Methods_by08hd } from '.';
 import type { Methods as Methods_1lyjmi5 } from './_fileid@string';
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
-  const prefix = (baseURL === undefined ? 'http://127.0.0.1:8080' : baseURL).replace(/\/$/, '');
+  const prefix = (baseURL === undefined ? 'http://localhost:8080' : baseURL).replace(/\/$/, '');
   const PATH0 = '/files';
   const GET = 'GET';
   const POST = 'POST';
