@@ -58,7 +58,7 @@ components:
         id:
           type: number
           example: 1
-        name:
+        lectureName:
           type: string
           example: "有機化学3"
         teacherName:
@@ -77,9 +77,6 @@ components:
             - D2
             - D3
           example: "B2"
-        year:
-          type: number
-          example: 2018
         term:
           type: string
           enum:
@@ -90,9 +87,6 @@ components:
             - 秋1
             - 秋2
           example: "春2"
-        departmentId:
-          type: number
-          example: 3
     lecture-req:
       type: object
       description: 検索用パラメータ
@@ -111,10 +105,6 @@ components:
             - D3
           example: "B2"
           nullable: true
-        year:
-          type: number
-          example: 2016
-          nullable: true
         term:
           type: string
           enum:
@@ -125,10 +115,6 @@ components:
             - 秋1
             - 秋2
           example: "秋2"
-          nullable: true
-        departmentId:
-          type: number
-          example: 8
           nullable: true
         teacherName:
           type: string
@@ -154,7 +140,11 @@ components:
           example: 11
         type:
           type: string
-          example: "......"
+          enum:
+            - "past_exam"
+            - "past_exam_answer"
+            - "other"
+          example: "past_exam"
         created_at:
           type: string
           format: date
@@ -181,9 +171,30 @@ components:
         exam_id:
           type: number
           example: 1
-        name:
+        type:
           type: string
-          example: "期末"
+          enum:
+            - "MIDTERM"
+            - "TERMEND"
+            - "OTHER"
+          example: "MIDTERM"
+        lecture_id:
+          type: number
+          example: 1
+        year:
+          type: number
+          example: 2018
+    exam-req:
+      type: object
+      description: "examの詳細"
+      properties:
+        type:
+          type: string
+          enum:
+            - "MIDTERM"
+            - "TERMEND"
+            - "OTHER"
+          example: "MIDTERM"
         lecture_id:
           type: number
           example: 1
@@ -298,6 +309,25 @@ paths:
           in: path
           schema: { type: string }
           required: true
+  "/exams":
+    post:
+      summary: "新しいテストの追加"
+      tags: ["exams"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        description: "テストの名前"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/exam-req"
   "/exams/{exam_id}/files":
     get:
       tags:
