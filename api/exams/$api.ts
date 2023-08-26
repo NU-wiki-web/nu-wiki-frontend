@@ -1,11 +1,13 @@
 import type { AspidaClient, BasicHeaders } from 'aspida'
-import type { Methods as Methods0 } from './_exam_id/files'
+import type { Methods as Methods0 } from '.'
+import type { Methods as Methods1 } from './_exam_id/files'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (baseURL === undefined ? 'http://127.0.0.1:8080' : baseURL).replace(/\/$/, '')
   const PATH0 = '/exams'
   const PATH1 = '/files'
   const GET = 'GET'
+  const POST = 'POST'
 
   return {
     _exam_id: (val0: number | string) => {
@@ -17,16 +19,27 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
            * @returns ok
            */
           get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, `${prefix0}${PATH1}`, GET, option).json(),
+            fetch<Methods1['get']['resBody'], BasicHeaders, Methods1['get']['status']>(prefix, `${prefix0}${PATH1}`, GET, option).json(),
           /**
            * @returns ok
            */
           $get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, `${prefix0}${PATH1}`, GET, option).json().then(r => r.body),
+            fetch<Methods1['get']['resBody'], BasicHeaders, Methods1['get']['status']>(prefix, `${prefix0}${PATH1}`, GET, option).json().then(r => r.body),
           $path: () => `${prefix}${prefix0}${PATH1}`
         }
       }
-    }
+    },
+    /**
+     * @param option.body - テストの名前
+     */
+    post: (option: { body: Methods0['post']['reqBody'], config?: T | undefined }) =>
+      fetch<void, BasicHeaders, Methods0['post']['status']>(prefix, PATH0, POST, option).send(),
+    /**
+     * @param option.body - テストの名前
+     */
+    $post: (option: { body: Methods0['post']['reqBody'], config?: T | undefined }) =>
+      fetch<void, BasicHeaders, Methods0['post']['status']>(prefix, PATH0, POST, option).send().then(r => r.body),
+    $path: () => `${prefix}${PATH0}`
   }
 }
 
