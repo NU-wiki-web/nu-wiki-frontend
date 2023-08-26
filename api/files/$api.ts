@@ -17,6 +17,16 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
 
       return {
         /**
+         * @returns OK
+         */
+        get: (option?: { config?: T | undefined } | undefined) =>
+          fetch<Methods1['get']['resBody'], BasicHeaders, Methods1['get']['status']>(prefix, prefix0, GET, option).blob(),
+        /**
+         * @returns OK
+         */
+        $get: (option?: { config?: T | undefined } | undefined) =>
+          fetch<Methods1['get']['resBody'], BasicHeaders, Methods1['get']['status']>(prefix, prefix0, GET, option).blob().then(r => r.body),
+        /**
          * @param option.body - pdfファイル
          */
         put: (option: { body: Methods1['put']['reqBody'], config?: T | undefined }) =>
