@@ -5,11 +5,11 @@ import type { Methods as Methods1 } from './exams/_exam_id/files'
 import type { Methods as Methods2 } from './files'
 import type { Methods as Methods3 } from './files/_fileid@string'
 import type { Methods as Methods4 } from './lectures'
-import type { Methods as Methods5 } from './lectures/_exam_id'
+import type { Methods as Methods5 } from './lectures/_lecture_id/exams'
 import type { Methods as Methods6 } from './lectures/search'
 import type { Methods as Methods7 } from './login'
-import type { Methods as Methods8 } from './signup/auth'
-import type { Methods as Methods9 } from './signup/mail'
+import type { Methods as Methods8 } from './signup'
+import type { Methods as Methods9 } from './signup/auth'
 import type { Methods as Methods10 } from './signup/register'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
@@ -19,8 +19,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const PATH2 = '/lectures'
   const PATH3 = '/lectures/search'
   const PATH4 = '/login'
-  const PATH5 = '/signup/auth'
-  const PATH6 = '/signup/mail'
+  const PATH5 = '/signup'
+  const PATH6 = '/signup/auth'
   const PATH7 = '/signup/register'
   const GET = 'GET'
   const POST = 'POST'
@@ -54,6 +54,16 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         const prefix1 = `${PATH1}/${val1}`
 
         return {
+          /**
+           * @returns OK
+           */
+          get: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods3['get']['resBody'], BasicHeaders, Methods3['get']['status']>(prefix, prefix1, GET, option).blob(),
+          /**
+           * @returns OK
+           */
+          $get: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods3['get']['resBody'], BasicHeaders, Methods3['get']['status']>(prefix, prefix1, GET, option).blob().then(r => r.body),
           /**
            * @param option.body - pdfファイル
            */
@@ -97,21 +107,23 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         `${prefix}${PATH1}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     },
     lectures: {
-      _exam_id: (val1: number | string) => {
+      _lecture_id: (val1: number | string) => {
         const prefix1 = `${PATH2}/${val1}`
 
         return {
-          /**
-           * @returns ok
-           */
-          get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, prefix1, GET, option).json(),
-          /**
-           * @returns ok
-           */
-          $get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, prefix1, GET, option).json().then(r => r.body),
-          $path: () => `${prefix}${prefix1}`
+          exams: {
+            /**
+             * @returns ok
+             */
+            get: (option?: { config?: T | undefined } | undefined) =>
+              fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, `${prefix1}${PATH0}`, GET, option).json(),
+            /**
+             * @returns ok
+             */
+            $get: (option?: { config?: T | undefined } | undefined) =>
+              fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, `${prefix1}${PATH0}`, GET, option).json().then(r => r.body),
+            $path: () => `${prefix}${prefix1}${PATH0}`
+          }
         }
       },
       search: {
@@ -170,27 +182,14 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
          * @param option.body - ワンタイムパスワードを含めたjson
          * @returns 認証に成功したら、再びメールアドレスを返す
          */
-        post: (option: { body: Methods8['post']['reqBody'], config?: T | undefined }) =>
-          fetch<Methods8['post']['resBody'], BasicHeaders, Methods8['post']['status']>(prefix, PATH5, POST, option).json(),
+        post: (option: { body: Methods9['post']['reqBody'], config?: T | undefined }) =>
+          fetch<Methods9['post']['resBody'], BasicHeaders, Methods9['post']['status']>(prefix, PATH6, POST, option).json(),
         /**
          * @param option.body - ワンタイムパスワードを含めたjson
          * @returns 認証に成功したら、再びメールアドレスを返す
          */
-        $post: (option: { body: Methods8['post']['reqBody'], config?: T | undefined }) =>
-          fetch<Methods8['post']['resBody'], BasicHeaders, Methods8['post']['status']>(prefix, PATH5, POST, option).json().then(r => r.body),
-        $path: () => `${prefix}${PATH5}`
-      },
-      mail: {
-        /**
-         * @param option.body - メールアドレスを含めたjson
-         */
-        post: (option: { body: Methods9['post']['reqBody'], config?: T | undefined }) =>
-          fetch<void, Methods9['post']['resHeaders'], Methods9['post']['status']>(prefix, PATH6, POST, option).send(),
-        /**
-         * @param option.body - メールアドレスを含めたjson
-         */
         $post: (option: { body: Methods9['post']['reqBody'], config?: T | undefined }) =>
-          fetch<void, Methods9['post']['resHeaders'], Methods9['post']['status']>(prefix, PATH6, POST, option).send().then(r => r.body),
+          fetch<Methods9['post']['resBody'], BasicHeaders, Methods9['post']['status']>(prefix, PATH6, POST, option).json().then(r => r.body),
         $path: () => `${prefix}${PATH6}`
       },
       register: {
@@ -205,7 +204,18 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         $post: (option: { body: Methods10['post']['reqBody'], config?: T | undefined }) =>
           fetch<void, Methods10['post']['resHeaders'], Methods10['post']['status']>(prefix, PATH7, POST, option).send().then(r => r.body),
         $path: () => `${prefix}${PATH7}`
-      }
+      },
+      /**
+       * @param option.body - メールアドレスを含めたjson
+       */
+      post: (option: { body: Methods8['post']['reqBody'], config?: T | undefined }) =>
+        fetch<void, Methods8['post']['resHeaders'], Methods8['post']['status']>(prefix, PATH5, POST, option).send(),
+      /**
+       * @param option.body - メールアドレスを含めたjson
+       */
+      $post: (option: { body: Methods8['post']['reqBody'], config?: T | undefined }) =>
+        fetch<void, Methods8['post']['resHeaders'], Methods8['post']['status']>(prefix, PATH5, POST, option).send().then(r => r.body),
+      $path: () => `${prefix}${PATH5}`
     },
     /**
      * @returns OK
