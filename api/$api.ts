@@ -5,7 +5,7 @@ import type { Methods as Methods1 } from './exams/_exam_id/files'
 import type { Methods as Methods2 } from './files'
 import type { Methods as Methods3 } from './files/_fileid@string'
 import type { Methods as Methods4 } from './lectures'
-import type { Methods as Methods5 } from './lectures/_exam_id'
+import type { Methods as Methods5 } from './lectures/_lecture_id/exams'
 import type { Methods as Methods6 } from './lectures/search'
 import type { Methods as Methods7 } from './login'
 import type { Methods as Methods8 } from './signup/auth'
@@ -55,6 +55,16 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
 
         return {
           /**
+           * @returns OK
+           */
+          get: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods3['get']['resBody'], BasicHeaders, Methods3['get']['status']>(prefix, prefix1, GET, option).blob(),
+          /**
+           * @returns OK
+           */
+          $get: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods3['get']['resBody'], BasicHeaders, Methods3['get']['status']>(prefix, prefix1, GET, option).blob().then(r => r.body),
+          /**
            * @param option.body - pdfファイル
            */
           put: (option: { body: Methods3['put']['reqBody'], config?: T | undefined }) =>
@@ -97,21 +107,23 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         `${prefix}${PATH1}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     },
     lectures: {
-      _exam_id: (val1: number | string) => {
+      _lecture_id: (val1: number | string) => {
         const prefix1 = `${PATH2}/${val1}`
 
         return {
-          /**
-           * @returns ok
-           */
-          get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, prefix1, GET, option).json(),
-          /**
-           * @returns ok
-           */
-          $get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, prefix1, GET, option).json().then(r => r.body),
-          $path: () => `${prefix}${prefix1}`
+          exams: {
+            /**
+             * @returns ok
+             */
+            get: (option?: { config?: T | undefined } | undefined) =>
+              fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, `${prefix1}${PATH0}`, GET, option).json(),
+            /**
+             * @returns ok
+             */
+            $get: (option?: { config?: T | undefined } | undefined) =>
+              fetch<Methods5['get']['resBody'], BasicHeaders, Methods5['get']['status']>(prefix, `${prefix1}${PATH0}`, GET, option).json().then(r => r.body),
+            $path: () => `${prefix}${prefix1}${PATH0}`
+          }
         }
       },
       search: {
