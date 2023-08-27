@@ -85,9 +85,11 @@
       .then((res) => {
         console.log("success", res);
         const router = useRouter();
+        window.alert("登録完了!");
         router.push("/");
       })
       .catch((err) => {
+        window.alert("登録失敗...");
         console.error(err);
       });
   };
