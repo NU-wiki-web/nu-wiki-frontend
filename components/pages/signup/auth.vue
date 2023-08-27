@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
+  <div class="w-full bg-[#4a8a8a] pb-[calc(5vh+60px)] pt-[5vh]">
     <UiSignupStepBar :stepNumber="2" />
   </div>
 
@@ -39,10 +39,10 @@
     </div>
 
     <div class="mx-auto w-4/5">
-      <div class="mt-6 mb-4 text-center">
+      <div class="mb-4 mt-6 text-center">
         <a href="/signup/auth"><u>パスワードを再送する</u></a>
       </div>
-      <div class="mt-4 mb-8 text-center">
+      <div class="mb-8 mt-4 text-center">
         <a href="/signup"><u>メールアドレスを変更する</u></a>
       </div>
     </div>
@@ -66,8 +66,10 @@
       })
       .then((res) => {
         console.log("success", res);
+        console.log(res.body.email);
+        sessionStorage.setItem("email", res.body.email as string);
         const router = useRouter();
-        router.push("/signup/auth");
+        router.push("/signup/register");
       })
       .catch((err) => {
         console.error(err);
