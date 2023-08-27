@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
+  <div class="w-full bg-[#4a8a8a] pb-[calc(5vh+60px)] pt-[5vh]">
     <UiSignupStepBar :stepNumber="3" />
   </div>
 
@@ -20,48 +20,85 @@
     </div>
     <div class="mx-auto mb-4 w-[85%]">
       <div>
-        <div class="mt-2">お名前</div>
         <div>
           <v-form ref="form" v-model="valid">
-            <v-text-field />
+            <div class="mt-2">お名前</div>
+            <v-text-field v-model="name" :rules="nameRules" />
+
+            <div>パスワード（半角英数字記号で8~40文字）</div>
+            <v-text-field
+              v-model="password"
+              :rules="pwRules"
+              :append-icon="toggle().icon"
+              :type="toggle().type"
+              autocomplete="on"
+              @click:append="showPassword = !showPassword"
+            />
           </v-form>
-        </div>
-        <div>
-          <div>パスワード</div>
-          <div>
-            <v-form ref="form" v-model="valid">
-              <v-text-field placeholder="半角英数字で8~40文字" :rules="pwRules">
-              </v-text-field>
-            </v-form>
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="mt-2 mb-8 text-center">
-      <UiIconButton :buttonTitle="'本登録'" :buttonIcon="'mdi-account-plus'" />
+    <div class="mb-8 mt-2 text-center">
+      <UiIconButton
+        :buttonTitle="'本登録'"
+        :buttonIcon="'mdi-account-plus'"
+        :disabled="!valid"
+        :onClick="sendUserInfo"
+      />
     </div>
   </v-card>
 </template>
 
 <script setup lang="ts">
-const valid = false;
-const pwRules = [
-  (v: string) => !!v || "パスワードが未入力です",
-  (v: string) =>
-    /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
-    "正しい形式で入力してください",
-];
+  import { useClient } from "~~/util/api/useApi";
 
-let checkbox = false;
+  const client = useClient();
+  const name = ref<string>("");
+  const password = ref<string>("");
+  const showPassword = ref<boolean>(false);
+  const valid = ref<boolean>(false);
+
+  const toggle = () => {
+    const icon = showPassword.value ? "mdi-eye" : "mdi-eye-off";
+    const type = showPassword.value ? "text" : "password";
+    return { icon, type };
+  };
+
+  const nameRules = [(v: string) => !!v || "名前が未入力です"];
+  const pwRules = [
+    (v: string) => !!v || "パスワードが未入力です",
+    (v: string) =>
+      /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
+      "正しい形式で入力してください"
+  ];
+
+  const sendUserInfo = function () {
+    client.signup.register
+      .post({
+        body: {
+          email: sessionStorage.getItem("email") as string,
+          name: name.value,
+          password: password.value
+        }
+      })
+      .then((res) => {
+        console.log("success", res);
+        const router = useRouter();
+        router.push("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 </script>
 
 <style scoped>
-.v-text-field :deep() input {
-  padding: 0 10px;
-  min-height: 38px;
-}
-.v-text-field :deep() div {
-  padding: 0;
-}
+  .v-text-field :deep() input {
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  .v-text-field :deep() div {
+    padding: 0;
+  }
 </style>
