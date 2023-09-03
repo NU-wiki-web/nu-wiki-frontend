@@ -14,20 +14,19 @@
     </div>
     <div class="mx-auto my-4 w-[85%]">
       <div>
-        <div class="my-2">メールアドレス</div>
-        <div>
-          <v-form ref="form" v-model="valid">
-            <v-text-field
-              placeholder="*@s.mail.nagoya-u.ac.jp"
-              :rules="mailRules"
-            >
-            </v-text-field>
-          </v-form>
+        <div class="mb-2">メールアドレス（@より前を入力）</div>
+        <div class="flex">
+          <v-responsive class="ma-0 pa-0">
+            <v-text-field v-model="mail"> </v-text-field>
+          </v-responsive>
+          <div class="ml-2 mt-2">
+            <b>@s.mail.nagoya-u.ac.jp</b>
+          </div>
         </div>
       </div>
     </div>
     <div class="mx-auto w-[90%]">
-      <v-checkbox>
+      <v-checkbox v-model="checkbox">
         <template v-slot:label>
           <div class="text-black">
             <u>
@@ -45,28 +44,47 @@
       <UiIconButton
         :buttonTitle="'メール認証'"
         :buttonIcon="'mdi-email-outline'"
+        :disabled="!checkbox"
+        :onClick="requestMailForSignUp"
       />
     </div>
   </v-card>
 </template>
 
 <script setup lang="ts">
-const valid = false;
-const mailRules = [
-  (v: string) => !!v || "メールアドレスが未入力です",
-  (v: string) =>
-    /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください",
-];
+  import { useClient } from "~~/util/api/useApi";
 
-let checkbox = false;
+  const client = useClient();
+
+  const mail = ref<string>("");
+  const checkbox = ref<boolean>(false);
+
+  const requestMailForSignUp = function () {
+    client.signup.mail
+      .post({
+        body: {
+          email: mail.value
+        }
+      })
+      .then(async (res) => {
+        console.log("success", res);
+        const router = useRouter();
+        router.push("/signup/auth");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  console.log(checkbox.value);
 </script>
 
 <style scoped>
-.v-text-field :deep() input {
-  padding: 0 10px;
-  min-height: 38px;
-}
-.v-text-field :deep() div {
-  padding: 0;
-}
+  .v-text-field :deep() input {
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  .v-text-field :deep() div {
+    padding: 0;
+  }
 </style>
