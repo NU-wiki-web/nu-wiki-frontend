@@ -201,6 +201,25 @@ components:
         total:
           type: number
           example: 1
+    ErrorResponse:
+      type: object
+      description: エラーレスポンスの基底型（RFC7807準拠）
+      properties:
+        type:
+          type: string
+          description: エラーの識別子（RFC7807準拠）
+        title:
+          type: string
+          description: 人間が読める形式のエラーの概要（RFC7807準拠）
+        detail:
+          type: string
+          description: 人間が読める形式のエラーの詳細（RFC7807準拠）
+        status:
+          type: integer
+          description: オリジナルAPIサーバが返したHTTPステータスコード（RFC7807準拠）
+      required:
+        - type
+
 paths:
   "/":
     get:
@@ -417,6 +436,34 @@ paths:
               schema:
                 type: string
                 example: SESSIONID=abcde12345;
+        "401":
+          description: 認証エラー(アカウントが存在しない、パスワードが違う とか)
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                wrongPssword:
+                  type: unauthorized
+                  title: wrongPssword
+                  detail: "パスワードが間違っています"
+                  status: 401
+                userNotExist:
+                  type: unauthorized
+                  title: userNotExist
+                  detail: "アカウントが存在しません"
+                  status: 401
+        "500":
+          description: サーバーエラー
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                type: internal_server_error
+                title: Internal Server Error
+                status: 500
+
 
   "/signup/mail":
     post:
@@ -442,6 +489,8 @@ paths:
               schema:
                 type: string
                 example: SIGNUPID=uuid;
+
+
 
   "/signup/auth":
     post:
