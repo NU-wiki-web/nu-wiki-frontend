@@ -7,8 +7,8 @@ export type Methods = {
 
     /** ok */
     resBody: {
-      lectures: Types.Lecture[]
-      total: number
+      lectures?: Types.Lecture[] | undefined
+      total?: number | undefined
     }
   }
 

@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
+  <div class="w-full bg-[#4a8a8a] pb-[calc(5vh+60px)] pt-[5vh]">
     <UiSignupStepBar :stepNumber="2" />
   </div>
 
@@ -22,11 +22,16 @@
       </div>
     </div>
     <div class="mx-auto my-4 w-[85%]">
-      <UiOtpInput v-model="data" :fields="6" />
+      <UiOtpInput v-model="password" :fields="6" />
     </div>
 
     <div class="my-6 text-center">
-      <UiIconButton :buttonTitle="'送信'" :buttonIcon="'mdi-lock'" />
+      <UiIconButton
+        :buttonTitle="'送信'"
+        :buttonIcon="'mdi-lock'"
+        :disabled="password.length !== 6"
+        :onClick="sendOTP"
+      />
     </div>
 
     <div class="mx-auto w-4/5">
@@ -34,10 +39,10 @@
     </div>
 
     <div class="mx-auto w-4/5">
-      <div class="mt-6 mb-4 text-center">
+      <div class="mb-4 mt-6 text-center">
         <a href="/signup/auth"><u>パスワードを再送する</u></a>
       </div>
-      <div class="mt-4 mb-8 text-center">
+      <div class="mb-8 mt-4 text-center">
         <a href="/signup"><u>メールアドレスを変更する</u></a>
       </div>
     </div>
@@ -45,15 +50,39 @@
 </template>
 
 <script setup lang="ts">
-const data = ref(null);
+  import { useClient } from "~~/util/api/useApi";
+
+  const client = useClient();
+  const password = ref<string>("");
+  const otp_valid = RegExp(/^[0-9]{6}$/);
+
+  const sendOTP = function () {
+    console.log(password.value);
+    client.signup.auth
+      .post({
+        body: {
+          oneTimePassword: password.value
+        }
+      })
+      .then((res) => {
+        console.log("success", res);
+        console.log(res.body.email);
+        sessionStorage.setItem("email", res.body.email as string);
+        const router = useRouter();
+        router.push("/signup/register");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 </script>
 
 <style scoped>
-.v-text-field :deep() input {
-  padding: 0 10px;
-  min-height: 38px;
-}
-.v-text-field :deep() div {
-  padding: 0;
-}
+  .v-text-field :deep() input {
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  .v-text-field :deep() div {
+    padding: 0;
+  }
 </style>
