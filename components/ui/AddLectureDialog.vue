@@ -8,25 +8,11 @@
       <v-card class="w-96">
         <v-card-title class="headline text-primary">講義追加</v-card-title>
         <v-col>
-          <v-select
-            label="学部・学科"
-            :items="facultiesOption"
-            item-title="name"
-            item-value="id"
-            prepend-inner-icon="mdi-school"
-            bg-color="#fff"
-            color="#555"
-            v-model="departmentId"
-          ></v-select
-        ></v-col>
-        <v-col>
-          <UiSelect
+          <v-text-field
             label="年度"
-            :items="years"
-            icon="mdi-calendar-blank"
-            :selected="year"
-            v-model="year"
-          ></UiSelect>
+            v-model.number="year"
+            prepend-icon="mdi-calendar-blank"
+          ></v-text-field>
         </v-col>
         <v-col>
           <UiSelect
@@ -65,11 +51,7 @@
           ></v-text-field>
         </v-col>
         <v-card-actions>
-          <v-btn
-            color="primary"
-            elevated
-            block
-            @click="emit('update:dialog', false)"
+          <v-btn color="primary" elevated block @click="handleAddButtonClick"
             >講義を追加</v-btn
           >
         </v-card-actions>
@@ -88,7 +70,6 @@
   import { TermType } from "~~/types/term";
   import { faculties } from "~~/entities/faculties";
   import { terms } from "~~/entities/terms";
-  import { years } from "~~/entities/years";
   import { grades } from "~~/entities/lecture";
   import { useClient } from "~~/util/api/useApi";
   const props = defineProps<{
@@ -132,7 +113,6 @@
     const client = useClient();
     client.lectures.$post({
       body: {
-        departmentId: departmentId.value,
         year: year.value,
         term: term.value,
         name: name.value,
@@ -140,5 +120,10 @@
         grade: grade.value
       }
     });
+  };
+
+  const handleAddButtonClick = () => {
+    addLecture();
+    emit("update:dialog", false);
   };
 </script>
