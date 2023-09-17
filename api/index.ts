@@ -5,7 +5,7 @@ export type Methods = {
 
     /** OK */
     resBody: {
-      message?: string | undefined;
+      message: string;
     };
   };
 };

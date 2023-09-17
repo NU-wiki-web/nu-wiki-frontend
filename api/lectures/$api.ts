@@ -1,7 +1,7 @@
 import type { AspidaClient, BasicHeaders } from "aspida";
-import type { Methods as Methods_by08hd } from ".";
-import type { Methods as Methods_1rmpaye } from "./_lecture_id/exams";
-import type { Methods as Methods_4ofto2 } from "./search";
+import type { Methods as Methods0 } from ".";
+import type { Methods as Methods1 } from "./_lecture_id/exams";
+import type { Methods as Methods2 } from "./search";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
@@ -24,18 +24,18 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
            */
           get: (option?: { config?: T | undefined } | undefined) =>
             fetch<
-              Methods_1rmpaye["get"]["resBody"],
+              Methods1["get"]["resBody"],
               BasicHeaders,
-              Methods_1rmpaye["get"]["status"]
+              Methods1["get"]["status"]
             >(prefix, `${prefix0}${PATH1}`, GET, option).json(),
           /**
            * @returns ok
            */
           $get: (option?: { config?: T | undefined } | undefined) =>
             fetch<
-              Methods_1rmpaye["get"]["resBody"],
+              Methods1["get"]["resBody"],
               BasicHeaders,
-              Methods_1rmpaye["get"]["status"]
+              Methods1["get"]["status"]
             >(prefix, `${prefix0}${PATH1}`, GET, option)
               .json()
               .then((r) => r.body),
@@ -49,26 +49,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @returns ok
        */
       post: (option: {
-        body: Methods_4ofto2["post"]["reqBody"];
+        body: Methods2["post"]["reqBody"];
         config?: T | undefined;
       }) =>
         fetch<
-          Methods_4ofto2["post"]["resBody"],
+          Methods2["post"]["resBody"],
           BasicHeaders,
-          Methods_4ofto2["post"]["status"]
+          Methods2["post"]["status"]
         >(prefix, PATH2, POST, option).json(),
       /**
        * @param option.body - 絞り込み
        * @returns ok
        */
       $post: (option: {
-        body: Methods_4ofto2["post"]["reqBody"];
+        body: Methods2["post"]["reqBody"];
         config?: T | undefined;
       }) =>
         fetch<
-          Methods_4ofto2["post"]["resBody"],
+          Methods2["post"]["resBody"],
           BasicHeaders,
-          Methods_4ofto2["post"]["status"]
+          Methods2["post"]["status"]
         >(prefix, PATH2, POST, option)
           .json()
           .then((r) => r.body),
@@ -79,18 +79,18 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      */
     get: (option?: { config?: T | undefined } | undefined) =>
       fetch<
-        Methods_by08hd["get"]["resBody"],
+        Methods0["get"]["resBody"],
         BasicHeaders,
-        Methods_by08hd["get"]["status"]
+        Methods0["get"]["status"]
       >(prefix, PATH0, GET, option).json(),
     /**
      * @returns ok
      */
     $get: (option?: { config?: T | undefined } | undefined) =>
       fetch<
-        Methods_by08hd["get"]["resBody"],
+        Methods0["get"]["resBody"],
         BasicHeaders,
-        Methods_by08hd["get"]["status"]
+        Methods0["get"]["status"]
       >(prefix, PATH0, GET, option)
         .json()
         .then((r) => r.body),
@@ -98,10 +98,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      * @param option.body - 講義の名前
      */
     post: (option: {
-      body: Methods_by08hd["post"]["reqBody"];
+      body: Methods0["post"]["reqBody"];
       config?: T | undefined;
     }) =>
-      fetch<void, BasicHeaders, Methods_by08hd["post"]["status"]>(
+      fetch<void, BasicHeaders, Methods0["post"]["status"]>(
         prefix,
         PATH0,
         POST,
@@ -111,10 +111,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      * @param option.body - 講義の名前
      */
     $post: (option: {
-      body: Methods_by08hd["post"]["reqBody"];
+      body: Methods0["post"]["reqBody"];
       config?: T | undefined;
     }) =>
-      fetch<void, BasicHeaders, Methods_by08hd["post"]["status"]>(
+      fetch<void, BasicHeaders, Methods0["post"]["status"]>(
         prefix,
         PATH0,
         POST,
