@@ -31,21 +31,37 @@
     .$get()
     .then(async (res) => {
       lectures.value = await res.lectures;
-      isLoading.value = false;
-      isError.value = false;
     })
     .catch((err) => {
       console.error(err);
-      isLoading.value = false;
       isError.value = true;
+    })
+    .finally(() => {
+      isLoading.value = false;
     });
 
   const search = async function (
     teacherName: Lecture_req["teacherName"],
     lectureName: Lecture_req["lectureName"]
   ) {
-    console.log(teacherName);
-    console.log(lectureName);
+    isLoading.value = true;
+    await client.lectures.search
+      .$post({
+        body: {
+          teacherName,
+          lectureName
+        }
+      })
+      .then((res) => {
+        lectures.value = res.lectures;
+      })
+      .catch((err) => {
+        console.error(err);
+        isError.value = true;
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
   };
 
   const emits = defineEmits(["push-router-list"]);
