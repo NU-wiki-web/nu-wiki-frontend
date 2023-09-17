@@ -5,14 +5,14 @@
         v-bind:class="[
           props.stepNumber == 1
             ? 'circle d-flex items-center justify-center bg-white'
-            : 'circle d-flex items-center justify-center border-2 border-solid border-white',
+            : 'circle d-flex items-center justify-center border-2 border-solid border-white'
         ]"
       >
         <span
           v-bind:class="[
             props.stepNumber == 1
               ? 'text-2xl text-[#4a8a8a]'
-              : 'text-2xl text-white',
+              : 'text-2xl text-white'
           ]"
           >1</span
         >
@@ -22,14 +22,14 @@
         v-bind:class="[
           props.stepNumber == 2
             ? 'circle d-flex items-center justify-center bg-white'
-            : 'circle d-flex items-center justify-center border-2 border-solid border-white',
+            : 'circle d-flex items-center justify-center border-2 border-solid border-white'
         ]"
       >
         <span
           v-bind:class="[
             props.stepNumber == 2
               ? 'text-2xl text-[#4a8a8a]'
-              : 'text-2xl text-white',
+              : 'text-2xl text-white'
           ]"
           >2</span
         >
@@ -39,14 +39,14 @@
         v-bind:class="[
           props.stepNumber == 3
             ? 'circle d-flex items-center justify-center bg-white'
-            : 'circle d-flex items-center justify-center border-2 border-solid border-white',
+            : 'circle d-flex items-center justify-center border-2 border-solid border-white'
         ]"
       >
         <span
           v-bind:class="[
             props.stepNumber == 3
               ? 'text-2xl text-[#4a8a8a]'
-              : 'text-2xl text-white',
+              : 'text-2xl text-white'
           ]"
           >3</span
         >
@@ -56,14 +56,14 @@
         v-bind:class="[
           props.stepNumber == 4
             ? 'circle d-flex items-center justify-center bg-white'
-            : 'circle d-flex items-center justify-center border-2 border-solid border-white',
+            : 'circle d-flex items-center justify-center border-2 border-solid border-white'
         ]"
       >
         <span
           v-bind:class="[
             props.stepNumber == 4
               ? 'text-2xl text-[#4a8a8a]'
-              : 'text-2xl text-white',
+              : 'text-2xl text-white'
           ]"
           >4</span
         >
@@ -87,23 +87,23 @@
 </template>
 
 <script setup lang="ts">
-// プロップス
-interface Props {
-  stepNumber?: number;
-}
+  // プロップス
+  interface Props {
+    stepNumber?: number;
+  }
 
-// プロップスのデフォルト値
-const props = withDefaults(defineProps<Props>(), {
-  stepNumber: 1,
-});
+  // プロップスのデフォルト値
+  const props = withDefaults(defineProps<Props>(), {
+    stepNumber: 1
+  });
 </script>
 
 <style scoped>
-.circle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border-style: solid;
-  border-color: #ffffff;
-}
+  .circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #ffffff;
+  }
 </style>

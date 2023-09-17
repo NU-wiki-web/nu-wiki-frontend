@@ -3,20 +3,20 @@ export default defineNuxtConfig({
   css: [
     "vuetify/lib/styles/main.sass",
     "~/assets/css/main.css",
-    "@mdi/font/css/materialdesignicons.css",
+    "@mdi/font/css/materialdesignicons.css"
   ],
   postcss: {
     plugins: {
       tailwindcss: {},
-      autoprefixer: {},
-    },
+      autoprefixer: {}
+    }
   },
   build: {
-    transpile: ["vuetify"],
+    transpile: ["vuetify"]
   },
   vite: {
     define: {
-      "process.env.DEBUG": false,
-    },
-  },
+      "process.env.DEBUG": false
+    }
+  }
 });

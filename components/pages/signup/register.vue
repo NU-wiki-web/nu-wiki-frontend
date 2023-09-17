@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-[#4a8a8a] pb-[calc(5vh+60px)] pt-[5vh]">
+  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
     <UiSignupStepBar :stepNumber="3" />
   </div>
 
@@ -20,52 +20,32 @@
     </div>
     <div class="mx-auto mb-4 w-[85%]">
       <div>
+        <div class="mt-2">お名前</div>
         <div>
           <v-form ref="form" v-model="valid">
-            <div class="mt-2">お名前</div>
-            <v-text-field v-model="name" :rules="nameRules" />
-
-            <div>パスワード（半角英数字記号で8~40文字）</div>
-            <v-text-field
-              v-model="password"
-              :rules="pwRules"
-              :append-icon="toggle().icon"
-              :type="toggle().type"
-              autocomplete="on"
-              @click:append="showPassword = !showPassword"
-            />
+            <v-text-field />
           </v-form>
+        </div>
+        <div>
+          <div>パスワード</div>
+          <div>
+            <v-form ref="form" v-model="valid">
+              <v-text-field placeholder="半角英数字で8~40文字" :rules="pwRules">
+              </v-text-field>
+            </v-form>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="mb-8 mt-2 text-center">
-      <UiIconButton
-        :buttonTitle="'本登録'"
-        :buttonIcon="'mdi-account-plus'"
-        :disabled="!valid"
-        :onClick="sendUserInfo"
-      />
+    <div class="mt-2 mb-8 text-center">
+      <UiIconButton :buttonTitle="'本登録'" :buttonIcon="'mdi-account-plus'" />
     </div>
   </v-card>
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~~/util/api/useApi";
-
-  const client = useClient();
-  const name = ref<string>("");
-  const password = ref<string>("");
-  const showPassword = ref<boolean>(false);
-  const valid = ref<boolean>(false);
-
-  const toggle = () => {
-    const icon = showPassword.value ? "mdi-eye" : "mdi-eye-off";
-    const type = showPassword.value ? "text" : "password";
-    return { icon, type };
-  };
-
-  const nameRules = [(v: string) => !!v || "名前が未入力です"];
+  const valid = false;
   const pwRules = [
     (v: string) => !!v || "パスワードが未入力です",
     (v: string) =>
@@ -73,26 +53,7 @@
       "正しい形式で入力してください"
   ];
 
-  const sendUserInfo = function () {
-    client.signup.register
-      .post({
-        body: {
-          email: sessionStorage.getItem("email") as string,
-          name: name.value,
-          password: password.value
-        }
-      })
-      .then((res) => {
-        console.log("success", res);
-        const router = useRouter();
-        window.alert("登録完了!");
-        router.push("/");
-      })
-      .catch((err) => {
-        window.alert("登録失敗...");
-        console.error(err);
-      });
-  };
+  let checkbox = false;
 </script>
 
 <style scoped>

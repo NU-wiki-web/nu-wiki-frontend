@@ -3,12 +3,12 @@
 </template>
 
 <script setup lang="ts">
-import { years } from '~~/entities/years';
+  import { years } from "~~/entities/years";
 
-defineProps(["file_id", "name", "year"]);
-interface Props {
-  file_id: number;
-  name: String;
-  year: Date;
-}
+  defineProps(["file_id", "name", "year"]);
+  interface Props {
+    file_id: number;
+    name: String;
+    year: Date;
+  }
 </script>

@@ -9,19 +9,19 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  pageNumber: number;
-  length: number;
-}
+  interface Props {
+    pageNumber: number;
+    length: number;
+  }
 
-interface Emits {
-  (e: "update:pageNumber", pageNumber: number): void;
-}
+  interface Emits {
+    (e: "update:pageNumber", pageNumber: number): void;
+  }
 
-const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+  const props = defineProps<Props>();
+  const emit = defineEmits<Emits>();
 
-const updatePageNumber = function (newPageNumber: number) {
-  emit("update:pageNumber", newPageNumber);
-};
+  const updatePageNumber = function (newPageNumber: number) {
+    emit("update:pageNumber", newPageNumber);
+  };
 </script>

@@ -9,7 +9,7 @@ interface cbType {
 export const useAwait = async (cb: cbType) => {
   const res = ref();
   const error = ref(null);
-  const loading = ref(true)
+  const loading = ref(true);
 
   try {
     res.value = await cb();
@@ -28,7 +28,7 @@ export const useAwait = async (cb: cbType) => {
 // };
 
 const config: AxiosRequestConfig = {
-  withCredentials: true,
+  withCredentials: true
 };
 export const useClient = () => {
   const client = api(aspida(axios, config));
