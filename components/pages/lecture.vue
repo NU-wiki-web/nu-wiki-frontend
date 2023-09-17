@@ -1,12 +1,6 @@
 <template>
   <UiHeader />
-  <UiTemplatesSearch
-    v-model:departmentId="departmentId"
-    v-model:grade="grade"
-    v-model:term="term"
-    v-model:year="year"
-    @click="search"
-  />
+  <UiTemplatesSearch @click="search" />
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
     <UiLoading />
   </div>
@@ -46,14 +40,12 @@
       isError.value = true;
     });
 
-  const teacherName = ref<Lecture_req["teacherName"]>(undefined);
-  const lectureName = ref<Lecture_req["lectureName"]>(undefined);
-
   const search = async function (
     teacherName: Lecture_req["teacherName"],
     lectureName: Lecture_req["lectureName"]
   ) {
-    console.log(teacherName, lectureName);
+    console.log(teacherName);
+    console.log(lectureName);
   };
 
   const emits = defineEmits(["push-router-list"]);

@@ -1,27 +1,36 @@
 <template>
   <div class="bg-teal-600 pt-10 pb-10">
     <v-container>
-      <UiSearchBar @click="onClick"></UiSearchBar>
+      <UiSearchBar
+        v-model="teacherName"
+        title="講義名"
+        placeholder="講義名を入力"
+      />
+      <UiSearchBar
+        v-model="lectureName"
+        title="教授名"
+        placeholder="担当教員名を入力"
+      />
     </v-container>
+    <v-btn @click="onClick">name</v-btn>
   </div>
 </template>
 
 <script setup lang="ts">
   import { Lecture_req } from "~~/api/@types/index";
 
-  interface Props {
-    teacherName: Lecture_req["teacherName"];
-    lectureName: Lecture_req["lectureName"];
-  }
+  type LectureName = Lecture_req["lectureName"];
+  type TeatureName = Lecture_req["teacherName"];
 
   interface Emits {
-    (e: "click", value: string | undefined): void;
+    (e: "click", teacherName: TeatureName, lectureName: LectureName): void;
   }
-
-  const props = defineProps<Props>();
   const emits = defineEmits<Emits>();
 
-  const onClick = function (value: string | undefined) {
-    emits("click", value);
+  const teacherName = ref<TeatureName>(undefined);
+  const lectureName = ref<LectureName>(undefined);
+
+  const onClick = function () {
+    emits("click", teacherName.value, lectureName.value);
   };
 </script>
