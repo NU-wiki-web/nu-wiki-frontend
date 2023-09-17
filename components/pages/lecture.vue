@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <UiTemplatesSearch @click="search" />
+  <UiTemplatesLectureSearch @click="search" />
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
     <UiLoading />
   </div>
@@ -17,8 +17,6 @@
 
 <script setup lang="ts">
   import { useClient } from "~/util/api/useApi";
-  import { GradeType } from "~~/types/grade";
-  import { TermType } from "~~/types/term";
   import { Lecture_req, Lecture } from "~~/api/@types/index";
 
   const client = useClient();
