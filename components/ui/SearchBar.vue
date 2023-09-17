@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center gap-8">
+  <div class="flex flex-row items-center gap-4">
     <div class="text-white">
       {{ title }}
     </div>
