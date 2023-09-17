@@ -8,10 +8,10 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  id: number;
-  title: string;
-  subtitle: string;
-}
-const props = defineProps<Props>();
+  interface Props {
+    id: number;
+    title: string;
+    subtitle: string;
+  }
+  const props = defineProps<Props>();
 </script>

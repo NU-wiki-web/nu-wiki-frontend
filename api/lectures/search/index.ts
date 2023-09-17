@@ -1,17 +1,17 @@
 /* eslint-disable */
-import type * as Types from '../../@types'
+import type * as Types from "../../@types";
 
 export type Methods = {
   post: {
-    status: 200
+    status: 200;
 
     /** ok */
     resBody: {
-      lectures?: Types.Lecture[] | undefined
-      total?: number | undefined
-    }
+      lectures?: Types.Lecture[] | undefined;
+      total?: number | undefined;
+    };
 
     /** 絞り込み */
-    reqBody: Types.Lecture_req
-  }
-}
+    reqBody: Types.Lecture_req;
+  };
+};

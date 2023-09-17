@@ -12,14 +12,14 @@
 </template>
 
 <script setup lang="ts">
-interface Emits {
-  (e: "click", text: string | undefined): void;
-}
-const emit = defineEmits<Emits>();
+  interface Emits {
+    (e: "click", text: string | undefined): void;
+  }
+  const emit = defineEmits<Emits>();
 
-const text = ref<string | undefined>();
+  const text = ref<string | undefined>();
 
-const onClick = function () {
-  emit("click", text.value);
-};
+  const onClick = function () {
+    emit("click", text.value);
+  };
 </script>

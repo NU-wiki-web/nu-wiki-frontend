@@ -6,17 +6,16 @@ const customLightTheme: ThemeDefinition = {
   dark: false,
   colors: {
     primary: "#006E4F"
-
   }
-}
+};
 export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
     components,
     directives,
     theme: {
-      defaultTheme: 'customLightTheme',
+      defaultTheme: "customLightTheme",
       themes: {
-        customLightTheme,
+        customLightTheme
       }
     }
   });
