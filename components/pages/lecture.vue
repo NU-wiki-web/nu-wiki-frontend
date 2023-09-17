@@ -1,14 +1,14 @@
 <template>
-  <UiHeader></UiHeader>
+  <UiHeader />
   <UiTemplatesSearch
     v-model:departmentId="departmentId"
     v-model:grade="grade"
     v-model:term="term"
     v-model:year="year"
     @click="search"
-  ></UiTemplatesSearch>
+  />
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
-    <UiLoading></UiLoading>
+    <UiLoading />
   </div>
   <div v-else-if="isError" class="mt-10 flex items-center justify-center">
     予期せぬエラーが発生しました。もう一度お試しください。
@@ -17,22 +17,22 @@
     <UiTemplatesLectureList
       v-model:lectures="lectures"
       :handleClick="pushDetailPage"
-    ></UiTemplatesLectureList>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
   import { useClient } from "~/util/api/useApi";
-  import { LectureType } from "types/lecture";
   import { GradeType } from "~~/types/grade";
   import { TermType } from "~~/types/term";
+  import { Lecture_req, Lecture } from "~~/api/@types/index";
 
   const client = useClient();
 
-  const lectures = ref<LectureType[]>([]);
+  const lectures = ref<Lecture[]>([]);
   const isLoading = ref<boolean>(true);
   const isError = ref<boolean>(false);
-  const emits = defineEmits(["push-router-list"]);
+
   client.lectures
     .$get()
     .then(async (res) => {
@@ -42,42 +42,21 @@
     })
     .catch((err) => {
       console.error(err);
+      isLoading.value = false;
       isError.value = true;
     });
 
-  const departmentId = ref<number | undefined>(undefined);
-  const grade = ref<GradeType | undefined>(undefined);
-  const term = ref<TermType | undefined>(undefined);
-  const year = ref<number | undefined>(undefined);
-  const word = ref<string | undefined>(undefined);
+  const teacherName = ref<Lecture_req["teacherName"]>(undefined);
+  const lectureName = ref<Lecture_req["lectureName"]>(undefined);
 
-  const search = async function (searchWord: string | undefined) {
-    word.value = searchWord;
+  const search = async function (
+    teacherName: Lecture_req["teacherName"],
+    lectureName: Lecture_req["lectureName"]
+  ) {
+    console.log(teacherName, lectureName);
   };
 
-  watch([departmentId, grade, term, year, word], async function () {
-    isLoading.value = true;
-    client.lectures.search
-      .post({
-        body: {
-          departmentId: departmentId.value,
-          grade: grade.value,
-          term: term.value,
-          year: year.value,
-          word: word.value
-        }
-      })
-      .then(async (res) => {
-        lectures.value = await res.body.lectures;
-        isLoading.value = false;
-        isError.value = false;
-      })
-      .catch((err) => {
-        console.error(err);
-        isError.value = true;
-      });
-  });
-
+  const emits = defineEmits(["push-router-list"]);
   const pushDetailPage = function (id: number) {
     emits("push-router-list", id);
   };
