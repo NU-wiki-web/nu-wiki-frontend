@@ -4,12 +4,12 @@
       class="flex flex-col items-center justify-center gap-8 md:flex-row md:items-end"
     >
       <div class="flex w-full max-w-[1000px] flex-col gap-6">
-        <UiSearchBar
+        <UiLectureSearchBar
           v-model="teacherName"
           title="講義名"
           placeholder="講義名を入力"
         />
-        <UiSearchBar
+        <UiLectureSearchBar
           v-model="lectureName"
           title="教授名"
           placeholder="担当教員名を入力"
