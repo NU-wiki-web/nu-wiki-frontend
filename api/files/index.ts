@@ -1,24 +1,24 @@
 /* eslint-disable */
-import type { ReadStream } from 'fs'
-import type * as Types from '../@types'
+import type { ReadStream } from "fs";
+import type * as Types from "../@types";
 
 export type Methods = {
   get: {
-    status: 200
+    status: 200;
     /** OK */
-    resBody: Types.Pdf_list
-  }
+    resBody: Types.Pdf_list;
+  };
 
   post: {
-    query: Types.FileType & Types.FileUserId & Types.FileExamId
-    status: 200
+    query: Types.FileType & Types.FileUserId & Types.FileExamId;
+    status: 200;
 
     /** OK */
     resBody: {
-      fileId: string
-    }
+      fileId: string;
+    };
 
     /** 講義と講義のテストを指定して講義資料をアップロードする */
-    reqBody: (File | ReadStream)
-  }
-}
+    reqBody: File | ReadStream;
+  };
+};
