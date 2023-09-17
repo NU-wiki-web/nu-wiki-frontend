@@ -16,8 +16,8 @@ export type FileExamId = {
 
 /** 講義の詳細 */
 export type Lecture = {
-  id?: number | undefined;
-  name?: string | undefined;
+  id?: string | undefined;
+  lectureName?: string | undefined;
   teacherName?: string | undefined;
   grade?:
     | "B1"
@@ -30,39 +30,22 @@ export type Lecture = {
     | "D2"
     | "D3"
     | undefined;
-  year?: number | undefined;
   term?: "春" | "秋" | "春1" | "春2" | "秋1" | "秋2" | undefined;
-  departmentId?: number | undefined;
 };
 
 /** 検索用パラメータ */
 export type Lecture_req = {
-  grade?:
-    | "B1"
-    | "B2"
-    | "B3"
-    | "B4"
-    | "M1"
-    | "M2"
-    | "D1"
-    | "D2"
-    | "D3"
-    | null
-    | undefined;
-  year?: number | null | undefined;
-  term?: "春" | "秋" | "春1" | "春2" | "秋1" | "秋2" | null | undefined;
-  departmentId?: number | null | undefined;
   teacherName?: string | undefined;
   lectureName?: string | undefined;
 };
 
 /** pdfの詳細 */
 export type Pdf = {
-  id?: number | undefined;
+  id?: string | undefined;
   name?: string | undefined;
-  user_id?: number | undefined;
-  exam_id?: number | undefined;
-  type?: string | undefined;
+  user_id?: string | undefined;
+  exam_id?: string | undefined;
+  type?: "past_exam" | "past_exam_answer" | "other" | undefined;
   created_at?: string | undefined;
   updated_at?: string | undefined;
 };
@@ -75,9 +58,16 @@ export type Pdf_list = {
 
 /** examの詳細 */
 export type Exam = {
-  exam_id?: number | undefined;
-  name?: string | undefined;
-  lecture_id?: number | undefined;
+  exam_id?: string | undefined;
+  type?: "MIDTERM" | "TERMEND" | "OTHER" | undefined;
+  lecture_id?: string | undefined;
+  year?: number | undefined;
+};
+
+/** examの詳細 */
+export type Exam_req = {
+  type?: "MIDTERM" | "TERMEND" | "OTHER" | undefined;
+  lecture_id?: string | undefined;
   year?: number | undefined;
 };
 
@@ -85,4 +75,16 @@ export type Exam = {
 export type Exam_list = {
   exams?: Exam[] | undefined;
   total?: number | undefined;
+};
+
+/** エラーレスポンスの基底型（RFC7807準拠） */
+export type ErrorResponse = {
+  /** エラーの識別子（RFC7807準拠） */
+  type: string;
+  /** 人間が読める形式のエラーの概要（RFC7807準拠） */
+  title?: string | undefined;
+  /** 人間が読める形式のエラーの詳細（RFC7807準拠） */
+  detail?: string | undefined;
+  /** オリジナルAPIサーバが返したHTTPステータスコード（RFC7807準拠） */
+  status?: number | undefined;
 };

@@ -9,7 +9,7 @@ export type Methods = {
 
     /** メールアドレスを含めたjson */
     reqBody: {
-      email?: string | undefined;
+      email: string;
     };
   };
 };
