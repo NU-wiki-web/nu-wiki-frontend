@@ -12,7 +12,7 @@
         placeholder="担当教員名を入力"
       />
     </v-container>
-    <v-btn @click="onClick">name</v-btn>
+    <v-btn @click="emits('click', teacherName, lectureName)">name</v-btn>
   </div>
 </template>
 
@@ -22,15 +22,11 @@
   type LectureName = Lecture_req["lectureName"];
   type TeatureName = Lecture_req["teacherName"];
 
+  const teacherName = ref<TeatureName>(undefined);
+  const lectureName = ref<LectureName>(undefined);
+
   interface Emits {
     (e: "click", teacherName: TeatureName, lectureName: LectureName): void;
   }
   const emits = defineEmits<Emits>();
-
-  const teacherName = ref<TeatureName>(undefined);
-  const lectureName = ref<LectureName>(undefined);
-
-  const onClick = function () {
-    emits("click", teacherName.value, lectureName.value);
-  };
 </script>
