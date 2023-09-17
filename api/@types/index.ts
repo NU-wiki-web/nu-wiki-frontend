@@ -66,3 +66,15 @@ export type Exam_list = {
   exams?: Exam[] | undefined
   total?: number | undefined
 }
+
+/** エラーレスポンスの基底型（RFC7807準拠） */
+export type ErrorResponse = {
+  /** エラーの識別子（RFC7807準拠） */
+  type: string
+  /** 人間が読める形式のエラーの概要（RFC7807準拠） */
+  title?: string | undefined
+  /** 人間が読める形式のエラーの詳細（RFC7807準拠） */
+  detail?: string | undefined
+  /** オリジナルAPIサーバが返したHTTPステータスコード（RFC7807準拠） */
+  status?: number | undefined
+}
