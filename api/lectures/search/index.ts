@@ -7,11 +7,11 @@ export type Methods = {
 
     /** ok */
     resBody: {
-      lectures?: Types.Lecture[] | undefined;
-      total?: number | undefined;
+      lectures: Types.Lecture[];
+      total: number;
     };
 
     /** 絞り込み */
-    reqBody: Types.Lecture_req;
+    reqBody: Partial<Types.Lecture_req>;
   };
 };

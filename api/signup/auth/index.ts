@@ -5,12 +5,12 @@ export type Methods = {
 
     /** 認証に成功したら、再びメールアドレスを返す */
     resBody: {
-      email?: string | undefined;
+      email: string;
     };
 
     /** ワンタイムパスワードを含めたjson */
     reqBody: {
-      oneTimePassword?: string | undefined;
+      oneTimePassword: string;
     };
   };
 };
