@@ -37,6 +37,19 @@ export type Lecture = {
 export type Lecture_req = {
   teacherName?: string | undefined;
   lectureName?: string | undefined;
+  grade?:
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B4"
+    | "M1"
+    | "M2"
+    | "D1"
+    | "D2"
+    | "D3"
+    | null
+    | undefined;
+  term?: "春" | "秋" | "春1" | "春2" | "秋1" | "秋2" | null | undefined;
 };
 
 /** pdfの詳細 */
