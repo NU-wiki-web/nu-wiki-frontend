@@ -15,7 +15,7 @@ export type Methods = {
 
     /** OK */
     resBody: {
-      fileId?: string | undefined;
+      fileId: string;
     };
 
     /** 講義と講義のテストを指定して講義資料をアップロードする */

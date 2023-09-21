@@ -9,9 +9,9 @@ export type Methods = {
 
     /** メールアドレス、名前、パスワードを含めたjson */
     reqBody: {
-      email?: string | undefined;
-      name?: string | undefined;
-      password?: string | undefined;
+      email: string;
+      name: string;
+      password: string;
     };
   };
 };
