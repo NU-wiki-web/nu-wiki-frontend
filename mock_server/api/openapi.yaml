@@ -97,6 +97,31 @@ components:
         lectureName:
           type: string
           example: "有機化学3"
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+          nullable: true
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "秋2"
+          nullable: true
     pdf:
       type: object
       description: pdfの詳細
