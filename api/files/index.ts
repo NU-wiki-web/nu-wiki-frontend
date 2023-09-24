@@ -1,5 +1,4 @@
 /* eslint-disable */
-import type { ReadStream } from 'fs'
 import type * as Types from '../@types'
 
 export type Methods = {
@@ -10,7 +9,6 @@ export type Methods = {
   }
 
   post: {
-    query: Types.FileType & Types.FileUserId & Types.FileExamId
     status: 200
 
     /** OK */
@@ -18,7 +16,8 @@ export type Methods = {
       fileId: string
     }
 
+    reqFormat: FormData
     /** 講義と講義のテストを指定して講義資料をアップロードする */
-    reqBody: (File | ReadStream)
+    reqBody: Types.PastExamFile
   }
 }
