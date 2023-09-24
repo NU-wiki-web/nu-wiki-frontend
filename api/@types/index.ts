@@ -1,17 +1,16 @@
 /* eslint-disable */
-export type FileType = {
+import type { ReadStream } from 'fs'
+
+/** 過去問ファイルの追加パラメータ */
+export type PastExamFile = {
+  /** 過去問のPDFファイル */
+  pastExamPdf?: (File | ReadStream) | undefined
   /** 過去問or過去問の解答orその他 */
-  type: 'past_exam' | 'past_exam_answer' | 'other'
-}
-
-export type FileUserId = {
+  type?: 'past_exam' | 'past_exam_answer' | 'other' | undefined
   /** ユーザーID */
-  user_id: string
-}
-
-export type FileExamId = {
+  userId?: string | undefined
   /** 試験ID */
-  exam_id: string
+  examId?: string | undefined
 }
 
 /** 講義の詳細 */

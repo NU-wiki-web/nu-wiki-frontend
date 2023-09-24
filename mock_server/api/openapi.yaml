@@ -24,33 +24,28 @@ components:
       type: apiKey
       in: cookie
       name: SIGNUPID
-  parameters:
-    fileType:
-      name: "type"
-      in: "query"
-      description: "過去問or過去問の解答orその他"
-      required: true
-      schema:
-        type: string
-        enum:
-          - past_exam
-          - past_exam_answer
-          - other
-    fileUserId:
-      name: "user_id"
-      in: "query"
-      description: "ユーザーID"
-      required: true
-      schema:
-        type: string
-    fileExamId:
-      name: "exam_id"
-      in: "query"
-      description: "試験ID"
-      required: true
-      schema:
-        type: string
   schemas:
+    pastExamFile:
+      type: object
+      description: 過去問ファイルの追加パラメータ
+      properties:
+        pastExamPdf:
+          description: "過去問のPDFファイル"
+          type: string
+          format: binary
+        type:
+          description: "過去問or過去問の解答orその他"
+          type: string
+          enum:
+            - past_exam
+            - past_exam_answer
+            - other
+        userId:
+          description: "ユーザーID"
+          type: string
+        examId:
+          description: "試験ID"
+          type: string
     lecture:
       type: object
       description: 講義の詳細
@@ -246,14 +241,10 @@ paths:
         description: "講義と講義のテストを指定して講義資料をアップロードする"
         required: true
         content:
-          application/pdf:
+          multipart/form-data:
             schema:
-              type: string
-              format: binary
-      parameters:
-        - $ref: "#/components/parameters/fileType"
-        - $ref: "#/components/parameters/fileUserId"
-        - $ref: "#/components/parameters/fileExamId"
+              type: object
+              $ref: "#/components/schemas/pastExamFile"
       responses:
         "200":
           description: "OK"

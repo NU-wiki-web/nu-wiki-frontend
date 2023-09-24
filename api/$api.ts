@@ -1,5 +1,4 @@
 import type { AspidaClient, BasicHeaders } from 'aspida'
-import { dataToURLString } from 'aspida'
 import type { Methods as Methods0 } from '.'
 import type { Methods as Methods1 } from './exams'
 import type { Methods as Methods2 } from './exams/_exam_id/files'
@@ -109,16 +108,15 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @param option.body - 講義と講義のテストを指定して講義資料をアップロードする
        * @returns OK
        */
-      post: (option: { body: Methods3['post']['reqBody'], query: Methods3['post']['query'], config?: T | undefined }) =>
-        fetch<Methods3['post']['resBody'], BasicHeaders, Methods3['post']['status']>(prefix, PATH1, POST, option).json(),
+      post: (option: { body: Methods3['post']['reqBody'], config?: T | undefined }) =>
+        fetch<Methods3['post']['resBody'], BasicHeaders, Methods3['post']['status']>(prefix, PATH1, POST, option, 'FormData').json(),
       /**
        * @param option.body - 講義と講義のテストを指定して講義資料をアップロードする
        * @returns OK
        */
-      $post: (option: { body: Methods3['post']['reqBody'], query: Methods3['post']['query'], config?: T | undefined }) =>
-        fetch<Methods3['post']['resBody'], BasicHeaders, Methods3['post']['status']>(prefix, PATH1, POST, option).json().then(r => r.body),
-      $path: (option?: { method: 'post'; query: Methods3['post']['query'] } | undefined) =>
-        `${prefix}${PATH1}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
+      $post: (option: { body: Methods3['post']['reqBody'], config?: T | undefined }) =>
+        fetch<Methods3['post']['resBody'], BasicHeaders, Methods3['post']['status']>(prefix, PATH1, POST, option, 'FormData').json().then(r => r.body),
+      $path: () => `${prefix}${PATH1}`
     },
     lectures: {
       _lecture_id: (val1: number | string) => {
