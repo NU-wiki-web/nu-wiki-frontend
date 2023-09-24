@@ -320,7 +320,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 2a3ef28c-f6ba-43c9-965f-92a0abe36daa
+                        description: exam_id
+                  - $ref: "#/components/schemas/exam-req"
       requestBody:
         description: "テストの名前"
         required: true

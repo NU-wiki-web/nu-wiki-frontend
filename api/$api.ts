@@ -51,14 +51,16 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       },
       /**
        * @param option.body - テストの名前
+       * @returns OK
        */
       post: (option: { body: Methods1['post']['reqBody'], config?: T | undefined }) =>
-        fetch<void, BasicHeaders, Methods1['post']['status']>(prefix, PATH0, POST, option).send(),
+        fetch<Methods1['post']['resBody'], BasicHeaders, Methods1['post']['status']>(prefix, PATH0, POST, option).json(),
       /**
        * @param option.body - テストの名前
+       * @returns OK
        */
       $post: (option: { body: Methods1['post']['reqBody'], config?: T | undefined }) =>
-        fetch<void, BasicHeaders, Methods1['post']['status']>(prefix, PATH0, POST, option).send().then(r => r.body),
+        fetch<Methods1['post']['resBody'], BasicHeaders, Methods1['post']['status']>(prefix, PATH0, POST, option).json().then(r => r.body),
       $path: () => `${prefix}${PATH0}`
     },
     files: {
