@@ -130,7 +130,7 @@
       `files: ${files.value[0]}, filetype: ${fileType.value}, lecture: ${selectedLectureId.value}, pastExamType: ${selectedPastExamType.value}`
   );
 
-  const upload = () => {
+  const upload = async () => {
     if (
       !files.value[0] ||
       !fileType.value ||
@@ -151,7 +151,7 @@
       query: {
         type: fileType.value,
         user_id: "hoge",
-        exam_id: selectedLectureId.value
+        exam_id: "hoge"
       }
     });
   };
