@@ -18,6 +18,6 @@ export type Methods = {
 
     reqFormat: FormData
     /** 講義と講義のテストを指定して講義資料をアップロードする */
-    reqBody: Types.PastExamFile
+    reqBody: Types.PastExamPdf
   }
 }

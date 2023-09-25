@@ -2,9 +2,9 @@
 import type { ReadStream } from 'fs'
 
 /** 過去問ファイルの追加パラメータ */
-export type PastExamFile = {
+export type PastExamPdf = {
   /** 過去問のPDFファイル */
-  pastExamPdf?: (File | ReadStream) | undefined
+  pastExamFile?: (File | ReadStream) | undefined
   /** 過去問or過去問の解答orその他 */
   type?: 'past_exam' | 'past_exam_answer' | 'other' | undefined
   /** ユーザーID */
