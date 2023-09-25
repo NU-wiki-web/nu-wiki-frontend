@@ -71,9 +71,6 @@
         >保存する</v-btn
       >
     </div>
-    <div class="flex justify-center">
-      <span>{{ isFilledText }}</span>
-    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -124,12 +121,6 @@
         selectedPastExamType.value
       )
   );
-
-  const isFilledText = computed(
-    () =>
-      `files: ${files.value[0]}, filetype: ${fileType.value}, lecture: ${selectedLectureId.value}, pastExamType: ${selectedPastExamType.value}`
-  );
-
   const upload = async () => {
     if (
       !files.value[0] ||
@@ -139,20 +130,24 @@
     )
       return;
     const client = useClient();
-    client.exams.$post({
-      body: {
-        type: selectedPastExamType.value,
-        lecture_id: selectedLectureId.value,
-        year: year.value
-      }
-    });
-    client.files.$post({
-      body: files.value[0],
-      query: {
-        type: fileType.value,
-        user_id: "hoge",
-        exam_id: "hoge"
-      }
-    });
+
+    client.exams
+      .$post({
+        body: {
+          type: selectedPastExamType.value,
+          lecture_id: selectedLectureId.value,
+          year: year.value
+        }
+      })
+      .then(async (res) => {
+        await client.files.$post({
+          body: {
+            pastExamFile: files.value[0],
+            type: fileType.value,
+            userId: "e62ec20b-93fe-4811-8912-87ba738b4f0a", // TODO: CookieからユーザーIDを持ってくる
+            examId: res.exam?.id
+          }
+        });
+      });
   };
 </script>
