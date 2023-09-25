@@ -131,23 +131,20 @@
       return;
     const client = useClient();
 
-    client.exams
-      .$post({
-        body: {
-          type: selectedPastExamType.value,
-          lecture_id: selectedLectureId.value,
-          year: year.value
-        }
-      })
-      .then(async (res) => {
-        await client.files.$post({
-          body: {
-            pastExamFile: files.value[0],
-            type: fileType.value,
-            userId: "e62ec20b-93fe-4811-8912-87ba738b4f0a", // TODO: CookieからユーザーIDを持ってくる
-            examId: res.exam?.id
-          }
-        });
-      });
+    const examRes = await client.exams.$post({
+      body: {
+        type: selectedPastExamType.value,
+        lecture_id: selectedLectureId.value,
+        year: year.value
+      }
+    });
+    await client.files.$post({
+      body: {
+        pastExamFile: files.value[0],
+        type: fileType.value,
+        userId: "e62ec20b-93fe-4811-8912-87ba738b4f0a", // TODO: CookieからユーザーIDを持ってくる
+        examId: examRes.exam?.id
+      }
+    });
   };
 </script>
