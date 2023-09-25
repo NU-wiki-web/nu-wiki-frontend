@@ -25,11 +25,11 @@ components:
       in: cookie
       name: SIGNUPID
   schemas:
-    pastExamFile:
+    pastExamPdf:
       type: object
       description: 過去問ファイルの追加パラメータ
       properties:
-        pastExamPdf:
+        pastExamFile:
           description: "過去問のPDFファイル"
           type: string
           format: binary
@@ -244,7 +244,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              $ref: "#/components/schemas/pastExamFile"
+              $ref: "#/components/schemas/pastExamPdf"
       responses:
         "200":
           description: "OK"
@@ -311,14 +311,17 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
+                type: object
+                properties:
+                  exam:
+                    type: object
                     properties:
                       id:
                         type: string
                         example: 2a3ef28c-f6ba-43c9-965f-92a0abe36daa
                         description: exam_id
-                  - $ref: "#/components/schemas/exam-req"
+                      allOf:
+                        $ref: "#/components/schemas/exam-req"
       requestBody:
         description: "テストの名前"
         required: true

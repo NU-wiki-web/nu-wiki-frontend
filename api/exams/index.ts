@@ -7,9 +7,12 @@ export type Methods = {
 
     /** OK */
     resBody: {
-      /** exam_id */
-      id: string
-    } & Types.Exam_req
+      exam: {
+        /** exam_id */
+        id: string
+        allOf: Types.Exam_req
+      }
+    }
 
     /** テストの名前 */
     reqBody: Types.Exam_req
