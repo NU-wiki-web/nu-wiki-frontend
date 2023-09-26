@@ -119,18 +119,12 @@
         files.value[0] &&
         fileType.value &&
         selectedLectureId.value &&
-        selectedPastExamType.value
+        selectedPastExamType.value &&
+        year.value
       )
   );
   const upload = async () => {
-    if (
-      !files.value[0] ||
-      !fileType.value ||
-      !selectedLectureId.value ||
-      !selectedPastExamType.value ||
-      !year.value
-    )
-      return;
+    if (!isFilled.value) return;
     const client = useClient();
 
     const examRes = await client.exams.$post({
