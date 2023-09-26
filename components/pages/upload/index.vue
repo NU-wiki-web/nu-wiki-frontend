@@ -129,7 +129,8 @@
       !files.value[0] ||
       !fileType.value ||
       !selectedLectureId.value ||
-      !selectedPastExamType.value
+      !selectedPastExamType.value ||
+      !year.value
     )
       return;
     const client = useClient();
