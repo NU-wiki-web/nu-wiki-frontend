@@ -14,7 +14,7 @@
             icon="mdi-stairs-up"
             :selected="grade"
             v-model="grade"
-          ></UiSelect>
+          />
         </v-col>
         <v-col>
           <UiSelect
@@ -23,7 +23,7 @@
             icon="mdi-format-list-numbered-rtl"
             :selected="term"
             v-model="term"
-          ></UiSelect>
+          />
         </v-col>
         <v-col>
           <v-text-field
@@ -32,7 +32,7 @@
             bg-color="#fff"
             color="#555"
             v-model="name"
-          ></v-text-field>
+          />
         </v-col>
         <v-col>
           <v-text-field
@@ -41,7 +41,7 @@
             bg-color="#fff"
             color="#555"
             v-model="teacherName"
-          ></v-text-field>
+          />
         </v-col>
         <v-card-actions>
           <v-btn color="primary" elevated block @click="handleAddButtonClick"

@@ -1,5 +1,5 @@
 <template>
-  <UiHeader></UiHeader>
+  <UiHeader />
   <div class="p-2">
     <div class="text-lg font-bold !text-primary">過去問ファイル</div>
     <UiFileUploadButton
@@ -22,20 +22,18 @@
         v-model="lectureName"
         label="講義名"
         prepend-icon="mdi-school"
-      >
-      </v-text-field>
+      />
       <v-text-field
         v-model="teacherName"
         label="教員名"
         prepend-icon="mdi-account"
-      >
-      </v-text-field>
+      />
     </div>
     <div class="flex justify-center">
       <v-btn class="" color="primary" @click="searchLecture">講義を検索</v-btn>
     </div>
     <div v-if="lectures && lectures.length > 0">
-      <v-text-field label="年度" v-model.number="year"></v-text-field>
+      <v-text-field label="年度" v-model.number="year" />
       <v-select
         label="講義名"
         :items="lectures"
@@ -63,7 +61,7 @@
         bg-color="#fff"
         color="primary"
         v-model="selectedPastExamType"
-      ></v-select>
+      />
     </div>
     <div v-else-if="lectures && lectures.length == 0" class="p-2">
       <UiAddLectureDialog v-model:dialog="showModal" />
