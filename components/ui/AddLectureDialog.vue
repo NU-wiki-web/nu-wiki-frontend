@@ -83,6 +83,9 @@
   const teacherName = ref("");
   const grade = ref<GradeType>();
 
+  // TODO: エラーハンドリング && エラーメッセージの表示
+  //　現状の実装では、同じlectureが重複して作れてしまうが、バックエンドが対応すればエラーを返してくれるはず。
+  // なので、エラーハンドリングと同じときに対応すればよい
   // データをPOSTする
   const addLecture = () => {
     const client = useClient();
