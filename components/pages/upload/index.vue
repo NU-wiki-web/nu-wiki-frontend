@@ -6,11 +6,13 @@
       v-model:files="files"
       label="過去問・答えをアップロード"
     />
-    <UiSelect
+    <v-select
       label="ファイルの種類"
       icon="fa-caret-down"
-      :items="fileTypes"
-      v-model:selected="fileType"
+      :items="fileTypeItems"
+      item-title="ja"
+      item-value="en"
+      v-model="fileType"
     />
   </div>
   <div class="p-2">
@@ -94,7 +96,7 @@
 
   // 選択肢
   const lectures = ref<Lecture[]>();
-  const { ja: fileTypes } = useFileType();
+  const { array: fileTypeItems } = useFileType();
   const { array: pastExamTypeItems } = usePastExamType();
 
   // 表示の制御用
