@@ -28,12 +28,12 @@
         prepend-icon="mdi-account"
       >
       </v-text-field>
-      <v-text-field label="年度" v-model.number="year"></v-text-field>
     </div>
     <div class="flex justify-center">
       <v-btn class="" color="primary" @click="searchLecture">講義を検索</v-btn>
     </div>
     <div v-if="lectures && lectures.length > 0">
+      <v-text-field label="年度" v-model.number="year"></v-text-field>
       <v-select
         label="講義名"
         :items="lectures"
@@ -64,7 +64,7 @@
       ></v-select>
     </div>
     <div v-else-if="lectures && lectures.length == 0" class="p-2">
-      <UiAddLectureDialog v-model:dialog="showModal" v-model:year="year" />
+      <UiAddLectureDialog v-model:dialog="showModal" />
     </div>
     <div class="flex justify-center">
       <v-btn :disabled="!isFilled" color="primary" @click="upload"
@@ -100,7 +100,8 @@
   // 表示の制御用
   const showModal = ref(false);
   const searchLecture = async () => {
-    if (!year.value && !lectureName.value && !teacherName.value) return;
+    if (!lectureName.value && !teacherName.value) return;
+    // TODO: エラーメッセージを表示
     const client = useClient();
     lectures.value = (
       await client.lectures.search.$post({
