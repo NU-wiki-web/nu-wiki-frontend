@@ -110,7 +110,7 @@
           lectureName: lectureName.value
         }
       })
-    ).lectures;
+    ).lectures; // TODO: エラーハンドリング && エラーメッセージの表示
   };
 
   const isFilled = computed(
@@ -127,6 +127,10 @@
     if (!isFilled.value) return;
     const client = useClient();
 
+    // TODO: エラーハンドリング && エラーメッセージの表示
+    // TODO: バックエンドがlecturesにlecture.examsの情報を入れてくれるようになったら、
+    // 新しくexamを作るより前にlecture.examsのexamの情報を使うようにする
+    // (現状、一つのlectureに対して、同じテストが大量にできる実装になっている)
     const examRes = await client.exams.$post({
       body: {
         type: selectedPastExamType.value,
@@ -134,6 +138,8 @@
         year: year.value
       }
     });
+
+    // TODO: エラーハンドリング && エラーメッセージの表示
     await client.files.$post({
       body: {
         pastExamFile: files.value[0],
