@@ -473,9 +473,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               example:
-                wrongPssword:
+                wrongPassword:
                   type: unauthorized
-                  title: wrongPssword
+                  title: wrongPassword
                   detail: "パスワードが間違っています"
                   status: 401
                 userNotExist:
