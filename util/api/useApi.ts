@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import api, { ApiInstance } from "~/api/$api";
 import aspida from "@aspida/axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 interface cbType {
   (): Promise<any>;
@@ -21,7 +22,15 @@ export const useAwait = async (cb: cbType) => {
   return { res, error, loading };
 };
 
+// export const useClient = () => {
+//   const client = api(aspida());
+//   return client;
+// };
+
+const config: AxiosRequestConfig = {
+  withCredentials: true
+};
 export const useClient = () => {
-  const client = api(aspida());
+  const client = api(aspida(axios, config));
   return client;
 };
