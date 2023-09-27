@@ -6,7 +6,7 @@ info:
   version: 0.0.1
 
 servers:
-  - url: "http://127.0.0.1:8080"
+  - url: "http://localhost:8080"
     description: "ローカル環境"
 
 tags:
@@ -86,6 +86,12 @@ components:
       type: object
       description: 検索用パラメータ
       properties:
+        teacherName:
+          type: string
+          example: "田中角栄"
+        lectureName:
+          type: string
+          example: "有機化学3"
         grade:
           type: string
           enum:
@@ -111,12 +117,6 @@ components:
             - 秋2
           example: "秋2"
           nullable: true
-        teacherName:
-          type: string
-          example: "田中角栄"
-        lectureName:
-          type: string
-          example: "有機化学3"
     pdf:
       type: object
       description: pdfの詳細
@@ -207,6 +207,25 @@ components:
         total:
           type: number
           example: 1
+    ErrorResponse:
+      type: object
+      description: エラーレスポンスの基底型（RFC7807準拠）
+      properties:
+        type:
+          type: string
+          description: エラーの識別子（RFC7807準拠）
+        title:
+          type: string
+          description: 人間が読める形式のエラーの概要（RFC7807準拠）
+        detail:
+          type: string
+          description: 人間が読める形式のエラーの詳細（RFC7807準拠）
+        status:
+          type: integer
+          description: オリジナルAPIサーバが返したHTTPステータスコード（RFC7807準拠）
+      required:
+        - type
+
 paths:
   "/":
     get:
@@ -448,6 +467,33 @@ paths:
               schema:
                 type: string
                 example: SESSIONID=abcde12345;
+        "401":
+          description: 認証エラー(アカウントが存在しない、パスワードが違う とか)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                wrongPassword:
+                  type: unauthorized
+                  title: wrongPassword
+                  detail: "パスワードが間違っています"
+                  status: 401
+                userNotExist:
+                  type: unauthorized
+                  title: userNotExist
+                  detail: "アカウントが存在しません"
+                  status: 401
+        "500":
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                type: internal_server_error
+                title: Internal Server Error
+                status: 500
 
   "/signup/mail":
     post:

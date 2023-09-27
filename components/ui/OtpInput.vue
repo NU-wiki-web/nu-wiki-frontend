@@ -11,12 +11,7 @@
   watch(
     () => data,
     (newVal: Ref<string[]>) => {
-      if (newVal.value.length === props.fields && !newVal.value.includes("")) {
-        console.log(Number(newVal.value.join("")));
-        emit("update:modelValue", Number(newVal.value.join("")));
-      } else {
-        emit("update:modelValue", "数字6桁で入力してください");
-      }
+      emit("update:modelValue", newVal.value.join(""));
     },
     { deep: true }
   );
