@@ -16,7 +16,7 @@
           <div class="mb-2">メールアドレス（@より前を入力）</div>
           <div class="flex">
             <v-responsive class="ma-0 pa-0">
-              <v-text-field v-model="mail" :rules="mailRules"> </v-text-field>
+              <v-text-field v-model="mail"> </v-text-field>
             </v-responsive>
             <div class="ml-2 mt-2">
               <b>@s.mail.nagoya-u.ac.jp</b>
