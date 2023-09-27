@@ -21,8 +21,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const PATH2 = "/lectures";
   const PATH3 = "/lectures/search";
   const PATH4 = "/login";
-  const PATH5 = "/signup";
-  const PATH6 = "/signup/auth";
+  const PATH5 = "/signup/auth";
+  const PATH6 = "/signup/mail";
   const PATH7 = "/signup/register";
   const GET = "GET";
   const POST = "POST";
@@ -443,36 +443,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
             .send()
             .then((r) => r.body),
         $path: () => `${prefix}${PATH7}`
-      },
-      /**
-       * @param option.body - メールアドレスを含めたjson
-       */
-      post: (option: {
-        body: Methods8["post"]["reqBody"];
-        config?: T | undefined;
-      }) =>
-        fetch<void, Methods8["post"]["resHeaders"], Methods8["post"]["status"]>(
-          prefix,
-          PATH5,
-          POST,
-          option
-        ).send(),
-      /**
-       * @param option.body - メールアドレスを含めたjson
-       */
-      $post: (option: {
-        body: Methods8["post"]["reqBody"];
-        config?: T | undefined;
-      }) =>
-        fetch<void, Methods8["post"]["resHeaders"], Methods8["post"]["status"]>(
-          prefix,
-          PATH5,
-          POST,
-          option
-        )
-          .send()
-          .then((r) => r.body),
-      $path: () => `${prefix}${PATH5}`
+      }
     },
     /**
      * @returns OK

@@ -5,12 +5,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
     baseURL === undefined ? "http://localhost:8080" : baseURL
   ).replace(/\/$/, "");
-  const PATH0 = "/login";
+  const PATH0 = "/signup/mail";
   const POST = "POST";
 
   return {
     /**
-     * @param option.body - メールアドレスとパスワードを含めたjson
+     * @param option.body - メールアドレスを含めたjson
      */
     post: (option: {
       body: Methods0["post"]["reqBody"];
@@ -23,7 +23,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         option
       ).send(),
     /**
-     * @param option.body - メールアドレスとパスワードを含めたjson
+     * @param option.body - メールアドレスを含めたjson
      */
     $post: (option: {
       body: Methods0["post"]["reqBody"];
