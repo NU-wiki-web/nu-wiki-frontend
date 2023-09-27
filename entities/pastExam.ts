@@ -1,4 +1,5 @@
 import { useEnJaEntiries } from "./useEntities";
+import { PastExamPdf } from "api/@types";
 
 export type PastExamType = "MIDTERM" | "TERMEND" | "OTHER";
 export const usePastExamType = () =>
@@ -8,10 +9,10 @@ export const usePastExamType = () =>
     OTHER: "その他"
   });
 
-export type FileType = "past_exam" | "past_exam_answer" | "other";
+export type FileType = PastExamPdf["type"];
 export const useFileType = () =>
   useEnJaEntiries<FileType>({
-    PAST_EXAM: "過去問",
-    ANSWER: "解答",
-    OTHER: "その他"
+    past_exam: "過去問",
+    past_exam_answer: "解答",
+    other: "その他"
   });
