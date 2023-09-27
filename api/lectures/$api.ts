@@ -5,7 +5,7 @@ import type { Methods as Methods2 } from "./search";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
-    baseURL === undefined ? "http://127.0.0.1:8080" : baseURL
+    baseURL === undefined ? "http://localhost:8080" : baseURL
   ).replace(/\/$/, "");
   const PATH0 = "/lectures";
   const PATH1 = "/exams";

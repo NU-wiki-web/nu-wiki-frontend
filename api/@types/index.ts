@@ -34,6 +34,8 @@ export type Lecture = {
 
 /** 検索用パラメータ */
 export type Lecture_req = {
+  teacherName?: string | undefined;
+  lectureName?: string | undefined;
   grade?:
     | "B1"
     | "B2"
@@ -47,8 +49,6 @@ export type Lecture_req = {
     | null
     | undefined;
   term?: "春" | "秋" | "春1" | "春2" | "秋1" | "秋2" | null | undefined;
-  teacherName?: string | undefined;
-  lectureName?: string | undefined;
 };
 
 /** pdfの詳細 */
@@ -87,4 +87,16 @@ export type Exam_req = {
 export type Exam_list = {
   exams?: Exam[] | undefined;
   total?: number | undefined;
+};
+
+/** エラーレスポンスの基底型（RFC7807準拠） */
+export type ErrorResponse = {
+  /** エラーの識別子（RFC7807準拠） */
+  type: string;
+  /** 人間が読める形式のエラーの概要（RFC7807準拠） */
+  title?: string | undefined;
+  /** 人間が読める形式のエラーの詳細（RFC7807準拠） */
+  detail?: string | undefined;
+  /** オリジナルAPIサーバが返したHTTPステータスコード（RFC7807準拠） */
+  status?: number | undefined;
 };
