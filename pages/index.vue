@@ -7,7 +7,7 @@
     </div>
     <div class="p-4">
       <div class="flex flex-col items-center justify-around">
-        <div class="flex flex-col items-center md:p-8 py-4">
+        <div class="flex flex-col items-center py-4 md:p-8">
           <div>過去問難民よ、立ち上がれ。</div>
           <div class="text-4xl font-bold">過去問を共有しよう</div>
         </div>

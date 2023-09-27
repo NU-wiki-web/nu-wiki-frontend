@@ -52,51 +52,51 @@
 </template>
 
 <script setup lang="ts">
-import { grades } from "../../../entities/grades";
-import { terms } from "../../../entities/terms";
-import { years } from "../../../entities/years";
-import { faculties } from "../../../entities/faculties";
+  import { grades } from "../../../entities/grades";
+  import { terms } from "../../../entities/terms";
+  import { years } from "../../../entities/years";
+  import { faculties } from "../../../entities/faculties";
 
-const facultiesOption = faculties.map((value, index) => {
-  return {
-    id: index,
-    name: value,
-  };
-});
-
-interface Props {
-  departmentId: number | undefined;
-  grade: string | undefined;
-  term: string | undefined;
-  year: number | undefined;
-}
-
-interface Emits {
-  (
-    e: "update:departmentId" | "update:grade" | "update:term" | "update:year",
-    value: string | number | undefined
-  ): void;
-  (e: "click", value: string | undefined): void;
-}
-
-const props = defineProps<Props>();
-const emits = defineEmits<Emits>();
-
-const updateProp = function (prop: keyof Props) {
-  return computed({
-    get: () => props[prop],
-    set: (value) => {
-      return emits(`update:${prop}`, value);
-    },
+  const facultiesOption = faculties.map((value, index) => {
+    return {
+      id: index,
+      name: value
+    };
   });
-};
 
-const updateDepartment = updateProp("departmentId");
-const updateGrade = updateProp("grade");
-const updateTerm = updateProp("term");
-const updateYear = updateProp("year");
+  interface Props {
+    departmentId: number | undefined;
+    grade: string | undefined;
+    term: string | undefined;
+    year: number | undefined;
+  }
 
-const onClick = function (value: string | undefined) {
-  emits("click", value);
-};
+  interface Emits {
+    (
+      e: "update:departmentId" | "update:grade" | "update:term" | "update:year",
+      value: string | number | undefined
+    ): void;
+    (e: "click", value: string | undefined): void;
+  }
+
+  const props = defineProps<Props>();
+  const emits = defineEmits<Emits>();
+
+  const updateProp = function (prop: keyof Props) {
+    return computed({
+      get: () => props[prop],
+      set: (value) => {
+        return emits(`update:${prop}`, value);
+      }
+    });
+  };
+
+  const updateDepartment = updateProp("departmentId");
+  const updateGrade = updateProp("grade");
+  const updateTerm = updateProp("term");
+  const updateYear = updateProp("year");
+
+  const onClick = function (value: string | undefined) {
+    emits("click", value);
+  };
 </script>

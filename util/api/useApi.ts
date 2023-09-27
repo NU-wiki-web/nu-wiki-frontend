@@ -8,7 +8,7 @@ interface cbType {
 export const useAwait = async (cb: cbType) => {
   const res = ref();
   const error = ref(null);
-  const loading = ref(true)
+  const loading = ref(true);
 
   try {
     res.value = await cb();
