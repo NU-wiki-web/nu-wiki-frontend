@@ -28,30 +28,30 @@
 </template>
 
 <script setup lang="ts">
-import { LectureType } from "types/lecture";
+  import { LectureType } from "types/lecture";
 
-interface Props {
-  lectures: LectureType[];
-  handleClick: (id: number) => void;
-}
+  interface Props {
+    lectures: LectureType[];
+    handleClick: (id: number) => void;
+  }
 
-const props = defineProps<Props>();
+  const props = defineProps<Props>();
 
-const pageNumber = ref<number>(1);
-const displayLecturesLength = 10;
+  const pageNumber = ref<number>(1);
+  const displayLecturesLength = 10;
 
-const displayLectures = computed(() => {
-  if (!props.lectures) return [];
-  const startIndex = (pageNumber.value - 1) * displayLecturesLength;
-  return props.lectures.slice(startIndex, startIndex + displayLecturesLength);
-});
+  const displayLectures = computed(() => {
+    if (!props.lectures) return [];
+    const startIndex = (pageNumber.value - 1) * displayLecturesLength;
+    return props.lectures.slice(startIndex, startIndex + displayLecturesLength);
+  });
 
-const pageLength = computed(() => {
-  if (!props.lectures) return 1;
-  return Math.ceil(props.lectures.length / displayLecturesLength);
-});
+  const pageLength = computed(() => {
+    if (!props.lectures) return 1;
+    return Math.ceil(props.lectures.length / displayLecturesLength);
+  });
 
-const handleClick = (id: number) => {
-  props.handleClick(id);
-};
+  const handleClick = (id: number) => {
+    props.handleClick(id);
+  };
 </script>

@@ -45,23 +45,23 @@
 </template>
 
 <script setup lang="ts">
-const valid = false;
-const pwRules = [
-  (v: string) => !!v || "パスワードが未入力です",
-  (v: string) =>
-    /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
-    "正しい形式で入力してください",
-];
+  const valid = false;
+  const pwRules = [
+    (v: string) => !!v || "パスワードが未入力です",
+    (v: string) =>
+      /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
+      "正しい形式で入力してください"
+  ];
 
-let checkbox = false;
+  let checkbox = false;
 </script>
 
 <style scoped>
-.v-text-field :deep() input {
-  padding: 0 10px;
-  min-height: 38px;
-}
-.v-text-field :deep() div {
-  padding: 0;
-}
+  .v-text-field :deep() input {
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  .v-text-field :deep() div {
+    padding: 0;
+  }
 </style>

@@ -3,7 +3,7 @@
   <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]" />
 
   <v-card
-    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[450px] md:max-w-[450px] "
+    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[450px] md:max-w-[450px]"
   >
     <div
       class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-2xl text-[#006E4F]"
@@ -16,25 +16,17 @@
           <div class="mb-2">メールアドレス（@より前を入力）</div>
           <div class="flex">
             <v-responsive class="ma-0 pa-0">
-              <v-text-field
-                v-model="mail"
-              >
-              </v-text-field>
+              <v-text-field v-model="mail"> </v-text-field>
             </v-responsive>
             <div class="ml-2 mt-2">
               <b>@s.mail.nagoya-u.ac.jp</b>
             </div>
           </div>
-
         </div>
         <div>
           <div class="mb-2">パスワード（半角英数字記号で8~40文字）</div>
           <div>
-            <v-text-field
-              type="password"
-              v-model="password"
-              :rules="pwRules"
-            >
+            <v-text-field type="password" v-model="password" :rules="pwRules">
             </v-text-field>
           </div>
         </div>

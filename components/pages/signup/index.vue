@@ -51,22 +51,22 @@
 </template>
 
 <script setup lang="ts">
-const valid = false;
-const mailRules = [
-  (v: string) => !!v || "メールアドレスが未入力です",
-  (v: string) =>
-    /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください",
-];
+  const valid = false;
+  const mailRules = [
+    (v: string) => !!v || "メールアドレスが未入力です",
+    (v: string) =>
+      /.+@s\.mail\.nagoya-u\.ac\.jp/.test(v) || "正しい形式で入力してください"
+  ];
 
-let checkbox = false;
+  let checkbox = false;
 </script>
 
 <style scoped>
-.v-text-field :deep() input {
-  padding: 0 10px;
-  min-height: 38px;
-}
-.v-text-field :deep() div {
-  padding: 0;
-}
+  .v-text-field :deep() input {
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  .v-text-field :deep() div {
+    padding: 0;
+  }
 </style>

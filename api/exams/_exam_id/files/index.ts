@@ -1,10 +1,10 @@
 /* eslint-disable */
-import type * as Types from '../../../@types'
+import type * as Types from "../../../@types";
 
 export type Methods = {
   get: {
-    status: 200
+    status: 200;
     /** ok */
-    resBody: Types.Pdf_list
-  }
-}
+    resBody: Types.Pdf_list;
+  };
+};

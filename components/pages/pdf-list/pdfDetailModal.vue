@@ -44,25 +44,25 @@
 </template>
 
 <script setup lang="ts">
-import { PdfType } from "~~/types/pdf";
+  import { PdfType } from "~~/types/pdf";
 
-defineProps(["pdf"]);
-interface Props {
-  pdf: PdfType;
-}
+  defineProps(["pdf"]);
+  interface Props {
+    pdf: PdfType;
+  }
 
-const formatDate = (date: string) => {
-  let [y, m, d] = date.split("-");
-  return `${y}年${parseInt(m)}月${parseInt(d)}日`;
-};
+  const formatDate = (date: string) => {
+    let [y, m, d] = date.split("-");
+    return `${y}年${parseInt(m)}月${parseInt(d)}日`;
+  };
 
-const getUrl = (name: string) => {
-  let url = `https://sample.sample/${name}`; // ダミーのURL
-  return url;
-};
+  const getUrl = (name: string) => {
+    let url = `https://sample.sample/${name}`; // ダミーのURL
+    return url;
+  };
 
-const openExternalLink = (name: string) => {
-  let url = getUrl(name);
-  window.open(url, "_blank");
-};
+  const openExternalLink = (name: string) => {
+    let url = getUrl(name);
+    window.open(url, "_blank");
+  };
 </script>
