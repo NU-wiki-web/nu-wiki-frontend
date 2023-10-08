@@ -22,11 +22,16 @@
       </div>
     </div>
     <div class="mx-auto my-4 w-[85%]">
-      <UiOtpInput v-model="data" :fields="6" />
+      <UiOtpInput v-model="password" :fields="6" />
     </div>
 
     <div class="my-6 text-center">
-      <UiIconButton :buttonTitle="'送信'" :buttonIcon="'mdi-lock'" />
+      <UiIconButton
+        :buttonTitle="'送信'"
+        :buttonIcon="'mdi-lock'"
+        :disabled="password.length !== 6"
+        :onClick="sendOTP"
+      />
     </div>
 
     <div class="mx-auto w-4/5">
@@ -45,7 +50,29 @@
 </template>
 
 <script setup lang="ts">
-  const data = ref(null);
+  import { useClient } from "~~/util/api/useApi";
+  const client = useClient();
+  const password = ref<string>("");
+  const otp_valid = RegExp(/^[0-9]{6}$/);
+  const sendOTP = function () {
+    console.log(password.value);
+    client.signup.auth
+      .post({
+        body: {
+          oneTimePassword: password.value
+        }
+      })
+      .then((res) => {
+        console.log("success", res);
+        console.log(res.body.email);
+        sessionStorage.setItem("email", res.body.email as string);
+        const router = useRouter();
+        router.push("/signup/register");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 </script>
 
 <style scoped>
