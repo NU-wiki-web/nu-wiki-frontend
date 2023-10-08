@@ -40,6 +40,10 @@
       </v-checkbox>
     </div>
 
+    <div class="mb-6 text-center text-[#BA2020]">
+      {{ errorMessage }}
+    </div>
+
     <div class="mb-6 text-center">
       <UiIconButton
         :buttonTitle="'メール認証'"
@@ -59,6 +63,9 @@
   const mail = ref<string>("");
   const checkbox = ref<boolean>(false);
 
+  // フォームのエラーメッセージ
+  const errorMessage = ref<string>("");
+
   const requestMailForSignUp = function () {
     client.signup.mail
       .post({
@@ -73,6 +80,7 @@
       })
       .catch((err) => {
         console.error(err);
+        errorMessage.value = err.response.data.detail;
       });
   };
 
