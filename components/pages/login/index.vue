@@ -28,7 +28,6 @@
           <div>
             <v-text-field
               v-model="password"
-              :rules="pwRules"
               :append-icon="toggle().icon"
               :type="toggle().type"
               autocomplete="on"
@@ -38,6 +37,10 @@
           </div>
         </div>
       </v-form>
+    </div>
+
+    <div class="mb-6 text-center text-[#BA2020]">
+      {{ errorMessage }}
     </div>
 
     <div class="mb-6 text-center">
@@ -67,6 +70,9 @@
   const mail = ref<string>("");
   const password = ref<string>("");
 
+  // フォームのエラーメッセージ
+  const errorMessage = ref<string>("");
+
   // バリデーション
   const valid = ref<boolean>(false);
 
@@ -76,13 +82,13 @@
     const type = showPassword.value ? "text" : "password";
     return { icon, type };
   };
-  const mailRules = [(v: string) => !!v || "メールアドレスが未入力です"];
-  const pwRules = [
-    (v: string) => !!v || "パスワードが未入力です",
-    (v: string) =>
-      /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,41})$/.test(v) ||
-      "正しい形式で入力してください"
-  ];
+  // const mailRules = [(v: string) => !!v || "メールアドレスが未入力です"];
+  // const pwRules = [
+  //   (v: string) => !!v || "パスワードが未入力です",
+  //   (v: string) =>
+  //     /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,41})$/.test(v) ||
+  //     "正しい形式で入力してください"
+  // ];
 
   // ログイン
   const postLoginRequest = async function () {
@@ -102,7 +108,7 @@
       })
       .catch((err) => {
         console.error(err);
-        window.alert("ログイン失敗...");
+        errorMessage.value = err.response.data.detail;
       });
   };
 </script>
