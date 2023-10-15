@@ -1,11 +1,11 @@
 /* eslint-disable */
 export type Methods = {
   get: {
-    status: 200;
+    status: 200
 
     /** OK */
     resBody: {
-      message: string;
-    };
-  };
-};
+      message: string
+    }
+  }
+}
