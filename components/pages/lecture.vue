@@ -24,6 +24,7 @@
   const lectures = ref<Lecture[]>([]);
   const isLoading = ref<boolean>(true);
   const isError = ref<boolean>(false);
+  const hogehoge = ref("hogehoge");
 
   client.lectures
     .$get()
