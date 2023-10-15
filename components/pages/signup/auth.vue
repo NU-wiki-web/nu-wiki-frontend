@@ -1,18 +1,18 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
+  <div class="w-full bg-nu-teritary pt-12 pb-[calc(5vh+60px)]">
     <UiSignupStepBar :stepNumber="2" />
   </div>
 
   <v-card
-    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
+    class="mx-auto -mt-16 mb-12 w-11/12 md:w-96"
   >
     <div
-      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-xl text-[#006E4F]"
+      class="flex h-16 items-end justify-center text-2xl text-primary"
     >
       メールアドレス認証
     </div>
-    <div class="mx-auto my-4 w-[85%]">
+    <div class="mx-auto my-4 w-5/6">
       <div class="mb-2">
         <b>***@s.mail.nagoya-u.ac.jp</b>
         宛てに、認証用パスワードを送信しました。
@@ -21,7 +21,7 @@
         本文に記載されているパスワードを入力して、本人確認を完了してください。
       </div>
     </div>
-    <div class="mx-auto my-4 w-[85%]">
+    <div class="mx-auto my-4 w-5/6">
       <UiOtpInput v-model="password" :fields="6" />
     </div>
 

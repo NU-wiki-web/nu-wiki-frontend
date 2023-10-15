@@ -1,24 +1,24 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-[#4a8a8a] pt-[5vh] pb-[calc(5vh+60px)]">
+  <div class="w-full bg-nu-teritary pt-12 pb-[calc(5vh+60px)]">
     <UiSignupStepBar :stepNumber="3" />
   </div>
 
   <v-card
-    class="mx-auto -mt-[60px] mb-12 min-w-[90vw] max-w-[90vw] md:min-w-[370px] md:max-w-[370px] 2xl:min-w-[460px] 2xl:max-w-[460px]"
+    class="mx-auto -mt-16 mb-12 w-11/12 md:w-96"
   >
     <div
-      class="pa-0 flex h-[60px] max-h-[70px] items-end justify-center text-xl text-[#006E4F]"
+      class="flex h-16 items-end justify-center text-2xl text-primary"
     >
       <span>ユーザー情報の入力</span>
     </div>
-    <div class="mx-auto my-4 w-[85%]">
+    <div class="mx-auto my-4 w-5/6">
       <span class="my-2 text-base">
         メール認証が完了しました。<br />
         本登録のための情報を入力してください。
       </span>
     </div>
-    <div class="mx-auto mb-4 w-[85%]">
+    <div class="mx-auto mb-4 w-5/6">
       <div>
         <div>
           <v-form ref="form" v-model="valid">
@@ -70,7 +70,7 @@
       /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
       "正しい形式で入力してください"
   ];
-  console.log(sessionStorage.getItem("email") as string);
+  //console.log(sessionStorage.getItem("email") as string);
   const sendUserInfo = function () {
     client.signup.register
       .post({
