@@ -1,14 +1,7 @@
 <template>
   <UiHeader></UiHeader>
   <div v-if="total">
-    <div class="bg-nu-teritary p-8 text-white">
-      <p class="m-2 text-3xl">'{{ lecture.name }}' のPDF一覧</p>
-      <p class="m-2 text-xl">
-        {{ lecture.year }} {{ lecture.term }} / {{ lecture.teacherName }}
-      </p>
-      <p class="m-2 text-lg">{{ total }} 件見つかりました。</p>
-    </div>
-    <v-list v-for="pdf in pdfs" :key="pdf.file_id" class="my-5 mx-10">
+    <v-list v-for="pdf in pdfs" :key="pdf.file_id" class="mx-10 my-5">
       <UiPdfListItem
         :file_id="pdf.file_id"
         :name="pdf.name"
@@ -75,18 +68,18 @@
   // 講義情報の取得
   const lecture = ref<LectureType>();
 
-  client.lectures
-    ._exam_id(exam_id)
-    .$get()
-    .then(async (res) => {
-      lecture.value = res;
-      isLoading.value = false;
-      isError.value = false;
-    })
-    .catch((err) => {
-      console.error(err);
-      isError.value = true;
-    });
+  // client.lectures
+  //   ._exam_id(exam_id)
+  //   .$get()
+  //   .then(async (res) => {
+  //     lecture.value = res;
+  //     isLoading.value = false;
+  //     isError.value = false;
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     isError.value = true;
+  //   });
 
   /* pdfの詳細表示 */
   const showDetail = ref(false); // モーダルを表示するか
