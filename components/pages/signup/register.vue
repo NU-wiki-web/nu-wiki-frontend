@@ -4,12 +4,8 @@
     <UiSignupStepBar :stepNumber="3" />
   </div>
 
-  <v-card
-    class="mx-auto -mt-16 mb-12 w-11/12 md:w-96"
-  >
-    <div
-      class="flex h-16 items-end justify-center text-2xl text-primary"
-    >
+  <v-card class="mx-auto -mt-16 mb-12 w-11/12 md:w-96">
+    <div class="flex h-16 items-end justify-center text-2xl text-primary">
       <span>ユーザー情報の入力</span>
     </div>
     <div class="mx-auto my-4 w-5/6">
@@ -70,12 +66,10 @@
       /^([a-zA-Z0-9!-/:-@¥[-`{-~]{8,})$/.test(v) ||
       "正しい形式で入力してください"
   ];
-  //console.log(sessionStorage.getItem("email") as string);
   const sendUserInfo = function () {
     client.signup.register
       .post({
         body: {
-          email: sessionStorage.getItem("email") as string,
           name: name.value,
           password: password.value
         }

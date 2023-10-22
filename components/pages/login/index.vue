@@ -2,12 +2,8 @@
   <UiHeader />
   <div class="w-full bg-nu-teritary pb-[calc(5vh+60px)]" />
 
-  <v-card
-    class="mx-auto -mt-16 mb-12 w-11/12 md:w-96"
-  >
-    <div
-      class="flex h-16 items-end justify-center text-2xl text-primary"
-    >
+  <v-card class="mx-auto -mt-16 mb-12 w-11/12 md:w-96">
+    <div class="flex h-16 items-end justify-center text-2xl text-primary">
       NU-wikiにようこそ！
     </div>
     <div class="mx-auto my-2 w-5/6">

@@ -4,12 +4,8 @@
     <UiSignupStepBar :stepNumber="2" />
   </div>
 
-  <v-card
-    class="mx-auto -mt-16 mb-12 w-11/12 md:w-96"
-  >
-    <div
-      class="flex h-16 items-end justify-center text-2xl text-primary"
-    >
+  <v-card class="mx-auto -mt-16 mb-12 w-11/12 md:w-96">
+    <div class="flex h-16 items-end justify-center text-2xl text-primary">
       メールアドレス認証
     </div>
     <div class="mx-auto my-4 w-5/6">
@@ -63,9 +59,7 @@
         }
       })
       .then((res) => {
-        console.log("success", res);
-        console.log(res.body.email);
-        sessionStorage.setItem("email", res.body.email as string);
+        console.log("success", res.body);
         const router = useRouter();
         router.push("/signup/register");
       })
