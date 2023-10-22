@@ -1,20 +1,20 @@
 /* eslint-disable */
-import type { ReadStream } from 'fs'
+import type { ReadStream } from "fs";
 
 export type Methods = {
   get: {
-    status: 200
+    status: 200;
     /** OK */
-    resBody: Blob
-  }
+    resBody: Blob;
+  };
 
   put: {
-    status: 200
+    status: 200;
     /** pdfファイル */
-    reqBody: (File | ReadStream)
-  }
+    reqBody: File | ReadStream;
+  };
 
   delete: {
-    status: 200
-  }
-}
+    status: 200;
+  };
+};

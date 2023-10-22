@@ -19,7 +19,7 @@ module.exports = {
         "nu-quinary": "#E4E7EC",
         "nu-senary": "#54657C",
         "nu-septenary": "#263959",
-        "error": "#BA2020",
+        error: "#BA2020"
       }
     }
   },
