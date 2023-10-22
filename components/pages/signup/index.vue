@@ -4,12 +4,8 @@
     <UiSignupStepBar :stepNumber="1" />
   </div>
 
-  <v-card
-    class="mx-auto -mt-16 mb-12 w-11/12 md:w-96"
-  >
-    <div
-      class="flex h-16 items-end justify-center text-2xl text-primary"
-    >
+  <v-card class="mx-auto -mt-16 mb-12 w-11/12 md:w-96">
+    <div class="flex h-16 items-end justify-center text-2xl text-primary">
       <span>新規登録</span>
     </div>
     <div class="mx-auto my-4 w-5/6">
