@@ -1,11 +1,11 @@
 /* eslint-disable */
 export type Methods = {
   post: {
-    status: 200
+    status: 200;
 
     /** ワンタイムパスワードを含めたjson */
     reqBody: {
-      oneTimePassword: string
-    }
-  }
-}
+      oneTimePassword: string;
+    };
+  };
+};
