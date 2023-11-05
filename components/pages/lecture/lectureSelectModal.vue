@@ -9,30 +9,24 @@
       >
         <div class="bg-nu-quaternary px-5 pb-4 pt-5 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
-            <h3 class="text-2xl font-semibold leading-6 text-gray-900">
-              {{ pdf.name }}
-            </h3>
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900"></h3>
           </div>
         </div>
         <div class="p-5 text-lg">
           <p>
             <v-icon icon="mdi-account" />
-            {{ pdf.user_id }}
           </p>
           <p>
             <v-icon icon="mdi-calendar-blank" />
             作成日
-            {{ formatDate(pdf.created_at) }}
           </p>
           <p>
             <v-icon icon="mdi-calendar-badge" />
             更新日
-            {{ formatDate(pdf.updated_at) }}
           </p>
         </div>
         <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
           <button
-            @click="openExternalLink(pdf.name)"
             class="mb-2 mr-2 rounded-lg bg-nu-primary px-5 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
             ファイルを開く
