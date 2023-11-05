@@ -10,18 +10,16 @@
   <div v-else>
     <UiTemplatesLectureList
       v-model:lectures="lectures"
-      :handleClick="openSelectModal"
-    />
+      :handle-click="openSelectModal"
+    ></UiTemplatesLectureList>
   </div>
   <!-- 詳細情報用のモーダル -->
-  <lectureSelectModal
-    v-if="showSelectModal"
-    @close="closeSelectModal"
-    :pdf="pdfs[detailLectureId]"
-  ></lectureSelectModal>
+  <lectureSelectModal v-if="showSelectModal" @close="closeSelectModal">
+  </lectureSelectModal>
 </template>
 
 <script setup lang="ts">
+  import lectureSelectModal from "./lectureSelectModal.vue";
   import { useClient } from "~/util/api/useApi";
   import { Lecture_req, Lecture } from "~~/api/@types/index";
 
