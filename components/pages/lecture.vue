@@ -38,10 +38,19 @@
       isLoading.value = false;
     });
 
+  const validation = (
+    lectureName: string | undefined,
+    teacherName: string | undefined
+  ) => {
+    if (!lectureName) return;
+    if (!teacherName) return;
+  };
+
   const search = async function (
     teacherName: Lecture_req["teacherName"],
     lectureName: Lecture_req["lectureName"]
   ) {
+    validation(lectureName, teacherName);
     isLoading.value = true;
     await client.lectures.search
       .$post({
