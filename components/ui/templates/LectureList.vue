@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div v-if="lectures">
-      <div class="mt-5 mb-5 text-slate-700">
+      <div class="mb-5 mt-5 text-slate-700">
         <v-icon icon="mdi-magnify"></v-icon>
         {{ lectures.length }} 件ヒット中
         <span class="text-xl text-black">{{ displayLectures.length }}</span>
@@ -10,7 +10,7 @@
       <v-list v-for="lecture in displayLectures" :key="lecture.id">
         <UiListItem
           :id="lecture.id"
-          :title="lecture.name"
+          :title="lecture.lectureName"
           :subtitle="lecture.teacherName"
           @click="handleClick(lecture.id)"
         ></UiListItem>
@@ -32,7 +32,7 @@
 
   interface Props {
     lectures: LectureType[];
-    handleClick: (id: number) => void;
+    handleClick: (lectureId: string) => void;
   }
 
   const props = defineProps<Props>();
@@ -50,8 +50,4 @@
     if (!props.lectures) return 1;
     return Math.ceil(props.lectures.length / displayLecturesLength);
   });
-
-  const handleClick = (id: number) => {
-    props.handleClick(id);
-  };
 </script>
