@@ -14,12 +14,15 @@
     ></UiTemplatesLectureList>
   </div>
   <!-- 詳細情報用のモーダル -->
-  <lectureSelectModal v-if="showSelectModal" @close="closeSelectModal">
-  </lectureSelectModal>
+  <PagesLectureSelectModal
+    v-if="showSelectModal"
+    @close="closeSelectModal"
+    :lecture="selectedLecture"
+  >
+  </PagesLectureSelectModal>
 </template>
 
 <script setup lang="ts">
-  import lectureSelectModal from "./lectureSelectModal.vue";
   import { useClient } from "~/util/api/useApi";
   import { Lecture_req, Lecture } from "~~/api/@types/index";
 
@@ -74,11 +77,11 @@
   // モーダルの処理
   /* pdfの詳細表示 */
   const showSelectModal = ref(false); // モーダルを表示するか
-  const detailLectureId = ref<number | undefined>(undefined);
+  const selectedLecture = ref<Lecture | undefined>(undefined);
 
-  const openSelectModal = (file_id: number) => {
+  const openSelectModal = (lectureId: string) => {
     showSelectModal.value = true;
-    detailLectureId.value = file_id;
+    selectedLecture.value = lectures.value.find((l) => l.id == lectureId);
   };
 
   const closeSelectModal = () => {
