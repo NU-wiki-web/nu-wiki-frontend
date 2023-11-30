@@ -20,6 +20,7 @@
         >
           <div
             v-for="exam in lecture.exams"
+            @click="onClickExam(exam)"
             class="m-2 flex h-16 w-2/5 cursor-pointer rounded-md shadow-md hover:shadow-lg"
           >
             <div class="flex w-1/2 items-center justify-center rounded-l-md">
@@ -41,9 +42,10 @@
 </template>
 
 <script setup lang="ts">
-  import { Lecture } from "~~/api/@types";
+  import { Exam, Lecture } from "~~/api/@types";
   import { PastExamType, usePastExamType } from "~~/entities/pastExam";
   import { PdfType } from "~~/types/pdf";
+  import { useClient } from "~~/util/api/useApi";
 
   interface Props {
     pdf: PdfType;
@@ -64,6 +66,13 @@
   const openExternalLink = (name: string) => {
     let url = getUrl(name);
     window.open(url, "_blank");
+  };
+
+  const onClickExam = (exam: Exam) => {
+    const router = useRouter();
+    router.push({
+      path: `/pdf-list/${exam.id}`
+    });
   };
 
   const examTypeJa = usePastExamType().convertEn2Ja;

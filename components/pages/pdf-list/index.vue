@@ -1,15 +1,14 @@
 <template>
   <UiHeader></UiHeader>
   <div v-if="total">
-    <v-list v-for="pdf in pdfs" :key="pdf.file_id" class="mx-10 my-5">
-      <UiPdfListItem
-        :file_id="pdf.file_id"
-        :name="pdf.name"
-        :year="pdf.created_at"
-        @click="openPdfDetail(0)"
-        class="m-2 rounded text-xl"
-      >
-      </UiPdfListItem>
+    <v-list v-for="pdf in pdfs" :key="pdf.id" class="mx-10 my-5">
+      <v-list-item
+        :title="type2ja(pdf.type ? pdf.type : 'other')"
+        :subtitle="pdf.id"
+        link
+        border
+        @click="openPdf(pdf.id)"
+      ></v-list-item>
     </v-list>
     <!-- ページネーション -->
     <UiPagination
@@ -19,7 +18,7 @@
     ></UiPagination>
     <!-- 詳細情報用のモーダル -->
     <pdfDetailModal
-      v-if="showDetail"
+      v-if="showDetail && detailPdfId !== undefined"
       @close="closePdfDetail"
       :pdf="pdfs[detailPdfId]"
     ></pdfDetailModal>
@@ -35,15 +34,15 @@
 <script setup lang="ts">
   import pdfDetailModal from "./pdfDetailModal.vue";
   import { useClient } from "~/util/api/useApi";
-  import { PdfType } from "~~/types/pdf";
-  import { LectureType } from "types/lecture";
+  import { Pdf as PdfType } from "~~/api/@types";
+  import { useFileType } from "~~/entities/pastExam";
 
   const client = useClient();
 
   // クエリパラメータの取得
   const route = useRoute();
-  const exam_id = Number(route.params.id);
-  console.log("exam_id: ", exam_id);
+  const exam_id =
+    typeof route.params.id == "string" ? route.params.id : route.params.id[0];
 
   // pdf情報の取得
   const total = ref<number>(0);
@@ -55,39 +54,30 @@
     ._exam_id(exam_id)
     .files.$get()
     .then(async (res) => {
-      pdfs.value = await res.pdfs;
-      total.value = res.total;
+      pdfs.value = res.pdfs ?? [];
+      total.value = res.total!;
       isLoading.value = false;
       isError.value = false;
+      console.log("pdfs: ", res);
     })
     .catch((err) => {
       console.error(err);
       isError.value = true;
     });
 
-  // 講義情報の取得
-  const lecture = ref<LectureType>();
-
-  // client.lectures
-  //   ._exam_id(exam_id)
-  //   .$get()
-  //   .then(async (res) => {
-  //     lecture.value = res;
-  //     isLoading.value = false;
-  //     isError.value = false;
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //     isError.value = true;
-  //   });
-
   /* pdfの詳細表示 */
   const showDetail = ref(false); // モーダルを表示するか
   const detailPdfId = ref<number | undefined>(undefined);
-
-  const openPdfDetail = (file_id: number) => {
+  const type2ja = useFileType().convertEn2Ja;
+  const openPdf = (fileId: string | undefined) => {
+    if (fileId === undefined) return;
     showDetail.value = true;
-    detailPdfId.value = file_id;
+    client.files
+      ._fileid(fileId)
+      .$get()
+      .then((res) => {
+        console.log("res: ", res);
+      });
   };
 
   const closePdfDetail = () => {
