@@ -7,7 +7,7 @@
         :subtitle="pdf.id"
         link
         border
-        @click="openPdf(pdf.id)"
+        @click="showDetailModal(pdf.id)"
       ></v-list-item>
     </v-list>
     <!-- ページネーション -->
@@ -18,9 +18,9 @@
     ></UiPagination>
     <!-- 詳細情報用のモーダル -->
     <pdfDetailModal
-      v-if="showDetail && detailPdfId !== undefined"
+      v-if="showDetail && fileObjectURL !== undefined"
       @close="closePdfDetail"
-      :pdf="pdfs[detailPdfId]"
+      :fileURL="fileObjectURL"
     ></pdfDetailModal>
   </div>
   <div v-if="isLoading" class="mt-10 flex items-center justify-center">
@@ -49,6 +49,8 @@
   const pdfs = ref<PdfType[]>([]);
   const isLoading = ref<boolean>(true);
   const isError = ref<boolean>(false);
+  const fileObjectURL = ref<string>();
+  const showDetail = ref<boolean>();
 
   client.exams
     ._exam_id(exam_id)
@@ -58,7 +60,6 @@
       total.value = res.total!;
       isLoading.value = false;
       isError.value = false;
-      console.log("pdfs: ", res);
     })
     .catch((err) => {
       console.error(err);
@@ -66,21 +67,16 @@
     });
 
   /* pdfの詳細表示 */
-  const showDetail = ref(false); // モーダルを表示するか
-  const detailPdfId = ref<number | undefined>(undefined);
   const type2ja = useFileType().convertEn2Ja;
-  const openPdf = (fileId: string | undefined) => {
+  const showDetailModal = (fileId: string | undefined) => {
     if (fileId === undefined) return;
-    showDetail.value = true;
     client.files
       ._fileid(fileId)
       .$get()
       .then((res) => {
-        console.log("res: ", res);
+        fileObjectURL.value = URL.createObjectURL(res);
+        showDetail.value = true;
       });
   };
-
-  const closePdfDetail = () => {
-    showDetail.value = false;
-  };
+  const closePdfDetail = () => (showDetail.value = false);
 </script>
