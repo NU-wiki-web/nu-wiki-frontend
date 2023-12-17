@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-  const valid = false;
+  const valid = ref(false);
   const pwRules = [
     (v: string) => !!v || "パスワードが未入力です",
     (v: string) =>
