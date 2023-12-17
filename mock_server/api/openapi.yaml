@@ -1,0 +1,627 @@
+openapi: "3.0.3"
+
+info:
+  title: "NU-api"
+  description: nu-wikiのAPIです
+  version: 0.0.1
+
+servers:
+  - url: "http://localhost:8080"
+    description: "ローカル環境"
+
+tags:
+  - name: file
+    description: pdfの操作
+
+# cookieによるセッション管理の設定
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESSIONID
+    cookieSignUpAuth:
+      type: apiKey
+      in: cookie
+      name: SIGNUPID
+  schemas:
+    pastExamPdf:
+      type: object
+      description: 過去問ファイルの追加パラメータ
+      properties:
+        pastExamFile:
+          description: "過去問のPDFファイル"
+          type: string
+          format: binary
+        type:
+          description: "過去問or過去問の解答orその他"
+          type: string
+          enum:
+            - past_exam
+            - past_exam_answer
+            - other
+        userId:
+          description: "ユーザーID"
+          type: string
+        examId:
+          description: "試験ID"
+          type: string
+    lecture:
+      type: object
+      description: 講義の詳細
+      properties:
+        id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        lectureName:
+          type: string
+          example: "有機化学3"
+        teacherName:
+          type: string
+          example: "田中角栄"
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "春2"
+        exams:
+          type: array
+          description: "講義に紐づいたテストのリスト"
+          items:
+            $ref: "#/components/schemas/exam"
+    lecture-req:
+      type: object
+      description: 検索用パラメータ
+      properties:
+        teacherName:
+          type: string
+          example: "田中角栄"
+        lectureName:
+          type: string
+          example: "有機化学3"
+        grade:
+          type: string
+          enum:
+            - B1
+            - B2
+            - B3
+            - B4
+            - M1
+            - M2
+            - D1
+            - D2
+            - D3
+          example: "B2"
+          nullable: true
+        term:
+          type: string
+          enum:
+            - 春
+            - 秋
+            - 春1
+            - 春2
+            - 秋1
+            - 秋2
+          example: "秋2"
+          nullable: true
+    pdf:
+      type: object
+      description: pdfの詳細
+      properties:
+        id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        name:
+          type: string
+          example: "線形代数学1"
+        user_id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        exam_id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        type:
+          type: string
+          enum:
+            - "past_exam"
+            - "past_exam_answer"
+            - "other"
+          example: "past_exam"
+        created_at:
+          type: string
+          format: date
+          example: "2002-12-13"
+        updated_at:
+          type: string
+          format: date
+          example: "2023-04-08"
+    pdf_list:
+      type: object
+      description: "pdf一覧を返すためのオブジェクト"
+      properties:
+        pdfs:
+          type: array
+          items:
+            $ref: "#/components/schemas/pdf"
+        total:
+          type: number
+          example: 1
+    exam:
+      type: object
+      description: "examの詳細"
+      properties:
+        exam_id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        type:
+          type: string
+          enum:
+            - "MIDTERM"
+            - "TERMEND"
+            - "OTHER"
+          example: "MIDTERM"
+        lecture_id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        year:
+          type: number
+          example: 2018
+    exam-req:
+      type: object
+      description: "examの詳細"
+      properties:
+        type:
+          type: string
+          enum:
+            - "MIDTERM"
+            - "TERMEND"
+            - "OTHER"
+          example: "MIDTERM"
+        lecture_id:
+          type: string
+          example: f6b2596b-3e16-416b-a5cf-6f3a0ad80040
+        year:
+          type: number
+          example: 2018
+    exam_list:
+      type: object
+      description: "examの詳細"
+      properties:
+        exams:
+          type: array
+          items:
+            $ref: "#/components/schemas/exam"
+        total:
+          type: number
+          example: 1
+    ErrorResponse:
+      type: object
+      description: エラーレスポンスの基底型（RFC7807準拠）
+      properties:
+        type:
+          type: string
+          description: エラーの識別子（RFC7807準拠）
+        title:
+          type: string
+          description: 人間が読める形式のエラーの概要（RFC7807準拠）
+        detail:
+          type: string
+          description: 人間が読める形式のエラーの詳細（RFC7807準拠）
+        status:
+          type: integer
+          description: オリジナルAPIサーバが返したHTTPステータスコード（RFC7807準拠）
+      required:
+        - type
+
+paths:
+  "/":
+    get:
+      summary: test
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  message: { type: string, example: "happy new year" }
+  "/files":
+    get:
+      summary: "pdf一覧の取得"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pdf_list"
+    post:
+      summary: "新しい講義資料のアップロード"
+      tags: ["file"]
+      deprecated: false
+      requestBody:
+        description: "講義と講義のテストを指定して講義資料をアップロードする"
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              $ref: "#/components/schemas/pastExamPdf"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fileId: { type: string, example: "xxxxxx-xxxxxx" }
+  "/files/{fileid}":
+    get:
+      summary: "pdfの取得"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/pdf:
+              schema:
+                description: pdfファイルの実体
+                type: string
+                format: binary
+    put:
+      summary: "pdfの更新"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+      requestBody:
+        description: "pdfファイル"
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+      parameters:
+        - name: fileid
+          in: path
+          schema: { type: string }
+          required: true
+    delete:
+      summary: "pdfの削除"
+      tags: ["file"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+      parameters:
+        - name: fileid
+          in: path
+          schema: { type: string }
+          required: true
+  "/exams":
+    post:
+      summary: "新しいテストの追加"
+      tags: ["exams"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exam:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 2a3ef28c-f6ba-43c9-965f-92a0abe36daa
+                        description: exam_id
+                      allOf:
+                        $ref: "#/components/schemas/exam-req"
+      requestBody:
+        description: "テストの名前"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/exam-req"
+  "/exams/{exam_id}/files":
+    get:
+      tags:
+        - exams
+      summary: "exam_idに対するpdfの一覧を返す"
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pdf_list"
+
+  "/lectures":
+    get:
+      tags:
+        - lectures
+      summary: "講義を全て取得"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lectures:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/lecture"
+                  total:
+                    type: number
+                    example: 1
+    post:
+      summary: "新しい講義の追加"
+      tags: ["lectures"]
+      deprecated: false
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        description: "講義の名前"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/lecture"
+  "/lectures/search":
+    post:
+      tags:
+        - lectures
+      summary: "講義検索"
+      deprecated: false
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lectures:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/lecture"
+                  total:
+                    type: number
+                    example: 2
+      requestBody:
+        description: "絞り込み"
+        content:
+          application/json:
+            schema:
+              type: object
+              anyOf:
+                - $ref: "#/components/schemas/lecture-req"
+  "/lectures/{lecture_id}/exams":
+    get:
+      tags:
+        - exams
+      summary: "講義idに対するテストの一覧を返す"
+      responses:
+        "200":
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exam_list"
+  "/login":
+    post:
+      summary: "ログインしてセッションIDをcookieで返す"
+      tags: ["login"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスとパスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                password: { type: string, example: "password" }
+      security: [] # no authentication
+      responses:
+        "200":
+          description: >
+            認証に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
+            付随するリクエストには、このcookieを含める必要がある。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SESSIONID=abcde12345;
+        "401":
+          description: 認証エラー(アカウントが存在しない、パスワードが違う とか)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                wrongPassword:
+                  type: unauthorized
+                  title: wrongPassword
+                  detail: "パスワードが間違っています"
+                  status: 401
+                userNotExist:
+                  type: unauthorized
+                  title: userNotExist
+                  detail: "アカウントが存在しません"
+                  status: 401
+        "500":
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                type: internal_server_error
+                title: Internal Server Error
+                status: 500
+
+  "/signup/mail":
+    post:
+      summary: "認証メールを送り、uuidをcookieで返す"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "メールアドレスを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+      security: [] # no authentication
+      responses:
+        "200":
+          description: >
+            uuid（ユーザーをバックエンド側で一時的に識別するためのID）を`SIGNUPID`という名前でcookieに入れて返す。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SIGNUPID=uuid;
+        "400":
+          description: 不正なリクエスト（不正なメールアドレスを使用した）
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                invalidEmail:
+                  type: badRequest
+                  title: invalidEmail
+                  detail: "不正なメールアドレスです。"
+                  status: 400
+        "409":
+          description: コンフリクト（すでに存在するユーザーで登録しようとした）
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                userAlreadyExist:
+                  type: conflict
+                  title: userAlreadyExist
+                  detail: "このメールアドレスはすでに登録済みです"
+                  status: 409
+
+  "/signup/auth":
+    post:
+      summary: "ワンタイムパスワードで本人確認を行う"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "ワンタイムパスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oneTimePassword: { type: string, example: "000000" }
+      security:
+        - cookieSignUpAuth: []
+      responses:
+        "200":
+          description: 認証成功
+        "401":
+          description: 認証エラー(cookieが存在しない、パスワードが違う)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                wrongCookie:
+                  type: unauthorized
+                  title: wrongCookie
+                  detail: "cookieの情報が間違っています"
+                  status: 401
+                wrongPassword:
+                  type: unauthorized
+                  title: wrongPassword
+                  detail: "パスワードが間違っています"
+                  status: 401
+
+  "/signup/register":
+    post:
+      summary: "本登録を行い、セッションIDをcookieで返す"
+      tags: ["sign up"]
+      deprecated: false
+      requestBody:
+        description: "名前、パスワードを含めたjson"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string, example: "杉山 直" }
+                password: { type: string, example: "password" }
+      security:
+        - cookieSignUpAuth: []
+      responses:
+        "200":
+          description: >
+            登録に成功すれば、セッションIDが`SESSIONID`という名前でcookieに入れて返される。
+            付随するリクエストには、このcookieを含める必要がある。
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: SESSIONID=abcde12345;
+        "401":
+          description: 認証エラー(OTP認証が完了していないユーザーからのリクエスト、ここはバックの実装次第で変えるかも？)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                notCompletedOTPAuth:
+                  type: unauthorized
+                  title: notCompletedOTPAuth
+                  detail: "OTP認証が完了していません"
+                  status: 401
