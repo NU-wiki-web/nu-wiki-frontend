@@ -82,6 +82,11 @@ components:
             - 秋1
             - 秋2
           example: "春2"
+        exams:
+          type: array
+          description: "講義に紐づいたテストのリスト"
+          items:
+            $ref: "#/components/schemas/exam"
     lecture-req:
       type: object
       description: 検索用パラメータ
