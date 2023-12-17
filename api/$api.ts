@@ -358,31 +358,31 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       auth: {
         /**
          * @param option.body - ワンタイムパスワードを含めたjson
-         * @returns 認証に成功したら、再びメールアドレスを返す
          */
         post: (option: {
           body: Methods9["post"]["reqBody"];
           config?: T | undefined;
         }) =>
-          fetch<
-            Methods9["post"]["resBody"],
-            BasicHeaders,
-            Methods9["post"]["status"]
-          >(prefix, PATH5, POST, option).json(),
+          fetch<void, BasicHeaders, Methods9["post"]["status"]>(
+            prefix,
+            PATH5,
+            POST,
+            option
+          ).send(),
         /**
          * @param option.body - ワンタイムパスワードを含めたjson
-         * @returns 認証に成功したら、再びメールアドレスを返す
          */
         $post: (option: {
           body: Methods9["post"]["reqBody"];
           config?: T | undefined;
         }) =>
-          fetch<
-            Methods9["post"]["resBody"],
-            BasicHeaders,
-            Methods9["post"]["status"]
-          >(prefix, PATH5, POST, option)
-            .json()
+          fetch<void, BasicHeaders, Methods9["post"]["status"]>(
+            prefix,
+            PATH5,
+            POST,
+            option
+          )
+            .send()
             .then((r) => r.body),
         $path: () => `${prefix}${PATH5}`
       },
@@ -417,7 +417,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       },
       register: {
         /**
-         * @param option.body - メールアドレス、名前、パスワードを含めたjson
+         * @param option.body - 名前、パスワードを含めたjson
          */
         post: (option: {
           body: Methods11["post"]["reqBody"];
@@ -429,7 +429,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
             Methods11["post"]["status"]
           >(prefix, PATH7, POST, option).send(),
         /**
-         * @param option.body - メールアドレス、名前、パスワードを含めたjson
+         * @param option.body - 名前、パスワードを含めたjson
          */
         $post: (option: {
           body: Methods11["post"]["reqBody"];

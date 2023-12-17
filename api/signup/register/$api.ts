@@ -10,7 +10,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
 
   return {
     /**
-     * @param option.body - メールアドレス、名前、パスワードを含めたjson
+     * @param option.body - 名前、パスワードを含めたjson
      */
     post: (option: {
       body: Methods0["post"]["reqBody"];
@@ -23,7 +23,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         option
       ).send(),
     /**
-     * @param option.body - メールアドレス、名前、パスワードを含めたjson
+     * @param option.body - 名前、パスワードを含めたjson
      */
     $post: (option: {
       body: Methods0["post"]["reqBody"];

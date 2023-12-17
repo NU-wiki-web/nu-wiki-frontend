@@ -524,6 +524,30 @@ paths:
               schema:
                 type: string
                 example: SIGNUPID=uuid;
+        "400":
+          description: 不正なリクエスト（不正なメールアドレスを使用した）
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                invalidEmail:
+                  type: badRequest
+                  title: invalidEmail
+                  detail: "不正なメールアドレスです。"
+                  status: 400
+        "409":
+          description: コンフリクト（すでに存在するユーザーで登録しようとした）
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                userAlreadyExist:
+                  type: conflict
+                  title: userAlreadyExist
+                  detail: "このメールアドレスはすでに登録済みです"
+                  status: 409
 
   "/signup/auth":
     post:
@@ -543,14 +567,24 @@ paths:
         - cookieSignUpAuth: []
       responses:
         "200":
-          description: >
-            認証に成功したら、再びメールアドレスを返す
+          description: 認証成功
+        "401":
+          description: 認証エラー(cookieが存在しない、パスワードが違う)
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                wrongCookie:
+                  type: unauthorized
+                  title: wrongCookie
+                  detail: "cookieの情報が間違っています"
+                  status: 401
+                wrongPassword:
+                  type: unauthorized
+                  title: wrongPassword
+                  detail: "パスワードが間違っています"
+                  status: 401
 
   "/signup/register":
     post:
@@ -558,14 +592,13 @@ paths:
       tags: ["sign up"]
       deprecated: false
       requestBody:
-        description: "メールアドレス、名前、パスワードを含めたjson"
+        description: "名前、パスワードを含めたjson"
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
                 name: { type: string, example: "杉山 直" }
                 password: { type: string, example: "password" }
       security:
@@ -580,3 +613,15 @@ paths:
               schema:
                 type: string
                 example: SESSIONID=abcde12345;
+        "401":
+          description: 認証エラー(OTP認証が完了していないユーザーからのリクエスト、ここはバックの実装次第で変えるかも？)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                notCompletedOTPAuth:
+                  type: unauthorized
+                  title: notCompletedOTPAuth
+                  detail: "OTP認証が完了していません"
+                  status: 401

@@ -7,9 +7,8 @@ export type Methods = {
       "Set-Cookie": string;
     };
 
-    /** メールアドレス、名前、パスワードを含めたjson */
+    /** 名前、パスワードを含めたjson */
     reqBody: {
-      email: string;
       name: string;
       password: string;
     };
