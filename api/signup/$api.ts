@@ -16,31 +16,31 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
     auth: {
       /**
        * @param option.body - ワンタイムパスワードを含めたjson
-       * @returns 認証に成功したら、再びメールアドレスを返す
        */
       post: (option: {
         body: Methods0["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<
-          Methods0["post"]["resBody"],
-          BasicHeaders,
-          Methods0["post"]["status"]
-        >(prefix, PATH0, POST, option).json(),
+        fetch<void, BasicHeaders, Methods0["post"]["status"]>(
+          prefix,
+          PATH0,
+          POST,
+          option
+        ).send(),
       /**
        * @param option.body - ワンタイムパスワードを含めたjson
-       * @returns 認証に成功したら、再びメールアドレスを返す
        */
       $post: (option: {
         body: Methods0["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<
-          Methods0["post"]["resBody"],
-          BasicHeaders,
-          Methods0["post"]["status"]
-        >(prefix, PATH0, POST, option)
-          .json()
+        fetch<void, BasicHeaders, Methods0["post"]["status"]>(
+          prefix,
+          PATH0,
+          POST,
+          option
+        )
+          .send()
           .then((r) => r.body),
       $path: () => `${prefix}${PATH0}`
     },
@@ -77,7 +77,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
     },
     register: {
       /**
-       * @param option.body - メールアドレス、名前、パスワードを含めたjson
+       * @param option.body - 名前、パスワードを含めたjson
        */
       post: (option: {
         body: Methods2["post"]["reqBody"];
@@ -90,7 +90,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           option
         ).send(),
       /**
-       * @param option.body - メールアドレス、名前、パスワードを含めたjson
+       * @param option.body - 名前、パスワードを含めたjson
        */
       $post: (option: {
         body: Methods2["post"]["reqBody"];
