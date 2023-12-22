@@ -10,9 +10,16 @@
   <div v-else>
     <UiTemplatesLectureList
       v-model:lectures="lectures"
-      :handleClick="pushDetailPage"
-    />
+      :handle-click="openSelectModal"
+    ></UiTemplatesLectureList>
   </div>
+  <!-- 詳細情報用のモーダル -->
+  <PagesLectureSelectModal
+    v-if="showSelectModal"
+    @close="closeSelectModal"
+    :lecture="selectedLecture"
+  >
+  </PagesLectureSelectModal>
 </template>
 
 <script setup lang="ts">
@@ -65,5 +72,19 @@
   const emits = defineEmits(["push-router-list"]);
   const pushDetailPage = function (id: number) {
     emits("push-router-list", id);
+  };
+
+  // モーダルの処理
+  /* pdfの詳細表示 */
+  const showSelectModal = ref(false); // モーダルを表示するか
+  const selectedLecture = ref<Lecture | undefined>(undefined);
+
+  const openSelectModal = (lectureId: string) => {
+    showSelectModal.value = true;
+    selectedLecture.value = lectures.value.find((l) => l.id == lectureId);
+  };
+
+  const closeSelectModal = () => {
+    showSelectModal.value = false;
   };
 </script>
