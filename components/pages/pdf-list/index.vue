@@ -4,7 +4,6 @@
     <v-list v-for="pdf in pdfs" :key="pdf.id" class="mx-10 my-5">
       <v-list-item
         :title="type2ja(pdf.type ? pdf.type : 'other')"
-        :subtitle="pdf.id"
         link
         border
         @click="showDetailModal(pdf.id)"
@@ -51,7 +50,9 @@
   const isError = ref<boolean>(false);
   const fileObjectURL = ref<string>();
   const showDetail = ref<boolean>();
+  const showingPdfId = ref<string>();
 
+  console.log(exam_id);
   client.exams
     ._exam_id(exam_id)
     .files.$get()
@@ -76,6 +77,7 @@
       .then((res) => {
         fileObjectURL.value = URL.createObjectURL(res);
         showDetail.value = true;
+        showingPdfId.value = fileId;
       });
   };
   const closePdfDetail = () => (showDetail.value = false);
