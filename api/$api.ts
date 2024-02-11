@@ -14,7 +14,7 @@ import type { Methods as Methods11 } from "./signup/register";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
-    baseURL === undefined ? "http://localhost:8080" : baseURL
+    baseURL === undefined ? "https://nu-wiki-api.onrender.com" : baseURL
   ).replace(/\/$/, "");
   const PATH0 = "/exams";
   const PATH1 = "/files";

@@ -3,7 +3,7 @@ import type { Methods as Methods0 } from ".";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
-    baseURL === undefined ? "http://localhost:8080" : baseURL
+    baseURL === undefined ? "https://nu-wiki-api.onrender.com" : baseURL
   ).replace(/\/$/, "");
   const PATH0 = "/signup/auth";
   const POST = "POST";
