@@ -45,13 +45,12 @@
   import { Exam, Lecture } from "~~/api/@types";
   import { PastExamType, usePastExamType } from "~~/entities/pastExam";
   import { PdfType } from "~~/types/pdf";
-  import { useClient } from "~~/util/api/useApi";
 
   interface Props {
     pdf: PdfType;
     lecture: Lecture;
   }
-  defineProps<Props>();
+  const props = defineProps<Props>();
 
   const formatDate = (date: string) => {
     let [y, m, d] = date.split("-");
@@ -71,7 +70,7 @@
   const onClickExam = (exam: Exam) => {
     const router = useRouter();
     router.push({
-      path: `/pdf-list/${exam.id}`
+      path: `/pdf-list/${props.lecture.id}/${exam.id}`
     });
   };
 
