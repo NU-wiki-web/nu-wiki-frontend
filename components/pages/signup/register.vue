@@ -76,7 +76,6 @@
       })
       .then((res) => {
         const router = useRouter();
-        window.alert("登録完了!");
         router.push("/");
       })
       .catch((err) => {
