@@ -19,5 +19,4 @@
     title: string;
   }
   const props = defineProps<Props>();
-  console.log(props.fileURL);
 </script>

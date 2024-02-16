@@ -99,8 +99,6 @@
         }
       })
       .then((res) => {
-        console.log("success", res);
-        window.alert("ログイン成功!");
         router.replace("/lecture-list");
       })
       .catch((err) => {

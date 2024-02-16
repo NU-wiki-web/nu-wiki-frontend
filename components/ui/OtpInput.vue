@@ -26,13 +26,6 @@
     }
   };
 
-  // const handleOtpkeydown = (e) => {
-  //   console.log(e.key);
-  //   if (e.key === "Backspace" && e.target.previousElementSibling) {
-  //     e.target.previousElementSibling.focus();
-  //   }
-  // };
-
   const handlePaste = (e: ClipboardEvent) => {
     const pasteData = e.clipboardData ? e.clipboardData.getData("text") : "";
     let nextEl = firstInputEl.value[0].nextElementSibling;
@@ -43,8 +36,6 @@
       }
     }
   };
-
-  // 123456
 </script>
 
 <template>

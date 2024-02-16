@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-nu-teritary pt-12 pb-[calc(5vh+60px)]">
+  <div class="w-full bg-nu-teritary pb-[calc(5vh+60px)] pt-12">
     <UiSignupStepBar :stepNumber="1" />
   </div>
 
@@ -70,7 +70,6 @@
         }
       })
       .then(async (res) => {
-        console.log("success", res);
         const router = useRouter();
         router.push("/signup/auth");
       })
@@ -79,8 +78,6 @@
         errorMessage.value = err.response.data.detail;
       });
   };
-
-  console.log(checkbox.value);
 </script>
 
 <style scoped>
