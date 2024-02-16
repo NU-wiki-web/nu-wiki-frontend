@@ -42,12 +42,11 @@
 </template>
 
 <script setup lang="ts">
-  import { Exam, Lecture } from "~~/api/@types";
+  import { Exam, Lecture, Pdf } from "~~/api/@types";
   import { PastExamType, usePastExamType } from "~~/entities/pastExam";
-  import { PdfType } from "~~/types/pdf";
 
   interface Props {
-    pdf: PdfType;
+    pdf: Pdf;
     lecture: Lecture;
   }
   const props = defineProps<Props>();
