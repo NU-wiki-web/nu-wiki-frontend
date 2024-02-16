@@ -18,7 +18,8 @@ module.exports = {
         "nu-quaternary": "#FFEC45",
         "nu-quinary": "#E4E7EC",
         "nu-senary": "#54657C",
-        "nu-septenary": "#263959"
+        "nu-septenary": "#263959",
+        error: "#BA2020"
       }
     }
   },

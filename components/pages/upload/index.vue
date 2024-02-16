@@ -83,6 +83,9 @@
   import { useClient } from "~/util/api/useApi";
   import { Lecture } from "~/api/@types";
 
+  // ルーター
+  const router = useRouter();
+
   // POSTするデータ
   const files = ref<File[]>([]);
   const fileType = ref<FileType>();
@@ -140,13 +143,18 @@
     });
 
     // TODO: エラーハンドリング && エラーメッセージの表示
-    await client.files.$post({
-      body: {
-        pastExamFile: files.value[0],
-        type: fileType.value,
-        userId: "e62ec20b-93fe-4811-8912-87ba738b4f0a", // TODO: CookieからユーザーIDを持ってくる
-        examId: examRes.exam?.id
-      }
-    });
+    await client.files
+      .$post({
+        body: {
+          pastExamFile: files.value[0],
+          type: fileType.value,
+          userId: "e62ec20b-93fe-4811-8912-87ba738b4f0a", // TODO: CookieからユーザーIDを持ってくる
+          examId: examRes.exam?.id
+        }
+      })
+      .then(() => {
+        window.alert("アップロード成功!");
+        router.replace("/lecture-list");
+      });
   };
 </script>

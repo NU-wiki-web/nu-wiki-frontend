@@ -10,25 +10,31 @@
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "yarn install",
   "workspaceFolder": "/workspace",
-  "settings": {
-    "[javascript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[vue]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "Vue.volar",
+        "bradlc.vscode-tailwindcss",
+        "Vue.vscode-typescript-vue-plugin",
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint",
+        "VisualStudioExptTeam.vscodeintellicode"
+      ],
+      "settings": {
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[vue]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
     }
-  },
-  "extensions": [
-    "esbenp.prettier-vscode",
-    "octref.vetur",
-    "EditorConfig.EditorConfig",
-    "dbaeumer.vscode-eslint",
-    "VisualStudioExptTeam.vscodeintellicode"
-  ]
+  }
 }

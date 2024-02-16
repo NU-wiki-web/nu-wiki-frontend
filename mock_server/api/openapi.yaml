@@ -88,6 +88,11 @@ components:
             - 秋1
             - 秋2
           example: "春2"
+        exams:
+          type: array
+          description: "講義に紐づいたテストのリスト"
+          items:
+            $ref: "#/components/schemas/exam"
     lecture-req:
       type: object
       description: 検索用パラメータ
@@ -598,14 +603,7 @@ paths:
         - cookieSignUpAuth: []
       responses:
         "200":
-          description: >
-            認証に成功したら、再びメールアドレスを返す
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+          description: 認証成功
         "401":
           description: 認証エラー(cookieが存在しない、パスワードが違う)
           content:
@@ -630,14 +628,13 @@ paths:
       tags: ["sign up"]
       deprecated: false
       requestBody:
-        description: "メールアドレス、名前、パスワードを含めたjson"
+        description: "名前、パスワードを含めたjson"
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
                 name: { type: string, example: "杉山 直" }
                 password: { type: string, example: "password" }
               required:
