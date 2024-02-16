@@ -7,8 +7,6 @@ export type PastExamPdf = {
   pastExamFile: File | ReadStream;
   /** 過去問or過去問の解答orその他 */
   type: "past_exam" | "past_exam_answer" | "other";
-  /** ユーザーID */
-  userId: string;
   /** 試験ID */
   examId: string;
 };

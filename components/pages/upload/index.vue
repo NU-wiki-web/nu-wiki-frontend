@@ -148,7 +148,6 @@
         body: {
           pastExamFile: files.value[0],
           type: fileType.value,
-          userId: "e62ec20b-93fe-4811-8912-87ba738b4f0a", // TODO: CookieからユーザーIDを持ってくる
           examId: examRes.exam?.id
         }
       })
