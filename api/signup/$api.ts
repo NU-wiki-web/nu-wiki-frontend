@@ -1,7 +1,7 @@
 import type { AspidaClient, BasicHeaders } from "aspida";
-import type { Methods as Methods0 } from "./auth";
-import type { Methods as Methods1 } from "./mail";
-import type { Methods as Methods2 } from "./register";
+import type { Methods as Methods_163xhtc } from "./auth";
+import type { Methods as Methods_1paaqvt } from "./mail";
+import type { Methods as Methods_1pbnd9f } from "./register";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
@@ -18,10 +18,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @param option.body - ワンタイムパスワードを含めたjson
        */
       post: (option: {
-        body: Methods0["post"]["reqBody"];
+        body: Methods_163xhtc["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<void, BasicHeaders, Methods0["post"]["status"]>(
+        fetch<void, BasicHeaders, Methods_163xhtc["post"]["status"]>(
           prefix,
           PATH0,
           POST,
@@ -31,10 +31,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @param option.body - ワンタイムパスワードを含めたjson
        */
       $post: (option: {
-        body: Methods0["post"]["reqBody"];
+        body: Methods_163xhtc["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<void, BasicHeaders, Methods0["post"]["status"]>(
+        fetch<void, BasicHeaders, Methods_163xhtc["post"]["status"]>(
           prefix,
           PATH0,
           POST,
@@ -49,28 +49,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @param option.body - メールアドレスを含めたjson
        */
       post: (option: {
-        body: Methods1["post"]["reqBody"];
+        body: Methods_1paaqvt["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<void, Methods1["post"]["resHeaders"], Methods1["post"]["status"]>(
-          prefix,
-          PATH1,
-          POST,
-          option
-        ).send(),
+        fetch<
+          void,
+          Methods_1paaqvt["post"]["resHeaders"],
+          Methods_1paaqvt["post"]["status"]
+        >(prefix, PATH1, POST, option).send(),
       /**
        * @param option.body - メールアドレスを含めたjson
        */
       $post: (option: {
-        body: Methods1["post"]["reqBody"];
+        body: Methods_1paaqvt["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<void, Methods1["post"]["resHeaders"], Methods1["post"]["status"]>(
-          prefix,
-          PATH1,
-          POST,
-          option
-        )
+        fetch<
+          void,
+          Methods_1paaqvt["post"]["resHeaders"],
+          Methods_1paaqvt["post"]["status"]
+        >(prefix, PATH1, POST, option)
           .send()
           .then((r) => r.body),
       $path: () => `${prefix}${PATH1}`
@@ -80,28 +78,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @param option.body - 名前、パスワードを含めたjson
        */
       post: (option: {
-        body: Methods2["post"]["reqBody"];
+        body: Methods_1pbnd9f["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<void, Methods2["post"]["resHeaders"], Methods2["post"]["status"]>(
-          prefix,
-          PATH2,
-          POST,
-          option
-        ).send(),
+        fetch<
+          void,
+          Methods_1pbnd9f["post"]["resHeaders"],
+          Methods_1pbnd9f["post"]["status"]
+        >(prefix, PATH2, POST, option).send(),
       /**
        * @param option.body - 名前、パスワードを含めたjson
        */
       $post: (option: {
-        body: Methods2["post"]["reqBody"];
+        body: Methods_1pbnd9f["post"]["reqBody"];
         config?: T | undefined;
       }) =>
-        fetch<void, Methods2["post"]["resHeaders"], Methods2["post"]["status"]>(
-          prefix,
-          PATH2,
-          POST,
-          option
-        )
+        fetch<
+          void,
+          Methods_1pbnd9f["post"]["resHeaders"],
+          Methods_1pbnd9f["post"]["status"]
+        >(prefix, PATH2, POST, option)
           .send()
           .then((r) => r.body),
       $path: () => `${prefix}${PATH2}`

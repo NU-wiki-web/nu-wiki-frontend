@@ -69,11 +69,6 @@
       });
   };
 
-  const emits = defineEmits(["push-router-list"]);
-  const pushDetailPage = function (id: number) {
-    emits("push-router-list", id);
-  };
-
   // モーダルの処理
   /* pdfの詳細表示 */
   const showSelectModal = ref(false); // モーダルを表示するか
