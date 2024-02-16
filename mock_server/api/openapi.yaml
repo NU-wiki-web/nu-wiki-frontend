@@ -40,9 +40,6 @@ components:
             - past_exam
             - past_exam_answer
             - other
-        userId:
-          description: "ユーザーID"
-          type: string
         examId:
           description: "試験ID"
           type: string
