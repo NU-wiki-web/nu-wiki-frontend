@@ -1,7 +1,9 @@
 version: "3"
 services:
   node:
-    image: node:18-alpine3.17
+    build:
+      context: .
+      dockerfile: Dockerfile
     working_dir: /workspace
     volumes:
       - .:/workspace
@@ -9,6 +11,8 @@ services:
     ports:
       - 3000:3000
       - 24678:24678
-    command: "yarn dev"
+    stdin_open: true
+    tty: true
+    platform: linux/amd64
 volumes:
   node-module-volume:
