@@ -1,6 +1,6 @@
 import type { AspidaClient, BasicHeaders } from "aspida";
-import type { Methods as Methods0 } from ".";
-import type { Methods as Methods1 } from "./_exam_id/files";
+import type { Methods as Methods_by08hd } from ".";
+import type { Methods as Methods_2aebqs } from "./_exam_id/files";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
@@ -22,18 +22,18 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
            */
           get: (option?: { config?: T | undefined } | undefined) =>
             fetch<
-              Methods1["get"]["resBody"],
+              Methods_2aebqs["get"]["resBody"],
               BasicHeaders,
-              Methods1["get"]["status"]
+              Methods_2aebqs["get"]["status"]
             >(prefix, `${prefix0}${PATH1}`, GET, option).json(),
           /**
            * @returns ok
            */
           $get: (option?: { config?: T | undefined } | undefined) =>
             fetch<
-              Methods1["get"]["resBody"],
+              Methods_2aebqs["get"]["resBody"],
               BasicHeaders,
-              Methods1["get"]["status"]
+              Methods_2aebqs["get"]["status"]
             >(prefix, `${prefix0}${PATH1}`, GET, option)
               .json()
               .then((r) => r.body),
@@ -46,26 +46,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      * @returns OK
      */
     post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
       fetch<
-        Methods0["post"]["resBody"],
+        Methods_by08hd["post"]["resBody"],
         BasicHeaders,
-        Methods0["post"]["status"]
+        Methods_by08hd["post"]["status"]
       >(prefix, PATH0, POST, option).json(),
     /**
      * @param option.body - テストの名前
      * @returns OK
      */
     $post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
       fetch<
-        Methods0["post"]["resBody"],
+        Methods_by08hd["post"]["resBody"],
         BasicHeaders,
-        Methods0["post"]["status"]
+        Methods_by08hd["post"]["status"]
       >(prefix, PATH0, POST, option)
         .json()
         .then((r) => r.body),

@@ -1,5 +1,5 @@
 import type { AspidaClient, BasicHeaders } from "aspida";
-import type { Methods as Methods0 } from ".";
+import type { Methods as Methods_by08hd } from ".";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
@@ -11,31 +11,31 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   return {
     /**
      * @param option.body - ワンタイムパスワードを含めたjson
-     * @returns 認証に成功したら、再びメールアドレスを返す
      */
     post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
-      fetch<
-        Methods0["post"]["resBody"],
-        BasicHeaders,
-        Methods0["post"]["status"]
-      >(prefix, PATH0, POST, option).json(),
+      fetch<void, BasicHeaders, Methods_by08hd["post"]["status"]>(
+        prefix,
+        PATH0,
+        POST,
+        option
+      ).send(),
     /**
      * @param option.body - ワンタイムパスワードを含めたjson
-     * @returns 認証に成功したら、再びメールアドレスを返す
      */
     $post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
-      fetch<
-        Methods0["post"]["resBody"],
-        BasicHeaders,
-        Methods0["post"]["status"]
-      >(prefix, PATH0, POST, option)
-        .json()
+      fetch<void, BasicHeaders, Methods_by08hd["post"]["status"]>(
+        prefix,
+        PATH0,
+        POST,
+        option
+      )
+        .send()
         .then((r) => r.body),
     $path: () => `${prefix}${PATH0}`
   };

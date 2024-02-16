@@ -1,5 +1,5 @@
 import type { AspidaClient, BasicHeaders } from "aspida";
-import type { Methods as Methods0 } from ".";
+import type { Methods as Methods_by08hd } from ".";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
@@ -14,26 +14,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      * @returns ok
      */
     post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
       fetch<
-        Methods0["post"]["resBody"],
+        Methods_by08hd["post"]["resBody"],
         BasicHeaders,
-        Methods0["post"]["status"]
+        Methods_by08hd["post"]["status"]
       >(prefix, PATH0, POST, option).json(),
     /**
      * @param option.body - 絞り込み
      * @returns ok
      */
     $post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
       fetch<
-        Methods0["post"]["resBody"],
+        Methods_by08hd["post"]["resBody"],
         BasicHeaders,
-        Methods0["post"]["status"]
+        Methods_by08hd["post"]["status"]
       >(prefix, PATH0, POST, option)
         .json()
         .then((r) => r.body),

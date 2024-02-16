@@ -5,12 +5,12 @@
     >
       <div class="flex w-full max-w-[1000px] flex-col gap-6">
         <UiLectureSearchBar
-          v-model="teacherName"
+          v-model="lectureName"
           title="講義名"
           placeholder="講義名を入力"
         />
         <UiLectureSearchBar
-          v-model="lectureName"
+          v-model="teacherName"
           title="教授名"
           placeholder="担当教員名を入力"
         />
