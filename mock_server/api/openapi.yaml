@@ -46,6 +46,12 @@ components:
         examId:
           description: "試験ID"
           type: string
+      required:
+        - pastExamFile
+        - type
+        - userId
+        - examId
+
     lecture:
       type: object
       description: 講義の詳細
@@ -122,6 +128,10 @@ components:
             - 秋2
           example: "秋2"
           nullable: true
+      required:
+        - teacherName
+        - lectureName
+
     pdf:
       type: object
       description: pdfの詳細
@@ -153,6 +163,15 @@ components:
           type: string
           format: date
           example: "2023-04-08"
+      required:
+        - id
+        - name
+        - user_id
+        - exam_id
+        - type
+        - created_at
+        - updated_at
+
     pdf_list:
       type: object
       description: "pdf一覧を返すためのオブジェクト"
@@ -184,6 +203,11 @@ components:
         year:
           type: number
           example: 2018
+      required:
+        - exam_id
+        - type
+        - lecture_id
+        - year
     exam-req:
       type: object
       description: "examの詳細"
@@ -201,6 +225,11 @@ components:
         year:
           type: number
           example: 2018
+      required:
+        - type
+        - lecture_id
+        - year
+
     exam_list:
       type: object
       description: "examの詳細"
@@ -461,6 +490,9 @@ paths:
               properties:
                 email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
                 password: { type: string, example: "password" }
+              required:
+                - email
+                - password
       security: [] # no authentication
       responses:
         "200":
@@ -514,6 +546,8 @@ paths:
               type: object
               properties:
                 email: { type: string, example: "foo@s.mail.nagoya-u.ac.jp" }
+              required:
+                - email
       security: [] # no authentication
       responses:
         "200":
@@ -563,6 +597,8 @@ paths:
               type: object
               properties:
                 oneTimePassword: { type: string, example: "000000" }
+              required:
+                - oneTimePassword
       security:
         - cookieSignUpAuth: []
       responses:
@@ -601,6 +637,10 @@ paths:
               properties:
                 name: { type: string, example: "杉山 直" }
                 password: { type: string, example: "password" }
+              required:
+                - email
+                - name
+                - password
       security:
         - cookieSignUpAuth: []
       responses:
