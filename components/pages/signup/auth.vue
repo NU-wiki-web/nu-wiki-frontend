@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-nu-teritary pt-12 pb-[calc(5vh+60px)]">
+  <div class="w-full bg-nu-teritary pb-[calc(5vh+60px)] pt-12">
     <UiSignupStepBar :stepNumber="2" />
   </div>
 
@@ -35,10 +35,10 @@
     </div>
 
     <div class="mx-auto w-4/5">
-      <div class="mt-6 mb-4 text-center">
+      <div class="mb-4 mt-6 text-center">
         <a href="/signup/auth"><u>パスワードを再送する</u></a>
       </div>
-      <div class="mt-4 mb-8 text-center">
+      <div class="mb-8 mt-4 text-center">
         <a href="/signup"><u>メールアドレスを変更する</u></a>
       </div>
     </div>
@@ -51,7 +51,6 @@
   const password = ref<string>("");
   const otp_valid = RegExp(/^[0-9]{6}$/);
   const sendOTP = function () {
-    console.log(password.value);
     client.signup.auth
       .post({
         body: {
@@ -59,7 +58,6 @@
         }
       })
       .then((res) => {
-        console.log("success", res.body);
         const router = useRouter();
         router.push("/signup/register");
       })
