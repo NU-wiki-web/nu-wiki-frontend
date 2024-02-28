@@ -46,7 +46,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~~/util/api/useApi";
   const client = useClient();
   const password = ref<string>("");
   const otp_valid = RegExp(/^[0-9]{6}$/);

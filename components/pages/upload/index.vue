@@ -80,7 +80,6 @@
     useFileType,
     usePastExamType
   } from "~/entities/pastExam";
-  import { useClient } from "~/util/api/useApi";
   import { Lecture } from "~/api/@types";
 
   // ルーター

@@ -60,8 +60,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~/util/api/useApi";
-
   const router = useRouter();
 
   const client = useClient();

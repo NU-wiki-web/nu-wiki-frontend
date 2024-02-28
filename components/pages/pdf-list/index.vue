@@ -41,7 +41,6 @@
 
 <script setup lang="ts">
   import pdfDetailModal from "./pdfDetailModal.vue";
-  import { useClient } from "~/util/api/useApi";
   import { Exam, Lecture, Pdf as PdfType } from "~~/api/@types";
   import { useFileType, usePastExamType } from "~~/entities/pastExam";
 

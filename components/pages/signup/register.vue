@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~~/util/api/useApi";
   const client = useClient();
   const name = ref<string>("");
   const password = ref<string>("");
