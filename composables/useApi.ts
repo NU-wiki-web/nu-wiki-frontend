@@ -22,15 +22,13 @@ export const useAwait = async (cb: cbType) => {
   return { res, error, loading };
 };
 
-// export const useClient = () => {
-//   const client = api(aspida());
-//   return client;
-// };
-
-const config: AxiosRequestConfig = {
-  withCredentials: true
-};
 export const useClient = () => {
+  const runtimeConfig = useRuntimeConfig();
+  const config: AxiosRequestConfig = {
+    withCredentials: true,
+    baseURL: runtimeConfig.public.apiUrl
+  };
+  console.log(runtimeConfig.public.apiUrl);
   const client = api(aspida(axios, config));
   return client;
 };
