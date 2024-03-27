@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~/util/api/useApi";
   import { Lecture_req, Lecture } from "~~/api/@types/index";
 
   const client = useClient();

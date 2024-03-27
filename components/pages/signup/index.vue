@@ -52,8 +52,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~~/util/api/useApi";
-
   const client = useClient();
 
   const mail = ref<string>("");
