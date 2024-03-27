@@ -63,7 +63,6 @@
   import { TermType } from "~~/types/term";
   import { terms } from "~~/entities/terms";
   import { grades } from "~~/entities/lecture";
-  import { useClient } from "~~/util/api/useApi";
   const props = defineProps<{
     dialog: boolean;
     departmentId?: number;

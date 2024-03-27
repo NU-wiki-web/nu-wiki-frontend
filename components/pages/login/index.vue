@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~/util/api/useApi";
+  const router = useRouter();
 
   const client = useClient();
   const mail = ref<string>("");
@@ -89,8 +89,6 @@
   // ログイン
   const postLoginRequest = async function () {
     if (!valid.value) return;
-    console.log(mail.value);
-    console.log(password.value);
     client.login
       .post({
         body: {
@@ -99,8 +97,7 @@
         }
       })
       .then((res) => {
-        console.log("success", res);
-        window.alert("ログイン成功!");
+        router.replace("/lecture-list");
       })
       .catch((err) => {
         console.error(err);

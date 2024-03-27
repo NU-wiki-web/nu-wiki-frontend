@@ -4,13 +4,11 @@ import type { ReadStream } from "fs";
 /** 過去問ファイルの追加パラメータ */
 export type PastExamPdf = {
   /** 過去問のPDFファイル */
-  pastExamFile?: (File | ReadStream) | undefined;
+  pastExamFile: File | ReadStream;
   /** 過去問or過去問の解答orその他 */
-  type?: "past_exam" | "past_exam_answer" | "other" | undefined;
-  /** ユーザーID */
-  userId?: string | undefined;
+  type: "past_exam" | "past_exam_answer" | "other";
   /** 試験ID */
-  examId?: string | undefined;
+  examId: string;
 };
 
 /** 講義の詳細 */
@@ -36,8 +34,8 @@ export type Lecture = {
 
 /** 検索用パラメータ */
 export type Lecture_req = {
-  teacherName?: string | undefined;
-  lectureName?: string | undefined;
+  teacherName: string;
+  lectureName: string;
   grade?:
     | "B1"
     | "B2"
@@ -55,13 +53,13 @@ export type Lecture_req = {
 
 /** pdfの詳細 */
 export type Pdf = {
-  id?: string | undefined;
-  name?: string | undefined;
-  user_id?: string | undefined;
-  exam_id?: string | undefined;
-  type?: "past_exam" | "past_exam_answer" | "other" | undefined;
-  created_at?: string | undefined;
-  updated_at?: string | undefined;
+  id: string;
+  name: string;
+  user_id: string;
+  exam_id: string;
+  type: "past_exam" | "past_exam_answer" | "other";
+  created_at: string;
+  updated_at: string;
 };
 
 /** pdf一覧を返すためのオブジェクト */
@@ -72,17 +70,17 @@ export type Pdf_list = {
 
 /** examの詳細 */
 export type Exam = {
-  exam_id?: string | undefined;
-  type?: "MIDTERM" | "TERMEND" | "OTHER" | undefined;
-  lecture_id?: string | undefined;
-  year?: number | undefined;
+  exam_id: string;
+  type: "MIDTERM" | "TERMEND" | "OTHER";
+  lecture_id: string;
+  year: number;
 };
 
 /** examの詳細 */
 export type Exam_req = {
-  type?: "MIDTERM" | "TERMEND" | "OTHER" | undefined;
-  lecture_id?: string | undefined;
-  year?: number | undefined;
+  type: "MIDTERM" | "TERMEND" | "OTHER";
+  lecture_id: string;
+  year: number;
 };
 
 /** examの詳細 */

@@ -1,9 +1,9 @@
 import type { AspidaClient, BasicHeaders } from "aspida";
-import type { Methods as Methods0 } from ".";
+import type { Methods as Methods_by08hd } from ".";
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
-    baseURL === undefined ? "https://nu-wiki-api.onrender.com" : baseURL
+    baseURL === undefined ? "http://localhost:8080" : baseURL
   ).replace(/\/$/, "");
   const PATH0 = "/signup/auth";
   const POST = "POST";
@@ -13,10 +13,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      * @param option.body - ワンタイムパスワードを含めたjson
      */
     post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
-      fetch<void, BasicHeaders, Methods0["post"]["status"]>(
+      fetch<void, BasicHeaders, Methods_by08hd["post"]["status"]>(
         prefix,
         PATH0,
         POST,
@@ -26,10 +26,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
      * @param option.body - ワンタイムパスワードを含めたjson
      */
     $post: (option: {
-      body: Methods0["post"]["reqBody"];
+      body: Methods_by08hd["post"]["reqBody"];
       config?: T | undefined;
     }) =>
-      fetch<void, BasicHeaders, Methods0["post"]["status"]>(
+      fetch<void, BasicHeaders, Methods_by08hd["post"]["status"]>(
         prefix,
         PATH0,
         POST,

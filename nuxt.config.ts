@@ -18,5 +18,15 @@ export default defineNuxtConfig({
     define: {
       "process.env.DEBUG": false
     }
+  },
+  runtimeConfig: {
+    public: {
+      apiUrl: "http://localhost:8080/"
+    },
+    nitro: {
+      prerender: {
+        autoSubfolderIndex: false
+      }
+    }
   }
 });

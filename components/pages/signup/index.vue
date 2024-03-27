@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-nu-teritary pt-12 pb-[calc(5vh+60px)]">
+  <div class="w-full bg-nu-teritary pb-[calc(5vh+60px)] pt-12">
     <UiSignupStepBar :stepNumber="1" />
   </div>
 
@@ -52,8 +52,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~~/util/api/useApi";
-
   const client = useClient();
 
   const mail = ref<string>("");
@@ -70,7 +68,6 @@
         }
       })
       .then(async (res) => {
-        console.log("success", res);
         const router = useRouter();
         router.push("/signup/auth");
       })
@@ -79,8 +76,6 @@
         errorMessage.value = err.response.data.detail;
       });
   };
-
-  console.log(checkbox.value);
 </script>
 
 <style scoped>

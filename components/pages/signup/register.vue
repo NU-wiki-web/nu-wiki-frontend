@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <div class="w-full bg-nu-teritary pt-12 pb-[calc(5vh+60px)]">
+  <div class="w-full bg-nu-teritary pb-[calc(5vh+60px)] pt-12">
     <UiSignupStepBar :stepNumber="3" />
   </div>
 
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="mt-2 mb-8 text-center">
+    <div class="mb-8 mt-2 text-center">
       <UiIconButton
         :buttonTitle="'本登録'"
         :buttonIcon="'mdi-account-plus'"
@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-  import { useClient } from "~~/util/api/useApi";
   const client = useClient();
   const name = ref<string>("");
   const password = ref<string>("");
@@ -75,9 +74,7 @@
         }
       })
       .then((res) => {
-        console.log("success", res);
         const router = useRouter();
-        window.alert("登録完了!");
         router.push("/");
       })
       .catch((err) => {

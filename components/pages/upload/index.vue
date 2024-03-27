@@ -80,8 +80,10 @@
     useFileType,
     usePastExamType
   } from "~/entities/pastExam";
-  import { useClient } from "~/util/api/useApi";
   import { Lecture } from "~/api/@types";
+
+  // ルーター
+  const router = useRouter();
 
   // POSTするデータ
   const files = ref<File[]>([]);
@@ -131,6 +133,7 @@
     // TODO: バックエンドがlecturesにlecture.examsの情報を入れてくれるようになったら、
     // 新しくexamを作るより前にlecture.examsのexamの情報を使うようにする
     // (現状、一つのlectureに対して、同じテストが大量にできる実装になっている)
+    if (!selectedPastExamType.value || !selectedLectureId.value) return;
     const examRes = await client.exams.$post({
       body: {
         type: selectedPastExamType.value,
@@ -140,13 +143,18 @@
     });
 
     // TODO: エラーハンドリング && エラーメッセージの表示
-    await client.files.$post({
-      body: {
-        pastExamFile: files.value[0],
-        type: fileType.value,
-        userId: "3c7fe88b-14b2-4f61-975d-33ed1eb7ff67", // TODO: CookieからユーザーIDを持ってくる
-        examId: examRes.exam?.id
-      }
-    });
+    if (examRes.exam == undefined) return;
+    await client.files
+      .$post({
+        body: {
+          pastExamFile: files.value[0],
+          type: fileType.value!,
+          examId: examRes.exam?.id
+        }
+      })
+      .then(() => {
+        window.alert("アップロード成功!");
+        router.replace("/lecture-list");
+      });
   };
 </script>
