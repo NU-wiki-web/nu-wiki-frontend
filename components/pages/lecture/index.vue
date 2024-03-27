@@ -32,7 +32,7 @@
   const isError = ref<boolean>(false);
 
   client.lectures
-    .$get()
+    .get()
     .then(async (res) => {
       lectures.value = await res.lectures;
     })

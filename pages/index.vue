@@ -2,7 +2,7 @@
   <UiHeader></UiHeader>
   <div class="flex h-screen flex-col justify-between">
     <div class="flex flex-col items-center justify-center bg-[#4a8a8a] py-8">
-      <div class="py-4 text-4xl font-bold text-white">NU-wiki</div>
+      <a href="/" class="py-4 text-4xl font-bold text-white">NU-wiki</a>
       <div class="text-lg text-white">名大生のための情報共有サイト</div>
     </div>
     <div class="p-4">
