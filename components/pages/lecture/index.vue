@@ -89,7 +89,6 @@
 
   const onClickAddLectureButton = async () => {
     try {
-      console.log("click");
       await router.push("/upload");
     } catch (e) {
       console.error(e);
