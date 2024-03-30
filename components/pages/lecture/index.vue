@@ -13,6 +13,11 @@
       :handle-click="openSelectModal"
     ></UiTemplatesLectureList>
   </div>
+  <div class="fixed bottom-0 flex w-full justify-end">
+    <v-btn @click="onClickAddLectureButton" class="m-4" color="#006e4f" rounded>
+      過去問を追加 +
+    </v-btn>
+  </div>
   <!-- 詳細情報用のモーダル -->
   <PagesLectureSelectModal
     v-if="showSelectModal"
@@ -30,7 +35,7 @@
   const lectures = ref<Lecture[]>([]);
   const isLoading = ref<boolean>(true);
   const isError = ref<boolean>(false);
-
+  const router = useRouter();
   client.lectures
     .get()
     .then(async (res) => {
@@ -80,5 +85,14 @@
 
   const closeSelectModal = () => {
     showSelectModal.value = false;
+  };
+
+  const onClickAddLectureButton = async () => {
+    try {
+      console.log("click");
+      await router.push("/upload");
+    } catch (e) {
+      console.error(e);
+    }
   };
 </script>
